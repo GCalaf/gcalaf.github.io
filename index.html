@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <title>CV Hacker de Guillem Calaf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Press Start 2P', monospace;
+            background-color: #000;
+            color: #00ff00;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            perspective: 1000px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1{
+             font-size: 1.5rem;
+             margin-bottom: 0.5rem;
+        }
+         .header p{
+            font-size: 0.8rem;
+            color: #00aaff;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .section h2 {
+            font-size: 1.2rem;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            font-size: 0.7rem;
+            line-height: 1.5;
+            color: #eee;
+        }
+        .section ul {
+            font-size: 0.7rem;
+            line-height: 1.5;
+            color: #eee;
+            padding-left: 20px;
+        }
+
+        .section li {
+            margin-bottom: 5px;
+        }
+
+        .contact-info {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+            font-size: 0.7rem;
+        }
+
+        .contact-info li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info li i {
+            margin-right: 5px;
+            color: #00aaff; /* Cambiado el color del icono a azul claro */
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container > * {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        .container > :last-child {
+             margin-bottom: 0;
+        }
+
+        @media (min-width: 1200px) {
+        .header h1 {
+            font-size: 2.5rem;
+        }
+        .header p{
+             font-size: 1rem;
+        }
+        .section h2 {
+            font-size: 2rem;
+        }
+        .section p {
+            font-size: 0.8rem;
+        }
+        .section ul{
+             font-size: 0.8rem;
+        }
+        .contact-info li{
+             font-size: 0.8rem;
+        }
+    }
+       @media (max-width: 768px) {
+        .header h1 {
+            font-size: 1.2rem;
+        }
+        .header p{
+             font-size: 0.6rem;
+        }
+        .section h2 {
+            font-size: 1rem;
+        }
+        .section p {
+            font-size: 0.6rem;
+        }
+        .section ul{
+             font-size: 0.6rem;
+        }
+        .contact-info li{
+             font-size: 0.6rem;
+        }
+    }
+</style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <div class="container">
+        <header class="header">
+            <h1>Guillem Calaf Vidal</h1>
+            <p>PROGRAMADOR FULLSTACK</p>
+        </header>
+
+        <section class="section">
+            <h2>¿Quién soy?</h2>
+            <p>
+                ¡Hola! Me llamo Guillem (¡válgame la redundancia!). Desde que tengo uso de razón, me ha interesado el mundo de la tecnología y cómo las máquinas pueden transformar nuestra realidad. Esa curiosidad me impulsó a explorar campos como la ingeniería en la nube y el desarrollo web.
+            </p>
+            <p>
+                Mi experiencia trabajando para Google me enseñó a ser organizado, proactivo y a resolver problemas de manera eficiente. Aprendí a trabajar en equipo y a gestionar proyectos, habilidades que considero cruciales en este sector.
+            </p>
+            <p>
+                Además de la tecnología, me gusta desconectar con los videojuegos, disfrutar de la música y pasar tiempo al aire libre.
+            </p>
+            <p>
+                Actualmente, estoy enfocado en ampliar mis conocimientos en Python, Big Data e Inteligencia Artificial, áreas que creo que tienen un enorme potencial.
+            </p>
+            <p>
+             Si te interesa lo que acabas de leer, abajo tienes más información al respecto :).
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>¿Dónde he trabajado?</h2>
+            <p>
+                A lo largo de mi carrera, he tenido la suerte de trabajar en diversos entornos que me han permitido crecer tanto profesional como personalmente. Aquí te dejo un resumen de mi experiencia:
+            </p>
+            <p><strong>GOOGLE ASSOCIATE CLOUD ENGINEER</strong><br>
+                Concentrix, Corporation | 2023-2024, Barcelona</p>
+            <ul>
+                <li>Comunicación internacional con clientes.</li>
+                <li>Resolución de problemas técnicos en GCP.</li>
+                <li>Implementación de arquitecturas en GCP.</li>
+            </ul>
+
+            <p><strong>DESARROLLADOR DE APLICACIONES WEB</strong><br>
+                eSonde Network Monitoring, S.L. | 2020-2021, Molins de Rei</p>
+            <ul>
+                <li>Desarrollo e implementación de soluciones web full-stack (HTML, CSS, JavaScript, PHP, Node.js).</li>
+                <li>Administración de bases de datos relacionales SQL.</li>
+            </ul>
+
+            <p><strong>ADMINISTRADOR DE SISTEMAS Y REDES</strong><br>
+                ADTEL Sistemas de Telecomunicación, S.L. | 2019, Molins de Rei</p>
+            <ul>
+                <li>Montaje, configuración y mantenimiento de equipos informáticos (hardware y software).</li>
+                <li>Configuración y gestión de redes (routers, switches y firewalls).</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>¿Qué he estudiado?</h2>
+            <p>
+               Mi formación académica ha sido un viaje constante de aprendizaje y especialización, preparándome para los desafíos del mundo tecnológico. Aquí te dejo un resumen de mis estudios:
+            </p>
+            <p><strong>BOOTCAMP BIG DATA & IA PYTHON</strong><br>
+                Enfoca'T - Fundación Esplai | 2025</p>
+            <p><strong>MÁSTER DE FP EN IA Y BIG DATA</strong><br>
+                INS Bernat el Ferrer | 2022-2023</p>
+             <p><strong>CFGS DESARROLLO DE APLICACIONES WEB</strong><br>
+                INS Bernat el Ferrer | 2020-2021</p>
+            <p><strong>CFGS ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS EN RED</strong><br>
+                INS Bernat el Ferrer | 2018-2020</p>
+        </section>
+
+        <section class="section">
+            <h2>¿Qué herramientas manejo?</h2>
+             <p>
+                A lo largo de mi carrera, he tenido la oportunidad de trabajar con diversas herramientas y tecnologías. Aquí te dejo un resumen de las que considero más importantes y con las que me siento más cómodo:
+             </p>
+            <p><strong>Lenguajes de Programación:</strong> Python, Java, JS</p>
+            <p><strong>Bases de Datos:</strong> SQL, MongoDB</p>
+            <p><strong>Desarrollo Web:</strong> HTML, PHP, CSS, Bootstrap</p>
+            <p><strong>Frameworks:</strong> Node, Django, Flask</p>
+        </section>
+
+        <section class="section">
+            <h2>¡Contacta conmigo!</h2>
+            <ul class="contact-info">
+                <li style="display: flex; align-items: center;">
+                    <i class="fab fa-linkedin" style="color: #00aaff; margin-right: 5px;"></i>
+                    <a href="https://www.linkedin.com/in/guillem-calaf-vidal/">LinkedIn</a>
+                </li>
+                <li style="display: flex; align-items: center;">
+                    <i class="fas fa-envelope" style="color: #00aaff; margin-right: 5px;"></i>
+                    <a href="mailto:gcalafgg@gmail.com">Correo Electrónico</a>
+                </li>
+                <li style="display: flex; align-items: center;">
+                    <i class="fab fa-github" style="color: #00aaff; margin-right: 5px;"></i>
+                    <a href="https://github.com/GCalaf">GitHub</a>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 300,
+                    density: {
+                        enable: true,
+                        value_area: 900
+                    }
+                },
+                color: {
+                    value: '#00ff00'
+                },
+                shape: {
+                    type: 'circle',
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    },
+                    polygon: {
+                        nb_sides: 5
+                    },
+                    image: {
+                        src: 'img/github.svg',
+                        width: 100,
+                        height: 100
+                    }
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 2.5,
+                    random: true,
+                    anim: {
+                        enable: false,
+                        speed: 2,
+                        size_min: 0.3,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00ff00',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: false,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: false,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    bubble: {
+                        distance: 400,
+                        size: 40,
+                        duration: 2,
+                        opacity: 0.8,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 200,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    },
+                    remove: {
+                        particles_nb: 2
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Efecto Matrix
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパ';
+        const fontSize = 10;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+        const dropSpeeds = [];
+
+        for (let x = 0; x < columns; x++) {
+            drops[x] = Math.floor(Math.random() * canvas.height) - 50;
+            dropSpeeds[x] = Math.random() * 1 + 0.5;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = katakana.charAt(Math.floor(Math.random() * katakana.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                drops[i] += dropSpeeds[i];
+
+                if (drops[i] * fontSize > canvas.height) {
+                    drops[i] = Math.floor(Math.random() * canvas.height) - 50;
+                }
+            }
+        }
+
+        setInterval(drawMatrix, 30);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const linkElements = document.querySelectorAll('a');
+
+        linkElements.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.color = '#00ffff';
+                this.style.textShadow = '0 0 8px rgba(0, 255, 255, 0.8)';
+            });
+
+            link.addEventListener('mouseleave', function() {
+                this.style.color = '#00aaff';
+                this.style.textShadow = 'none';
+            });
+        });
+    });
+</script>
+</body>
+</html>
