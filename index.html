@@ -21,6 +21,8 @@
             z-index: 0;
             pointer-events: none;
             display: block;
+            width: 100%;
+            height: 100%;
         }
 
         .container {
@@ -58,8 +60,8 @@
             animation: typewriter 2s steps(20) 0s normal both,
                         blink-cursor 750ms steps(1) infinite normal both,
                         fadeIn 1s ease forwards 0s;
-            /* Agregamos max-width para controlar el ancho en pantallas pequeñas */
-            max-width: 100%;
+            max-width: 100%; /* Asegura que el título no se desborde en pantallas pequeñas */
+            box-sizing: border-box; /* Incluye el padding y el border en el ancho total */
         }
 
         .header p {
@@ -70,8 +72,8 @@
             animation: typewriter 3s steps(30) 2s normal both,
                         blink-cursor 750ms steps(1) infinite normal both,
                         fadeIn 1s ease forwards 1s;
-            /* Agregamos max-width para controlar el ancho en pantallas pequeñas */
-            max-width: 100%;
+            max-width: 100%; /* Asegura que el subtítulo no se desborde */
+            box-sizing: border-box;
         }
 
         @keyframes typewriter {
@@ -219,6 +221,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             margin-bottom: 10px;
+            box-sizing: border-box;
         }
 
         .container > :last-child {
@@ -356,6 +359,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             position: relative;
+            box-sizing: border-box;
         }
 
         .subsection:hover {
@@ -420,6 +424,9 @@
             #grid-container {
                 grid-template-columns: 1fr;
             }
+            .header h1, .header p{
+                white-space: normal;
+            }
         }
 
         @media (min-width: 481px) and (max-width: 768px) {
@@ -432,7 +439,7 @@
             .section p {
                 font-size: 0.7rem;
             }
-             .section ul{
+            .section ul{
                 font-size: 0.7rem;
             }
             .contact-info li{
@@ -454,6 +461,7 @@
             width: 90%;
             max-width: 400px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+            box-sizing: border-box;
         }
 
         .popup h3 {
@@ -504,6 +512,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center; /* Centra el texto dentro de cada tarjeta */
+            box-sizing: border-box;
         }
 
         #section4 .tecnologia-card:hover {
@@ -545,6 +554,7 @@
             text-shadow: 2px 2px 5px #000;
             width: 250px; /* Ancho fijo para los botones */
             text-align: center; /* Centra el texto dentro del botón */
+            box-sizing: border-box;
         }
 
         #section5 .contact-button:hover {
@@ -621,17 +631,17 @@
         <section class="section hidden" id="section3">
             <h2>¿Qué he estudiado?</h2>
             <div id="grid-container">
-                 <div class="subsection" data-title="BOOTCAMP BIG DATA & IA PYTHON" data-location="Enfoca'T - Fundación Esplai | 2025">
-                      <h3>BOOTCAMP BIG DATA & IA PYTHON</h3>
-                      <p class="institution">Enfoca'T - Fundación Esplai | 2025</p>
-                  </div>
+                <div class="subsection" data-title="BOOTCAMP BIG DATA & IA PYTHON" data-location="Enfoca'T - Fundación Esplai | 2025">
+                    <h3>BOOTCAMP BIG DATA & IA PYTHON</h3>
+                    <p class="institution">Enfoca'T - Fundación Esplai | 2025</p>
+                </div>
                 <div class="subsection" data-title="MÁSTER DE FP EN IA Y BIG DATA" data-location="INS Bernat el Ferrer | 2022-2023">
                     <h3>MÁSTER DE FP EN IA Y BIG DATA</h3>
                     <p class="institution">INS Bernat el Ferrer | 2022-2023</p>
                 </div>
                 <div class="subsection" data-title="CFGS DESARROLLO DE APLICACIONES WEB" data-location="INS Bernat el Ferrer | 2020-2021">
                     <h3>CFGS DESARROLLO APLICACIONES WEB</h3>
-                     <p class="institution">INS Bernat el Ferrer | 2020-2021</p>
+                    <p class="institution">INS Bernat el Ferrer | 2020-2021</p>
                 </div>
                 <div class="subsection" data-title="CFGS ADM. SISTEMAS INFORMÁTICOS EN RED" data-location="INS Bernat el Ferrer | 2018-2020">
                     <h3>CFGS ADM. SISTEMAS INFORMÁTICOS</h3>
