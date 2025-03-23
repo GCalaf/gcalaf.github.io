@@ -2,26 +2,25 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenid@ a mi página web!</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://kit.fontawesome.com/your_fontawesome_kit_id.js" crossorigin="anonymous"></script>
     <style>
         body {
             margin: 0;
             font-family: 'Press Start 2P', monospace;
             background-color: #000;
             color: #00ff00;
-            overflow-y: scroll;
-            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
-        #particles-js {
+        #matrix-canvas {
             position: fixed;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: 0;
             pointer-events: none;
+            display: block;
         }
 
         .container {
@@ -30,29 +29,140 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
-            perspective: 1000px;
+            text-align: center;
         }
 
         .header {
-            text-align: center;
             margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0s;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
-        .header h1{
-             font-size: 1.5rem;
-             margin-bottom: 0.5rem;
+
+        .header.hidden {
+            opacity: 0;
+            visibility: hidden;
         }
-         .header p{
-            font-size: 0.8rem;
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #00ff00;
+            animation: typewriter 2s steps(20) 0s normal both,
+                        blink-cursor 750ms steps(1) infinite normal both,
+                        fadeIn 1s ease forwards 0s;
+        }
+
+        .header p {
+            font-size: 1rem;
             color: #00aaff;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typewriter 3s steps(30) 2s normal both,
+                        blink-cursor 750ms steps(1) infinite normal both,
+                        fadeIn 1s ease forwards 1s;
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-cursor {
+            from, to { border-color: transparent; }
+            50% { border-color: #00ff00; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .start-button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #333;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, opacity 0.5s ease, visibility 0.5s ease;
+            margin-top: 20px;
+            animation: fadeIn 1s ease forwards 5s,
+                        blink 2s infinite;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+            font-family: 'Press Start 2P', monospace;
+            text-shadow: 2px 2px 5px #000;
+            z-index: 2;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .start-button.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .start-button.visible {
+            opacity: 1;
+            visibility: visible;
+            animation: fadeIn 1s ease forwards 5s,
+                        blink 2s infinite;
+        }
+
+        .start-button:hover {
+            background-color: #00ff00;
+            color: #000;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
+            border-color: #fff;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
         }
 
         .section {
             margin-bottom: 30px;
             width: 100%;
             max-width: 800px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+            z-index: 1;
+            text-align: left;
+            visibility: hidden;
+        }
+
+        .section.appear {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+            visibility: visible;
+            z-index: 2;
+        }
+
+        .section.hidden {
+            opacity: 0;
+            visibility: hidden;
         }
 
         .section h2 {
@@ -60,6 +170,8 @@
             border-bottom: 2px solid #00ff00;
             padding-bottom: 5px;
             margin-bottom: 10px;
+            color: #00ff00;
+            text-align: center;
         }
 
         .section p {
@@ -67,6 +179,7 @@
             line-height: 1.5;
             color: #eee;
         }
+
         .section ul {
             font-size: 0.7rem;
             line-height: 1.5;
@@ -93,17 +206,7 @@
 
         .contact-info li i {
             margin-right: 5px;
-            color: #00aaff; /* Cambiado el color del icono a azul claro */
-        }
-
-        #matrix-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
+            color: #00aaff;
         }
 
         .container > * {
@@ -113,66 +216,366 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             margin-bottom: 10px;
         }
+
         .container > :last-child {
-             margin-bottom: 0;
+            margin-bottom: 0;
         }
 
         @media (min-width: 1200px) {
-        .header h1 {
-            font-size: 2.5rem;
+            .header h1 {
+                font-size: 3rem;
+            }
+
+            .header p {
+                font-size: 1.2rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .section p {
+                font-size: 0.8rem;
+            }
+
+            .section ul {
+                font-size: 0.8rem;
+            }
+
+            .contact-info li {
+                font-size: 0.8rem;
+            }
         }
-        .header p{
-             font-size: 1rem;
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 0.8rem;
+            }
+
+            .section h2 {
+                font-size: 1.2rem;
+            }
+
+            .section p {
+                font-size: 0.7rem;
+            }
+
+            .section ul {
+                font-size: 0.7rem;
+            }
+
+            .contact-info li {
+                font-size: 0.7rem;
+            }
         }
-        .section h2 {
-            font-size: 2rem;
+
+        a {
+            color: #00aaff;
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
-        .section p {
+
+        a:hover {
+            color: #00ffff;
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+        }
+
+        .hidden {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            z-index: 3;
+            margin-top: 40px;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
             font-size: 0.8rem;
+            color: #fff;
+            background-color: #333;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-family: 'Press Start 2P', monospace;
+            text-shadow: 2px 2px 5px #000;
         }
-        .section ul{
-             font-size: 0.8rem;
+
+        .nav-button:hover {
+            background-color: #00ff00;
+            color: #000;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
+            border-color: #fff;
         }
-        .contact-info li{
-             font-size: 0.8rem;
+
+        .nav-button:disabled {
+            background-color: #222;
+            border-color: #004d00;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
-    }
-       @media (max-width: 768px) {
-        .header h1 {
+
+        .next-button {
+            margin-left: auto;
+        }
+
+        #section1 {
+            display: none;
+            opacity: 0;
+        }
+        #section1.appear{
+            display: block;
+            opacity: 1;
+        }
+
+        .subsection {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .subsection:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
+            z-index: 3;
+        }
+
+        #section2 .subsection, #section3 .subsection {
+            margin-bottom: 20px;
+            border: 2px solid #00ff00;
+        }
+
+        #grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        #grid-container .subsection{
+            height: auto;
+            overflow: visible;
+            position: relative;
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .header p {
+                font-size: 0.7rem;
+            }
+            .container {
+                padding: 10px;
+            }
+            .section {
+                padding: 10px;
+                transform: translate(-50%, -50%);
+            }
+            .section h2 {
+                font-size: 1rem;
+            }
+            .section p {
+                font-size: 0.6rem;
+            }
+            .section ul {
+                font-size: 0.6rem;
+            }
+            .nav-button {
+                font-size: 0.7rem;
+                padding: 8px 15px;
+            }
+            .subsection {
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+            .contact-info li {
+                font-size: 0.6rem;
+            }
+            #grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            .header p {
+                font-size: 0.9rem;
+            }
+            .section p {
+                font-size: 0.7rem;
+            }
+            .section ul{
+                font-size: 0.7rem;
+            }
+            .contact-info li{
+                font-size: 0.7rem;
+            }
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 5;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .popup h3 {
             font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #00ff00;
+            text-align: center;
         }
-        .header p{
-             font-size: 0.6rem;
+
+        .popup p {
+            font-size: 0.7rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
         }
-        .section h2 {
+
+        .popup .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             font-size: 1rem;
+            cursor: pointer;
+            color: #fff;
         }
-        .section p {
+
+        /* Estilos adicionales para la sección de tecnologías */
+        #section4 {
+            text-align: center; /* Centra el contenido de la sección */
+        }
+
+        #section4 h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        #section4 .tecnologias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Crea una cuadrícula flexible */
+            gap: 15px;
+            justify-content: center; /* Centra las celdas en la cuadrícula */
+            margin-bottom: 20px;
+        }
+
+        #section4 .tecnologia-card {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #00ff00;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center; /* Centra el texto dentro de cada tarjeta */
+        }
+
+        #section4 .tecnologia-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
+        }
+
+        #section4 .tecnologia-card h3 {
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        /* Nuevos estilos para botones en la sección de contacto */
+        #section5 h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #section5 .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        #section5 .contact-button {
+            padding: 12px 25px;
+            font-size: 0.9rem;
+            color: #fff;
+            background-color: #333;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            font-family: 'Press Start 2P', monospace;
+            text-shadow: 2px 2px 5px #000;
+            width: 250px; /* Ancho fijo para los botones */
+            text-align: center; /* Centra el texto dentro del botón */
+        }
+
+        #section5 .contact-button:hover {
+            background-color: #00ff00;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
+            border-color: #fff;
+        }
+
+        #section5 .contact-button i {
+            margin-right: 10px; /* Espacio entre el icono y el texto */
+            font-size: 1.2rem; /* Tamaño del icono */
+            vertical-align: middle; /* Alinea el icono verticalmente con el texto */
+        }
+
+        .subsection p.institution{
             font-size: 0.6rem;
+            color: #00ffff;
+            margin-top: 5px;
         }
-        .section ul{
-             font-size: 0.6rem;
-        }
-        .contact-info li{
-             font-size: 0.6rem;
-        }
-    }
-</style>
+    </style>
 </head>
 <body>
-    <div id="particles-js"></div>
     <canvas id="matrix-canvas"></canvas>
-
     <div class="container">
         <header class="header">
             <h1>Guillem Calaf Vidal</h1>
             <p>PROGRAMADOR FULLSTACK</p>
         </header>
-
-        <section class="section">
+        <button class="start-button" id="start-button">START</button>
+        <section class="section hidden" id="section1">
             <h2>¿Quién soy?</h2>
             <p>
-                ¡Hola! Me llamo Guillem (¡válgame la redundancia!). Desde que tengo uso de razón, me ha interesado el mundo de la tecnología y cómo las máquinas pueden transformar nuestra realidad. Esa curiosidad me impulsó a explorar campos como la ingeniería en la nube y el desarrollo web.
+                ¡Hola! Me llamo Guillem. Desde que tengo uso de razón, me ha interesado el mundo de la tecnología y cómo las máquinas pueden transformar nuestra realidad. Esa curiosidad me impulsó a explorar campos como la ingeniería en la nube y el desarrollo web.
             </p>
             <p>
                 Mi experiencia trabajando para Google me enseñó a ser organizado, proactivo y a resolver problemas de manera eficiente. Aprendí a trabajar en equipo y a gestionar proyectos, habilidades que considero cruciales en este sector.
@@ -183,213 +586,157 @@
             <p>
                 Actualmente, estoy enfocado en ampliar mis conocimientos en Python, Big Data e Inteligencia Artificial, áreas que creo que tienen un enorme potencial.
             </p>
-            <p>
-             Si te interesa lo que acabas de leer, abajo tienes más información al respecto :).
-            </p>
+            <div class="navigation-buttons">
+                <button class="nav-button prev-button" data-section="1" disabled>Atrás</button>
+                <button class="nav-button next-button" data-section="1">Siguiente</button>
+            </div>
         </section>
-
-        <section class="section">
+        <section class="section hidden" id="section2">
             <h2>¿Dónde he trabajado?</h2>
-            <p>
-                A lo largo de mi carrera, he tenido la suerte de trabajar en diversos entornos que me han permitido crecer tanto profesional como personalmente. Aquí te dejo un resumen de mi experiencia:
-            </p>
-            <p><strong>GOOGLE ASSOCIATE CLOUD ENGINEER</strong><br>
-                Concentrix, Corporation | 2023-2024, Barcelona</p>
-            <ul>
-                <li>Comunicación internacional con clientes.</li>
-                <li>Resolución de problemas técnicos en GCP.</li>
-                <li>Implementación de arquitecturas en GCP.</li>
-            </ul>
-
-            <p><strong>DESARROLLADOR DE APLICACIONES WEB</strong><br>
-                eSonde Network Monitoring, S.L. | 2020-2021, Molins de Rei</p>
-            <ul>
-                <li>Desarrollo e implementación de soluciones web full-stack (HTML, CSS, JavaScript, PHP, Node.js).</li>
-                <li>Administración de bases de datos relacionales SQL.</li>
-            </ul>
-
-            <p><strong>ADMINISTRADOR DE SISTEMAS Y REDES</strong><br>
-                ADTEL Sistemas de Telecomunicación, S.L. | 2019, Molins de Rei</p>
-            <ul>
-                <li>Montaje, configuración y mantenimiento de equipos informáticos (hardware y software).</li>
-                <li>Configuración y gestión de redes (routers, switches y firewalls).</li>
-            </ul>
+            <div id="grid-container">
+                <div class="subsection" data-title="GOOGLE ASSOCIATE CLOUD ENGINEER" data-location="Concentrix, Corporation | 2023-2024, Barcelona">
+                    <h3>GOOGLE ASSOCIATE CLOUD ENGINEER</h3>
+                </div>
+                <div class="subsection" data-title="DESARROLLADOR DE APLICACIONES WEB" data-location="eSonde Network Monitoring, S.L. | 2020-2021, Molins de Rei">
+                    <h3>DESARROLLADOR DE APLICACIONES WEB</h3>
+                </div>
+                <div class="subsection" data-title="ADMINISTRADOR DE SISTEMAS Y REDES" data-location="ADTEL Sistemas de Telecomunicación, S.L. | 2019, Molins de Rei">
+                    <h3>ADMINISTRADOR DE SISTEMAS Y REDES</h3>
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="nav-button prev-button" data-section="2">Atrás</button>
+                <button class="nav-button next-button" data-section="2">Siguiente</button>
+            </div>
+            <div class="popup" id="work-popup">
+                <h3 id="work-popup-title">Título</h3>
+                <p id="work-popup-location">Lugar y fechas</p>
+                <p id="work-popup-description"></p>
+                <span class="close-button" id="work-popup-close">X</span>
+            </div>
         </section>
-
-        <section class="section">
+        <section class="section hidden" id="section3">
             <h2>¿Qué he estudiado?</h2>
-            <p>
-               Mi formación académica ha sido un viaje constante de aprendizaje y especialización, preparándome para los desafíos del mundo tecnológico. Aquí te dejo un resumen de mis estudios:
-            </p>
-            <p><strong>BOOTCAMP BIG DATA & IA PYTHON</strong><br>
-                Enfoca'T - Fundación Esplai | 2025</p>
-            <p><strong>MÁSTER DE FP EN IA Y BIG DATA</strong><br>
-                INS Bernat el Ferrer | 2022-2023</p>
-             <p><strong>CFGS DESARROLLO DE APLICACIONES WEB</strong><br>
-                INS Bernat el Ferrer | 2020-2021</p>
-            <p><strong>CFGS ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS EN RED</strong><br>
-                INS Bernat el Ferrer | 2018-2020</p>
+            <div id="grid-container">
+                 <div class="subsection" data-title="BOOTCAMP BIG DATA & IA PYTHON" data-location="Enfoca'T - Fundación Esplai | 2025">
+                    <h3>BOOTCAMP BIG DATA & IA PYTHON</h3>
+                    <p class="institution">Enfoca'T - Fundación Esplai | 2025</p>
+                </div>
+                <div class="subsection" data-title="MÁSTER DE FP EN IA Y BIG DATA" data-location="INS Bernat el Ferrer | 2022-2023">
+                    <h3>MÁSTER DE FP EN IA Y BIG DATA</h3>
+                    <p class="institution">INS Bernat el Ferrer | 2022-2023</p>
+                </div>
+                <div class="subsection" data-title="CFGS DESARROLLO DE APLICACIONES WEB" data-location="INS Bernat el Ferrer | 2020-2021">
+                    <h3>CFGS DESARROLLO APLICACIONES WEB</h3>
+                    <p class="institution">INS Bernat el Ferrer | 2020-2021</p>
+                </div>
+                <div class="subsection" data-title="CFGS ADM. SISTEMAS INFORMÁTICOS EN RED" data-location="INS Bernat el Ferrer | 2018-2020">
+                    <h3>CFGS ADM. SISTEMAS INFORMÁTICOS</h3>
+                    <p class="institution">INS Bernat el Ferrer | 2018-2020</p>
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="nav-button prev-button" data-section="3">Atrás</button>
+                <button class="nav-button next-button" data-section="3">Siguiente</button>
+            </div>
         </section>
-
-        <section class="section">
+        <section class="section hidden" id="section4">
             <h2>¿Qué herramientas manejo?</h2>
-             <p>
-                A lo largo de mi carrera, he tenido la oportunidad de trabajar con diversas herramientas y tecnologías. Aquí te dejo un resumen de las que considero más importantes y con las que me siento más cómodo:
-             </p>
-            <p><strong>Lenguajes de Programación:</strong> Python, Java, JS</p>
-            <p><strong>Bases de Datos:</strong> SQL, MongoDB</p>
-            <p><strong>Desarrollo Web:</strong> HTML, PHP, CSS, Bootstrap</p>
-            <p><strong>Frameworks:</strong> Node, Django, Flask</p>
+            <p style="margin-bottom: 20px; font-size: 0.7rem; color: #eee;">
+                A lo largo de mi carrera, he tenido la oportunidad de trabajar con diversas herramientas y tecnologías.
+                Aquí te dejo un resumen de las que considero más importantes y con las que me siento más cómodo:
+            </p>
+            <div class="tecnologias-grid">
+                <div class="tecnologia-card">
+                    <h3>Python</h3>
+                </div>
+                <div class="tecnologia-card">
+                    <h3>Java</h3>
+                </div>
+                <div class="tecnologia-card">
+                    <h3>JS</h3>
+                </div>
+                <div class="tecnologia-card">
+                    <h3>SQL</h3>
+                </div>
+                <div class="tecnologia-card">
+                    <h3>MongoDB</h3>
+                </div>
+                <div class="tecnologia-card">
+                    <h3>HTML</h3>
+                </div>
+                 <div class="tecnologia-card">
+                    <h3>PHP</h3>
+                </div>
+                <div class="tecnologia-card">
+                    <h3>CSS</h3>
+                </div>
+                <div class="tecnologia-card">
+                    <h3>Bootstrap</h3>
+                </div>
+                <div class="tecnologia-card">
+                    <h3>Node</h3>
+                </div>
+                <div class="tecnologia-card">
+                    <h3>Django</h3>
+                </div>
+                <div class="tecnologia-card">
+                    <h3>Flask</h3>
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button class="nav-button prev-button" data-section="4">Atrás</button>
+                <button class="nav-button next-button" data-section="4">Siguiente</button>
+            </div>
         </section>
-
-        <section class="section">
+        <section class="section hidden" id="section5">
             <h2>¡Contacta conmigo!</h2>
-            <ul class="contact-info">
-                <li style="display: flex; align-items: center;">
-                    <i class="fab fa-linkedin" style="color: #00aaff; margin-right: 5px;"></i>
-                    <a href="https://www.linkedin.com/in/guillem-calaf-vidal/">LinkedIn</a>
-                </li>
-                <li style="display: flex; align-items: center;">
-                    <i class="fas fa-envelope" style="color: #00aaff; margin-right: 5px;"></i>
-                    <a href="mailto:gcalaf99@gmail.com">Correo Electrónico</a>
-                </li>
-                <li style="display: flex; align-items: center;">
-                    <i class="fab fa-github" style="color: #00aaff; margin-right: 5px;"></i>
-                    <a href="https://github.com/GCalaf">GitHub</a>
-                </li>
-            </ul>
+            <div class="contact-buttons">
+                <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" class="contact-button">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="mailto:gcalaf99@gmail.com" target="_blank" class="contact-button">
+                    <i class="fas fa-envelope"></i> Correo Electrónico
+                </a>
+                <a href="https://github.com/GCalaf" target="_blank" class="contact-button">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            <div class="navigation-buttons">
+                <button class="nav-button prev-button" data-section="5">Atrás</button>
+                <button class="nav-button next-button" data-section="5" disabled>Siguiente</button>
+            </div>
         </section>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        particlesJS('particles-js', {
-            particles: {
-                number: {
-                    value: 300,
-                    density: {
-                        enable: true,
-                        value_area: 900
-                    }
-                },
-                color: {
-                    value: '#00ff00'
-                },
-                shape: {
-                    type: 'circle',
-                    stroke: {
-                        width: 0,
-                        color: '#000000'
-                    },
-                    polygon: {
-                        nb_sides: 5
-                    },
-                    image: {
-                        src: 'img/github.svg',
-                        width: 100,
-                        height: 100
-                    }
-                },
-                opacity: {
-                    value: 0.5,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 1,
-                        opacity_min: 0.1,
-                        sync: false
-                    }
-                },
-                size: {
-                    value: 2.5,
-                    random: true,
-                    anim: {
-                        enable: false,
-                        speed: 2,
-                        size_min: 0.3,
-                        sync: false
-                    }
-                },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#00ff00',
-                    opacity: 0.4,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: 'none',
-                    random: true,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false,
-                    attract: {
-                        enable: false,
-                        rotateX: 600,
-                        rotateY: 1200
-                    }
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: {
-                        enable: false,
-                        mode: 'grab'
-                    },
-                    onclick: {
-                        enable: false,
-                        mode: 'push'
-                    },
-                    resize: true
-                },
-                modes: {
-                    grab: {
-                        distance: 140,
-                        line_linked: {
-                            opacity: 1
-                        }
-                    },
-                    bubble: {
-                        distance: 400,
-                        size: 40,
-                        duration: 2,
-                        opacity: 0.8,
-                        speed: 3
-                    },
-                    repulse: {
-                        distance: 200,
-                        duration: 0.4
-                    },
-                    push: {
-                        particles_nb: 4
-                    },
-                    remove: {
-                        particles_nb: 2
-                    }
-                }
-            },
-            retina_detect: true
-        });
-
         // Efecto Matrix
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
 
         const katakana = 'アァカサタナハマヤャラワガザダバパ';
         const fontSize = 10;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = [];
-        const dropSpeeds = [];
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = [];
+        let dropSpeeds = [];
 
-        for (let x = 0; x < columns; x++) {
-            drops[x] = Math.floor(Math.random() * canvas.height) - 50;
-            dropSpeeds[x] = Math.random() * 1 + 0.5;
+        function initializeDrops() {
+            columns = Math.floor(canvas.width / fontSize);
+            drops = [];
+            dropSpeeds = [];
+            for (let x = 0; x < columns; x++) {
+                drops[x] = Math.floor(Math.random() * canvas.height) - 50;
+                dropSpeeds[x] = Math.random() * 1 + 0.5;
+            }
         }
+
+        initializeDrops();
 
         function drawMatrix() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
@@ -410,29 +757,134 @@
             }
         }
 
-        setInterval(drawMatrix, 30);
+        let matrixInterval; // Variable para almacenar el intervalo de la matriz
+
+        function startMatrix() {
+            matrixInterval = setInterval(drawMatrix, 30);
+        }
+
+        function stopMatrix() {
+            if (matrixInterval) {
+                clearInterval(matrixInterval);
+            }
+        }
 
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            resizeCanvas();
+            initializeDrops();
+        });
+
+        const startButton = document.getElementById('start-button');
+        const headerSection = document.querySelector('.header');
+        const sections = document.querySelectorAll('.section');
+        const prevButtons = document.querySelectorAll('.nav-button.prev-button');
+        const nextButtons = document.querySelectorAll('.nav-button.next-button');
+        const subsections = document.querySelectorAll('.subsection');
+        const workPopup = document.getElementById('work-popup');
+        const workPopupTitle = document.getElementById('work-popup-title');
+        const workPopupLocation = document.getElementById('work-popup-location');
+        const workPopupDescription = document.getElementById('work-popup-description');
+        const workPopupClose = document.getElementById('work-popup-close');
+
+        let currentSectionIndex = 0;
+        let started = false;
+
+        function showSection(index) {
+            sections.forEach((section,i) => {
+                if (i === index) {
+                    section.classList.remove('hidden');
+                    section.classList.add('appear');
+                } else {
+                    section.classList.add('hidden');
+                    section.classList.remove('appear');
+                }
+            });
+
+            prevButtons.forEach(button => {
+                button.disabled = index === 0;
+            });
+            nextButtons.forEach(button => {
+                button.disabled = index === sections.length - 1;
+            });
+            currentSectionIndex = index;
+        }
+
+        window.addEventListener('load', () => {
+            sections.forEach(section => section.classList.add('hidden'));
+
+            setTimeout(() => {
+                startButton.classList.add('visible');
+                startMatrix(); // Inicia el efecto matrix después de 5 segundos
+            }, 5000);
+        });
+
+        startButton.addEventListener('click', () => {
+            if (!started) {
+                headerSection.classList.add('hidden');
+                startButton.classList.add('hidden');
+                headerSection.remove();
+                startButton.remove();
+
+                showSection(0);
+                started = true;
+            }
+        });
+
+        prevButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionIndex = parseInt(button.dataset.section);
+                if (currentSectionIndex > 0) {
+                    currentSectionIndex--;
+                    showSection(currentSectionIndex);
+                }
+            });
+        });
+
+        nextButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionIndex = parseInt(button.dataset.section);
+                if (currentSectionIndex < sections.length - 1) {
+                    currentSectionIndex++;
+                    showSection(currentSectionIndex);
+                }
+            });
+        });
+
+        subsections.forEach(subsection => {
+            subsection.addEventListener('click', () => {
+                const title = subsection.dataset.title;
+                const location = subsection.dataset.location;
+                let description = '';
+
+                if (subsection.closest('#section2')) {
+                    switch (title) {
+                        case 'GOOGLE ASSOCIATE CLOUD ENGINEER':
+                            description = 'En mi rol como Associate Cloud Engineer en Google, tuve que establecer comunicaciones internacionales con clientes clave, abordando sus desafíos técnicos en la plataforma GCP. Además, participé activamente en la implementación de arquitecturas robustas y escalables en GCP, asegurando soluciones eficientes y adaptadas a sus necesidades.';
+                            break;
+                        case 'DESARROLLADOR DE APLICACIONES WEB':
+                            description = 'Como Desarrollador de Aplicaciones Web en eSonde, tuve la oportunidad de liderar el desarrollo e implementación de soluciones web full-stack. Trabajé con un amplio abanico de tecnologías, incluyendo HTML, CSS, JavaScript, PHP y Node.js, y me encargué de la administración de bases de datos relacionales SQL para garantizar la integridad y el rendimiento de las aplicaciones.';
+                            break;
+                        case 'ADMINISTRADOR DE SISTEMAS Y REDES':
+                            description = 'En mi posición como Administrador de Sistemas y Redes en ADTEL, me responsabilicé del montaje, configuración y mantenimiento de equipos informáticos, tanto a nivel de hardware como de software. Además, gestioné la configuración y administración de redes, incluyendo routers, switches y firewalls, asegurando una infraestructura de red sólida y segura.';
+                            break;
+                    }
+                    workPopupTitle.textContent = title;
+                    workPopupLocation.textContent = location;
+                    workPopupDescription.textContent = description;
+                    workPopup.style.display = 'block';
+                }
+            });
+        });
+
+        workPopupClose.addEventListener('click', () => {
+            workPopup.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === workPopup) {
+                workPopup.style.display = 'none';
+            }
         });
     </script>
-     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const linkElements = document.querySelectorAll('a');
-
-        linkElements.forEach(link => {
-            link.addEventListener('mouseenter', function() {
-                this.style.color = '#00ffff';
-                this.style.textShadow = '0 0 8px rgba(0, 255, 255, 0.8)';
-            });
-
-            link.addEventListener('mouseleave', function() {
-                this.style.color = '#00aaff';
-                this.style.textShadow = 'none';
-            });
-        });
-    });
-</script>
 </body>
 </html>
