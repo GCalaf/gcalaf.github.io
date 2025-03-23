@@ -58,6 +58,8 @@
             animation: typewriter 2s steps(20) 0s normal both,
                         blink-cursor 750ms steps(1) infinite normal both,
                         fadeIn 1s ease forwards 0s;
+            /* Agregamos max-width para controlar el ancho en pantallas pequeñas */
+            max-width: 100%;
         }
 
         .header p {
@@ -68,6 +70,8 @@
             animation: typewriter 3s steps(30) 2s normal both,
                         blink-cursor 750ms steps(1) infinite normal both,
                         fadeIn 1s ease forwards 1s;
+            /* Agregamos max-width para controlar el ancho en pantallas pequeñas */
+            max-width: 100%;
         }
 
         @keyframes typewriter {
@@ -428,7 +432,7 @@
             .section p {
                 font-size: 0.7rem;
             }
-            .section ul{
+             .section ul{
                 font-size: 0.7rem;
             }
             .contact-info li{
@@ -556,7 +560,6 @@
             font-size: 1.2rem; /* Tamaño del icono */
             vertical-align: middle; /* Alinea el icono verticalmente con el texto */
         }
-
         .subsection p.institution{
             font-size: 0.6rem;
             color: #00ffff;
@@ -619,16 +622,16 @@
             <h2>¿Qué he estudiado?</h2>
             <div id="grid-container">
                  <div class="subsection" data-title="BOOTCAMP BIG DATA & IA PYTHON" data-location="Enfoca'T - Fundación Esplai | 2025">
-                    <h3>BOOTCAMP BIG DATA & IA PYTHON</h3>
-                    <p class="institution">Enfoca'T - Fundación Esplai | 2025</p>
-                </div>
+                      <h3>BOOTCAMP BIG DATA & IA PYTHON</h3>
+                      <p class="institution">Enfoca'T - Fundación Esplai | 2025</p>
+                  </div>
                 <div class="subsection" data-title="MÁSTER DE FP EN IA Y BIG DATA" data-location="INS Bernat el Ferrer | 2022-2023">
                     <h3>MÁSTER DE FP EN IA Y BIG DATA</h3>
                     <p class="institution">INS Bernat el Ferrer | 2022-2023</p>
                 </div>
                 <div class="subsection" data-title="CFGS DESARROLLO DE APLICACIONES WEB" data-location="INS Bernat el Ferrer | 2020-2021">
                     <h3>CFGS DESARROLLO APLICACIONES WEB</h3>
-                    <p class="institution">INS Bernat el Ferrer | 2020-2021</p>
+                     <p class="institution">INS Bernat el Ferrer | 2020-2021</p>
                 </div>
                 <div class="subsection" data-title="CFGS ADM. SISTEMAS INFORMÁTICOS EN RED" data-location="INS Bernat el Ferrer | 2018-2020">
                     <h3>CFGS ADM. SISTEMAS INFORMÁTICOS</h3>
@@ -665,7 +668,7 @@
                 <div class="tecnologia-card">
                     <h3>HTML</h3>
                 </div>
-                 <div class="tecnologia-card">
+                <div class="tecnologia-card">
                     <h3>PHP</h3>
                 </div>
                 <div class="tecnologia-card">
@@ -815,7 +818,7 @@
             setTimeout(() => {
                 startButton.classList.add('visible');
                 startMatrix(); // Inicia el efecto matrix después de 5 segundos
-            }, 6000);
+            }, 5500);
         });
 
         startButton.addEventListener('click', () => {
@@ -871,6 +874,12 @@
                     workPopupTitle.textContent = title;
                     workPopupLocation.textContent = location;
                     workPopupDescription.textContent = description;
+                    workPopup.style.display = 'block';
+                }
+                else if (subsection.closest('#section3')){
+                    workPopupTitle.textContent = title;
+                    workPopupLocation.textContent = location;
+                    workPopupDescription.textContent = "";
                     workPopup.style.display = 'block';
                 }
             });
