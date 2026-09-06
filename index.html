@@ -31,14 +31,6 @@
             --link-border: rgba(0, 0, 0, 0.25);
             --link-border-hover: #000000;
 
-            /* Silueta de bombilla cincelada en relieve (Modo Blanco) */
-            --bulb-filter: 
-                drop-shadow(1px 1px 0px rgba(255, 255, 255, 1))
-                drop-shadow(-0.8px -0.8px 0.5px rgba(0, 0, 0, 0.45))
-                drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-            --bulb-filament-opacity: 1;
-            --bulb-filament-filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
-
             --trans-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             --trans-phase: 0.55s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -52,14 +44,6 @@
             --fg-ghost: #333333;
             --link-border: rgba(255, 255, 255, 0.3);
             --link-border-hover: #ffffff;
-
-            /* Silueta de bombilla cincelada en relieve (Modo Negro) */
-            --bulb-filter: 
-                drop-shadow(-0.8px -0.8px 0.5px rgba(255, 255, 255, 0.5))
-                drop-shadow(1px 1.5px 2px rgba(0, 0, 0, 0.95))
-                drop-shadow(0 2px 5px rgba(0, 0, 0, 0.8));
-            --bulb-filament-opacity: 0.22;
-            --bulb-filament-filter: none;
         }
 
         /* Reset Absoluto */
@@ -88,9 +72,11 @@
         }
 
         /* ============================================================
-           SILUETA DE BOMBILLA EN RELIEVE (ARRIBA A LA DERECHA)
-           Ultra-minimalista, cincelada directamente en la superficie
+           CONMUTADOR SOL / LUNA MINIMALISTA (ARRIBA A LA DERECHA)
+           Modo Blanco (Sol): Botón presionado hacia dentro
+           Modo Negro (Luna): Botón invisible
            ============================================================ */
+        .theme-toggle-wrap,
         .chiseled-bulb-wrap {
             position: fixed;
             top: 36px;
@@ -98,69 +84,137 @@
             z-index: 1000;
         }
 
+        .theme-toggle-btn,
         .chiseled-bulb-btn {
-            background: transparent;
-            border: none;
-            padding: 8px;
-            cursor: pointer;
+            position: relative;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
             outline: none;
-            border-radius: 50%;
-            color: var(--fg);
-            transition: transform var(--trans-fast);
+            padding: 0;
+            transition: 
+                background-color var(--trans-fast),
+                box-shadow var(--trans-fast),
+                border-color var(--trans-fast),
+                transform var(--trans-fast);
             -webkit-tap-highlight-color: transparent;
         }
 
-        .chiseled-bulb-btn:hover {
+        /* Modo Blanco (Sol): Botón presionado hacia dentro */
+        [data-theme="light"] .theme-toggle-btn,
+        [data-theme="light"] .chiseled-bulb-btn {
+            background-color: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 
+                inset 2px 2px 4px rgba(0, 0, 0, 0.12),
+                inset 1px 1.5px 2px rgba(0, 0, 0, 0.16),
+                inset -2px -2px 4px rgba(255, 255, 255, 1);
+        }
+
+        [data-theme="light"] .theme-toggle-btn:hover,
+        [data-theme="light"] .chiseled-bulb-btn:hover {
+            box-shadow: 
+                inset 2.5px 2.5px 5px rgba(0, 0, 0, 0.16),
+                inset 1px 1.5px 2px rgba(0, 0, 0, 0.22),
+                inset -2px -2px 4px rgba(255, 255, 255, 1);
+            transform: scale(1.04);
+        }
+
+        [data-theme="light"] .theme-toggle-btn:active,
+        [data-theme="light"] .chiseled-bulb-btn:active {
+            transform: scale(0.94);
+            box-shadow: 
+                inset 3px 3px 6px rgba(0, 0, 0, 0.22),
+                inset 1px 1.5px 3px rgba(0, 0, 0, 0.26),
+                inset -1px -1px 3px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Modo Negro (Luna): Botón invisible */
+        [data-theme="dark"] .theme-toggle-btn,
+        [data-theme="dark"] .chiseled-bulb-btn {
+            background-color: transparent;
+            border: 1px solid transparent;
+            box-shadow: none;
+        }
+
+        [data-theme="dark"] .theme-toggle-btn:hover,
+        [data-theme="dark"] .chiseled-bulb-btn:hover {
+            background-color: transparent;
+            border-color: transparent;
+            box-shadow: none;
             transform: scale(1.1);
         }
 
-        .chiseled-bulb-btn:active {
+        [data-theme="dark"] .theme-toggle-btn:active,
+        [data-theme="dark"] .chiseled-bulb-btn:active {
             transform: scale(0.92);
         }
 
+        .theme-toggle-btn:focus-visible,
         .chiseled-bulb-btn:focus-visible {
             outline: 1px solid var(--fg-muted);
             outline-offset: 4px;
         }
 
-        .bulb-silhouette {
-            width: 28px;
-            height: 28px;
-            overflow: visible;
-            display: block;
-            filter: var(--bulb-filter);
-            transition: filter var(--trans-fast);
+        /* Contenedor de iconos sol / luna con transición suave */
+        .theme-icon-slot {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .bulb-dome {
+        .icon-sun,
+        .icon-moon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
             stroke: var(--fg);
-            stroke-width: 1.5;
+            stroke-width: 1.6;
             stroke-linecap: round;
             stroke-linejoin: round;
             fill: none;
-            transition: stroke var(--trans-fast);
+            transition: 
+                opacity var(--trans-fast),
+                transform var(--trans-fast),
+                stroke var(--trans-fast);
         }
 
-        .bulb-base-thread,
-        .bulb-base-tip {
-            stroke: var(--fg);
-            stroke-width: 1.5;
-            stroke-linecap: round;
-            transition: stroke var(--trans-fast);
+        /* En Modo Blanco: Sol visible, Luna oculta */
+        [data-theme="light"] .icon-sun {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
         }
 
-        .bulb-filament {
-            stroke: var(--fg);
-            stroke-width: 1.4;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-            opacity: var(--bulb-filament-opacity);
-            filter: var(--bulb-filament-filter);
-            transition: opacity var(--trans-fast), stroke var(--trans-fast), filter var(--trans-fast);
+        [data-theme="light"] .icon-moon {
+            opacity: 0;
+            transform: scale(0.4) rotate(-90deg);
+            pointer-events: none;
+        }
+
+        /* En Modo Negro: Luna visible, Sol oculto */
+        [data-theme="dark"] .icon-sun {
+            opacity: 0;
+            transform: scale(0.4) rotate(90deg);
+            pointer-events: none;
+        }
+
+        [data-theme="dark"] .icon-moon {
+            opacity: 0.92;
+            transform: scale(1) rotate(0deg);
+        }
+
+        [data-theme="dark"] .theme-toggle-btn:hover .icon-moon,
+        [data-theme="dark"] .chiseled-bulb-btn:hover .icon-moon {
+            opacity: 1;
         }
 
         /* ============================================================
@@ -454,7 +508,7 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .chiseled-bulb-wrap, .chiseled-switch-wrap {
+            .theme-toggle-wrap, .chiseled-bulb-wrap, .chiseled-switch-wrap {
                 top: 24px;
                 right: 24px;
             }
@@ -491,7 +545,7 @@
                 background: #ffffff !important;
                 color: #000000 !important;
             }
-            .chiseled-bulb-wrap, .chiseled-switch-wrap, .bottom-counter {
+            .theme-toggle-wrap, .chiseled-bulb-wrap, .chiseled-switch-wrap, .bottom-counter {
                 display: none !important;
             }
             .phases-track {
@@ -509,19 +563,30 @@
 <body>
 
     <!-- ============================================================
-         SILUETA DE BOMBILLA EN RELIEVE (ARRIBA A LA DERECHA)
+         CONMUTADOR SOL / LUNA MINIMALISTA (ARRIBA A LA DERECHA)
+         Modo Blanco (Sol): Botón presionado hacia dentro
+         Modo Negro (Luna): Botón invisible
          ============================================================ -->
-    <div class="chiseled-bulb-wrap">
-        <button class="chiseled-bulb-btn" id="btn-switch" title="Luz / Modo oscuro (Atajo: T)" aria-label="Conmutar modo de luz">
-            <svg class="bulb-silhouette" viewBox="0 0 24 24" fill="none">
-                <!-- Cúpula de vidrio de la bombilla -->
-                <path class="bulb-dome" d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5v3.5h6V14z" />
-                <!-- Filamento interno (activo en modo claro / apagado en oscuro) -->
-                <path class="bulb-filament" d="M10 13.5v-1.5a2 2 0 0 1 4 0v1.5" />
-                <!-- Rosca y borne de contacto inferior -->
-                <path class="bulb-base-thread" d="M10 20h4" />
-                <path class="bulb-base-tip" d="M11 22.5h2" />
-            </svg>
+    <div class="theme-toggle-wrap">
+        <button class="theme-toggle-btn" id="btn-switch" title="Cambiar modo (Sol / Luna) · Atajo: T" aria-label="Cambiar entre modo día y noche">
+            <div class="theme-icon-slot">
+                <!-- Sol minimalista (Modo Blanco) -->
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2" />
+                    <path d="M12 20v2" />
+                    <path d="m4.93 4.93 1.41 1.41" />
+                    <path d="m17.66 17.66 1.41 1.41" />
+                    <path d="M2 12h2" />
+                    <path d="M20 12h2" />
+                    <path d="m6.34 17.66-1.41 1.41" />
+                    <path d="m19.07 4.93-1.41 1.41" />
+                </svg>
+                <!-- Luna minimalista (Modo Negro) -->
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </div>
         </button>
     </div>
 
