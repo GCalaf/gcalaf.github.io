@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guillem Calaf Vidal — Dossier Profesional & CV</title>
-    <meta name="description" content="Expediente profesional y currículum interactivo de Guillem Calaf Vidal. Software & Cloud Engineer (ex-Google Associate Cloud Engineer / GCP, FastAPI, Next.js, Python, Big Data e IA).">
-    <meta name="keywords" content="Guillem Calaf, Cloud Engineer, Fullstack Developer, Google Cloud, GCP, FastAPI, Next.js, Python, Big Data, IA, Barcelona, CV interactivo">
+    <title>Guillem Calaf Vidal — Currículum Vitae (DIN A4)</title>
+    <meta name="description" content="Currículum interactivo en formato DIN A4 de Guillem Calaf Vidal. Software & Cloud Engineer (ex-Google Associate Cloud Engineer / GCP, FastAPI, Next.js, Python, Big Data e IA).">
+    <meta name="keywords" content="Guillem Calaf, Cloud Engineer, Fullstack Developer, Google Cloud, GCP, FastAPI, Next.js, Python, Big Data, IA, Barcelona, CV DIN A4">
     <meta name="author" content="Guillem Calaf Vidal">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://gcalaf.github.io/">
-    <meta property="og:title" content="Guillem Calaf Vidal — Dossier Profesional & CV">
-    <meta property="og:description" content="Expediente técnico interactivo. Ex-Google Associate Cloud Engineer especializado en GCP, FastAPI, Next.js asistido con IA, Big Data y arquitecturas robustas.">
+    <meta property="og:title" content="Guillem Calaf Vidal — Currículum Vitae (DIN A4)">
+    <meta property="og:description" content="Currículum interactivo DIN A4. Ex-Google Associate Cloud Engineer especializado en GCP, FastAPI, Next.js asistido con IA, Big Data y arquitecturas robustas.">
 
     <!-- Favicon SVG -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23b45309'/><text x='16' y='22' font-family='serif' font-size='15' font-weight='bold' fill='%23faf5ea' text-anchor='middle'>GC</text></svg>">
 
-    <!-- Tipografía: Fuente clásica de prensa/documento + Monospace de máquina de escribir técnica + Sans limpia -->
+    <!-- Fuentes Web -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* ============================================================
-           SISTEMA DE DISEÑO / DESIGN TOKENS (Vintage Archival & Desk)
+           SISTEMA DE DISEÑO / DESIGN TOKENS
            ============================================================ */
         :root {
             --font-serif: 'Instrument Serif', Georgia, serif;
@@ -32,29 +32,24 @@
             --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
             
             /* Paleta Escritorio & Madera */
-            --desk-wood-1: #1e130c;
-            --desk-wood-2: #2b1c12;
-            --desk-wood-3: #180e08;
-            --lamp-ambient: rgba(255, 230, 180, 0.12);
-            --lamp-glow: radial-gradient(circle at 35% 25%, rgba(255, 225, 160, 0.22) 0%, rgba(255, 200, 120, 0.08) 45%, transparent 70%);
+            --desk-wood-1: #1a100a;
+            --desk-wood-2: #27180e;
+            --desk-wood-3: #120904;
+            --lamp-glow: radial-gradient(circle at 45% 20%, rgba(255, 230, 175, 0.18) 0%, rgba(255, 200, 120, 0.06) 50%, transparent 75%);
 
-            /* Paleta Papel Vintage / Dossier */
-            --paper-base: #f9f5eb;
-            --paper-border: #dfd5c0;
-            --paper-shadow: rgba(15, 10, 5, 0.45);
-            --ink-primary: #1e2022;
-            --ink-secondary: #4a4d52;
-            --ink-muted: #797d84;
-            --ink-stamp-red: #b91c1c;
+            /* Paleta Papel DIN A4 */
+            --paper-base: #faf6ed;
+            --paper-border: #dfd4bf;
+            --paper-shadow: rgba(10, 6, 2, 0.45);
+            --ink-primary: #18191b;
+            --ink-secondary: #44474d;
+            --ink-muted: #72767e;
             --ink-stamp-blue: #1d4ed8;
-            --ink-stamp-green: #047857;
             --seal-gold: #b45309;
-
-            --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* ============================================================
-           RESET & ESTRUCTURA BASE
+           RESET & ESTRUCTURA
            ============================================================ */
         *, *::before, *::after {
             box-sizing: border-box;
@@ -79,9 +74,9 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Altura de scroll virtual para la cinemática */
+        /* Pista de Scroll para la cinemática de pase de página */
         #scroll-track {
-            height: 480vh;
+            height: 320vh;
             width: 1px;
             position: absolute;
             top: 0;
@@ -90,95 +85,91 @@
             opacity: 0;
         }
 
-        /* Escenario fijo donde ocurre la magia 3D */
+        /* Escenario 3D Fijo */
         #stage-container {
             position: fixed;
             inset: 0;
             width: 100vw;
             height: 100vh;
-            perspective: 1200px;
-            perspective-origin: 50% 25%;
+            perspective: 1400px;
+            perspective-origin: 50% 45%;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
-            padding-top: 50px;
             overflow: hidden;
             z-index: 1;
             pointer-events: none;
         }
 
-        /* Los elementos interactivos del documento sí reciben interacción */
-        .paper-sheet, .cv-btn, .hud-overlay, .scroll-invitation {
+        /* Elementos interactivos */
+        .paper-sheet, .cv-btn, .hud-overlay, .scroll-invitation, .page-nav-trigger {
             pointer-events: auto;
         }
 
         /* Superficie del Escritorio */
         .desk-surface {
             position: absolute;
-            inset: -20vw;
+            inset: -25vw;
             background: 
                 var(--lamp-glow),
-                radial-gradient(ellipse at 50% 40%, rgba(45, 30, 18, 0.8) 0%, rgba(20, 12, 6, 0.95) 75%),
-                repeating-linear-gradient(45deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 2px, transparent 2px, transparent 12px),
+                radial-gradient(ellipse at 50% 40%, rgba(45, 30, 18, 0.85) 0%, rgba(18, 10, 5, 0.98) 75%),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 12px),
                 linear-gradient(180deg, var(--desk-wood-2) 0%, var(--desk-wood-1) 100%);
-            transform: translateZ(-150px) rotateX(25deg);
+            transform: translateZ(-160px) rotateX(15deg);
             transform-origin: center center;
-            box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.8);
+            box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.85);
             transition: filter 0.3s ease;
         }
 
-        /* Objetos del Escritorio (Props de atrezzo) */
+        /* Atrezzo del Escritorio */
         .desk-prop {
             position: absolute;
             pointer-events: none;
             user-select: none;
         }
 
-        /* Taza de café con poso */
         .prop-coffee {
-            top: 22%;
-            left: 12%;
-            width: 90px;
-            height: 90px;
+            top: 18%;
+            left: 8%;
+            width: 84px;
+            height: 84px;
             border-radius: 50%;
-            background: radial-gradient(circle, #3e2719 55%, #23150d 70%, #dedede 72%, #f0f0f0 85%, #cccccc 100%);
-            box-shadow: 18px 24px 35px rgba(0, 0, 0, 0.65), inset 2px 2px 8px rgba(0,0,0,0.7);
+            background: radial-gradient(circle, #382114 55%, #1e1109 70%, #dcdcdc 72%, #eeeeee 85%, #cccccc 100%);
+            box-shadow: 16px 20px 30px rgba(0, 0, 0, 0.65), inset 2px 2px 8px rgba(0,0,0,0.7);
             opacity: 0.88;
         }
         .prop-coffee::after {
             content: "";
             position: absolute;
-            top: 30px;
-            right: -24px;
-            width: 22px;
-            height: 32px;
-            border: 6px solid #e0e0e0;
-            border-radius: 0 16px 16px 0;
+            top: 26px;
+            right: -22px;
+            width: 20px;
+            height: 30px;
+            border: 5px solid #dedede;
+            border-radius: 0 14px 14px 0;
             box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.5);
         }
-        /* Mancha de café en la mesa */
         .prop-coffee-stain {
-            top: 34%;
-            left: 10%;
-            width: 100px;
-            height: 100px;
+            top: 29%;
+            left: 7%;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            border: 4px solid rgba(62, 39, 25, 0.3);
+            border: 3.5px solid rgba(56, 33, 20, 0.28);
             filter: blur(1.5px);
-            opacity: 0.45;
+            opacity: 0.4;
             transform: scaleY(0.85) rotate(-15deg);
         }
 
-        /* Bolígrafo estilográfico clásico */
         .prop-pen {
-            top: 26%;
-            right: 14%;
-            width: 14px;
-            height: 210px;
+            top: 22%;
+            right: 9%;
+            width: 12px;
+            height: 190px;
             background: linear-gradient(90deg, #111 0%, #333 40%, #0a0a0a 100%);
-            border-radius: 8px 8px 3px 3px;
-            box-shadow: 15px 20px 30px rgba(0,0,0,0.65);
-            transform: rotate(-28deg);
+            border-radius: 6px 6px 2px 2px;
+            box-shadow: 14px 18px 25px rgba(0,0,0,0.6);
+            transform: rotate(-24deg);
         }
         .prop-pen::before {
             content: "";
@@ -186,192 +177,207 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 45px;
+            height: 40px;
             background: linear-gradient(90deg, #b45309, #f59e0b, #92400e);
-            border-radius: 6px 6px 0 0;
+            border-radius: 5px 5px 0 0;
         }
         .prop-pen::after {
             content: "";
             position: absolute;
-            bottom: -22px;
+            bottom: -20px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-top: 22px solid #e2e8f0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 20px solid #cbd5e1;
         }
 
         /* ============================================================
-           EL CURRÍCULUM FÍSICO (Paper Dossier 3D)
+           PILA DE PÁGINAS DIN A4 (Dossier Stack 3D)
            ============================================================ */
-        .paper-world {
+        .dossier-stack {
             position: relative;
+            width: 680px;
+            height: 940px;
+            max-width: 92vw;
+            max-height: 88vh;
             transform-style: preserve-3d;
-            transform-origin: top center;
             will-change: transform;
             transition: transform 0.05s linear;
         }
 
+        /* Hojas individuales DIN A4 (Ratio 1 : 1.414) */
         .paper-sheet {
-            width: 820px;
-            max-width: 90vw;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
             background-color: var(--paper-base);
             border: 1px solid var(--paper-border);
-            border-radius: 4px;
-            padding: 56px 64px 72px 64px;
+            border-radius: 3px;
+            padding: 44px 50px;
             box-shadow: 
-                0 30px 60px -15px var(--paper-shadow),
-                0 0 1px rgba(0, 0, 0, 0.2),
-                inset 0 0 40px rgba(180, 160, 130, 0.15);
-            position: relative;
-            color: var(--ink-primary);
-            line-height: 1.55;
-            user-select: text;
+                0 25px 50px -12px var(--paper-shadow),
+                0 0 1px rgba(0, 0, 0, 0.25),
+                inset 0 0 35px rgba(180, 160, 130, 0.12);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform-style: preserve-3d;
         }
 
-        /* Textura sutil de papel antiguo y manchas del tiempo */
+        /* Textura sutil de papel */
         .paper-sheet::before {
             content: "";
             position: absolute;
             inset: 0;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(180, 140, 90, 0.04) 0%, transparent 40%),
-                radial-gradient(circle at 85% 75%, rgba(180, 140, 90, 0.05) 0%, transparent 45%),
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.01) 2px, rgba(0,0,0,0.01) 4px);
+                radial-gradient(circle at 12% 18%, rgba(180, 140, 90, 0.035) 0%, transparent 40%),
+                radial-gradient(circle at 88% 82%, rgba(180, 140, 90, 0.04) 0%, transparent 45%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.008) 2px, rgba(0,0,0,0.008) 4px);
             pointer-events: none;
-            border-radius: inherit;
         }
 
-        /* Clip metálico de archivo en la esquina superior */
+        /* Hoja 1 (Frente) */
+        #page-1 {
+            z-index: 2;
+            transform-origin: left center;
+            will-change: transform;
+        }
+
+        /* Hoja 2 (Debajo) */
+        #page-2 {
+            z-index: 1;
+            transform: translateZ(-2px);
+        }
+
+        /* Clip Metálico de archivo */
         .paper-clip {
             position: absolute;
-            top: -12px;
-            left: 54px;
-            width: 22px;
-            height: 64px;
+            top: -10px;
+            left: 44px;
+            width: 18px;
+            height: 52px;
             border: 3px solid #cbd5e1;
-            border-radius: 12px;
+            border-radius: 10px;
             background: transparent;
-            box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.35);
-            z-index: 5;
+            box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.35);
+            z-index: 10;
         }
         .paper-clip::after {
             content: "";
             position: absolute;
-            top: 8px;
-            left: 3px;
-            width: 10px;
-            height: 40px;
+            top: 6px;
+            left: 2px;
+            width: 8px;
+            height: 32px;
             border: 2px solid #94a3b8;
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
-        /* Sellos Oficiales de Tinta */
-        .stamp {
-            position: absolute;
-            font-family: var(--font-typewriter);
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            padding: 6px 14px;
-            border-radius: 3px;
-            pointer-events: none;
-            user-select: none;
-            mix-blend-mode: multiply;
-        }
-
+        /* Sello Oficial */
         .stamp-verified {
-            top: 48px;
-            right: 48px;
+            position: absolute;
+            top: 36px;
+            right: 42px;
             color: var(--ink-stamp-blue);
             border: 2px solid var(--ink-stamp-blue);
-            font-size: 0.74rem;
+            font-size: 0.68rem;
             transform: rotate(-3deg);
             opacity: 0.85;
+            padding: 4px 10px;
+            border-radius: 2px;
+            letter-spacing: 0.08em;
             text-align: center;
+            font-family: var(--font-typewriter);
+            font-weight: 700;
+            pointer-events: none;
         }
 
-        /* Cabecera del Dossier */
+        /* Cabecera del Currículum */
         .cv-header {
             border-bottom: 2px solid var(--ink-primary);
-            padding-bottom: 24px;
-            margin-bottom: 32px;
+            padding-bottom: 16px;
+            margin-bottom: 18px;
             position: relative;
         }
 
         .cv-sub-dossier {
-            font-size: 0.74rem;
-            letter-spacing: 0.18em;
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
             color: var(--ink-muted);
             text-transform: uppercase;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             display: block;
         }
 
         .cv-title {
             font-family: var(--font-serif);
-            font-size: 3.2rem;
+            font-size: 2.8rem;
             line-height: 0.95;
             font-weight: 400;
             letter-spacing: -0.02em;
             color: var(--ink-primary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .cv-role {
-            font-size: 0.95rem;
+            font-size: 0.84rem;
             font-weight: 700;
             letter-spacing: 0.06em;
             color: var(--seal-gold);
             text-transform: uppercase;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .cv-status-badge {
-            font-size: 0.72rem;
+            font-size: 0.65rem;
             background: #dcfce7;
             color: #166534;
             border: 1px solid #86efac;
-            padding: 2px 8px;
+            padding: 1px 6px;
             border-radius: 2px;
             font-weight: 700;
         }
 
         /* Secciones del Documento */
         .cv-section {
-            margin-bottom: 32px;
+            margin-bottom: 18px;
         }
 
         .cv-section-title {
             font-family: var(--font-serif);
-            font-size: 1.55rem;
+            font-size: 1.35rem;
             font-weight: 400;
             color: var(--ink-primary);
             border-bottom: 1px solid var(--paper-border);
-            padding-bottom: 6px;
-            margin-bottom: 16px;
+            padding-bottom: 4px;
+            margin-bottom: 12px;
             display: flex;
             align-items: baseline;
-            gap: 10px;
+            gap: 8px;
         }
 
         .cv-section-title span.sec-idx {
             font-family: var(--font-typewriter);
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--seal-gold);
             font-weight: 700;
         }
 
         .cv-text {
-            font-size: 0.88rem;
+            font-size: 0.8rem;
             color: var(--ink-secondary);
-            line-height: 1.68;
-            margin-bottom: 14px;
+            line-height: 1.55;
+            margin-bottom: 8px;
         }
 
         .cv-text strong {
@@ -380,17 +386,19 @@
         }
 
         .cv-quote {
-            border-left: 3px solid var(--seal-gold);
-            padding-left: 16px;
-            margin: 16px 0;
+            border-left: 2.5px solid var(--seal-gold);
+            padding-left: 12px;
+            margin: 10px 0;
             font-style: italic;
             color: var(--ink-primary);
+            font-size: 0.8rem;
+            line-height: 1.5;
         }
 
-        /* Experiencias Laborales (Expedientes) */
+        /* Experiencias Laborales */
         .cv-job-entry {
-            margin-bottom: 22px;
-            padding-bottom: 20px;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
             border-bottom: 1px dashed var(--paper-border);
         }
         .cv-job-entry:last-child {
@@ -403,66 +411,66 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 6px;
+            margin-bottom: 3px;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
 
         .cv-job-role {
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: var(--ink-primary);
         }
 
         .cv-job-date {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             color: var(--ink-muted);
             font-weight: 700;
         }
 
         .cv-job-company {
-            font-size: 0.82rem;
+            font-size: 0.76rem;
             color: var(--seal-gold);
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
         .cv-job-bullets {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            margin-bottom: 12px;
+            gap: 4px;
+            margin-bottom: 8px;
         }
 
         .cv-job-bullets li {
-            font-size: 0.82rem;
+            font-size: 0.76rem;
             color: var(--ink-secondary);
             display: flex;
             align-items: baseline;
-            gap: 8px;
-            line-height: 1.5;
+            gap: 6px;
+            line-height: 1.45;
         }
 
         .cv-job-bullets li::before {
             content: "[•]";
             color: var(--seal-gold);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: bold;
         }
 
         .cv-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 5px;
         }
 
         .cv-tag {
-            font-size: 0.72rem;
-            background: #ede8dc;
+            font-size: 0.68rem;
+            background: #eee8db;
             border: 1px solid #dcd4c3;
             color: var(--ink-secondary);
-            padding: 2px 7px;
+            padding: 1px 6px;
             border-radius: 2px;
         }
 
@@ -473,108 +481,107 @@
             font-weight: 700;
         }
 
-        /* Matriz de Habilidades / Fichas Técnicas */
+        /* Matriz de Habilidades en Página 2 */
         .cv-skills-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px;
+            gap: 12px;
         }
 
         .cv-skill-card {
             background: rgba(0, 0, 0, 0.02);
             border: 1px solid var(--paper-border);
-            padding: 16px;
+            padding: 12px;
             border-radius: 2px;
         }
 
         .cv-skill-card h4 {
-            font-size: 0.88rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: var(--ink-primary);
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             border-bottom: 1px dotted var(--paper-border);
-            padding-bottom: 4px;
+            padding-bottom: 3px;
         }
 
         .cv-skill-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
         .cv-skill-list li {
-            font-size: 0.8rem;
+            font-size: 0.74rem;
             color: var(--ink-secondary);
-            line-height: 1.4;
+            line-height: 1.35;
         }
 
         .cv-skill-list li strong {
             color: var(--ink-primary);
-            display: inline-block;
         }
 
         .badge-special {
             display: inline-block;
-            font-size: 0.65rem;
-            padding: 1px 6px;
+            font-size: 0.62rem;
+            padding: 1px 5px;
             background: #e0e7ff;
             color: #3730a3;
             border: 1px solid #c7d2fe;
             border-radius: 2px;
             font-weight: 700;
-            margin-left: 4px;
+            margin-left: 3px;
         }
 
-        /* Sección de Contacto al Final del Documento */
+        /* Sección de Contacto al Final de Página 2 */
         .cv-contact-box {
-            background: #f3ede0;
-            border: 2px solid var(--ink-primary);
-            padding: 24px;
-            margin-top: 24px;
+            background: #f4eee2;
+            border: 1.5px solid var(--ink-primary);
+            padding: 18px;
+            margin-top: 14px;
             text-align: center;
         }
 
         .cv-contact-box h4 {
             font-family: var(--font-serif);
-            font-size: 1.6rem;
-            margin-bottom: 8px;
+            font-size: 1.4rem;
+            margin-bottom: 4px;
             color: var(--ink-primary);
         }
 
         .cv-contact-box p {
-            font-size: 0.82rem;
+            font-size: 0.76rem;
             color: var(--ink-secondary);
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
 
         .cv-contact-actions {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .cv-btn {
             font-family: var(--font-typewriter);
-            font-size: 0.82rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            padding: 9px 18px;
-            border: 2px solid var(--ink-primary);
+            padding: 7px 14px;
+            border: 1.5px solid var(--ink-primary);
             background: var(--ink-primary);
             color: var(--paper-base);
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             transition: all 0.2s ease;
         }
 
         .cv-btn:hover {
             background: #333;
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         .cv-btn-outline {
@@ -587,7 +594,28 @@
             color: var(--paper-base);
         }
 
+        /* Pie de página DIN A4 con paginación */
+        .paper-footer {
+            border-top: 1px solid var(--paper-border);
+            padding-top: 10px;
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            color: var(--ink-muted);
+        }
 
+        .page-nav-trigger {
+            color: var(--seal-gold);
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .page-nav-trigger:hover {
+            color: var(--ink-primary);
+        }
 
         /* ============================================================
            HUD DE NAVEGACIÓN & CONTROLES FLOTANTES
@@ -600,7 +628,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 24px 32px;
+            padding: 20px 28px;
         }
 
         .hud-top {
@@ -611,10 +639,10 @@
 
         .hud-brand {
             font-family: var(--font-typewriter);
-            font-size: 0.78rem;
-            color: rgba(255, 255, 255, 0.75);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: 0.08em;
             background: rgba(0, 0, 0, 0.45);
             backdrop-filter: blur(8px);
             padding: 6px 14px;
@@ -625,15 +653,15 @@
         .hud-actions {
             pointer-events: auto;
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
         }
 
         .hud-btn {
             font-family: var(--font-typewriter);
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            padding: 8px 16px;
+            padding: 7px 14px;
             border-radius: 4px;
             background: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(10px);
@@ -643,14 +671,13 @@
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .hud-btn:hover {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             color: #0f172a;
             border-color: #fff;
-            transform: translateY(-2px);
         }
 
         .hud-bottom {
@@ -659,80 +686,79 @@
             align-items: flex-end;
         }
 
-        /* Indicador de progreso de lectura */
-        .hud-progress-box {
-            background: rgba(0, 0, 0, 0.55);
+        /* Selector interactivo de página en el HUD */
+        .hud-page-indicator {
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(8px);
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.72rem;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
+            pointer-events: auto;
         }
 
-        .hud-progress-bar-bg {
-            width: 110px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
-            overflow: hidden;
+        .page-pill {
+            padding: 2px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+        .page-pill.active {
+            background: #b45309;
+            color: #ffffff;
         }
 
-        .hud-progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: #f59e0b;
-            transition: width 0.1s linear;
-        }
-
-        /* Prompt inicial de scroll */
+        /* Invitación inicial de scroll */
         .scroll-invitation {
             position: absolute;
-            bottom: 36px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(10px);
             color: #fef08a;
             border: 1px solid rgba(254, 240, 138, 0.35);
-            padding: 10px 22px;
+            padding: 8px 18px;
             border-radius: 30px;
-            font-size: 0.78rem;
+            font-size: 0.74rem;
             letter-spacing: 0.08em;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             animation: pulseHint 2.5s infinite ease-in-out;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: opacity 0.4s ease;
         }
 
         @keyframes pulseHint {
             0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.95; }
-            50% { transform: translateX(-50%) translateY(-6px); opacity: 0.7; }
+            50% { transform: translateX(-50%) translateY(-5px); opacity: 0.7; }
         }
 
         /* Toast Feedback */
         .toast-popup {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 24px;
+            right: 24px;
             background: #0f172a;
             color: #f8fafc;
-            padding: 12px 22px;
+            padding: 10px 18px;
             border-radius: 4px;
-            border-left: 4px solid #10b981;
+            border-left: 3px solid #10b981;
             font-family: var(--font-typewriter);
-            font-size: 0.8rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            font-size: 0.76rem;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
             z-index: 1000;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(16px);
             pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .toast-popup.active {
             opacity: 1;
@@ -751,9 +777,10 @@
             height: auto;
             min-height: 100vh;
             perspective: none;
-            background: #18100a;
-            padding: 60px 16px 80px 16px;
+            background: #160e08;
+            padding: 50px 16px 80px 16px;
             overflow-y: visible;
+            display: block;
         }
 
         body.flat-mode .desk-surface,
@@ -761,23 +788,31 @@
             display: none !important;
         }
 
-        body.flat-mode .paper-world {
+        body.flat-mode .dossier-stack {
+            height: auto;
+            max-height: none;
+            margin: 0 auto;
             transform: none !important;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
         }
 
         body.flat-mode .paper-sheet {
-            margin: 40px auto;
+            position: relative;
             transform: none !important;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+            height: auto;
+            min-height: 940px;
         }
 
-        /* Responsividad en Pantallas Pequeñas */
+        /* Responsividad Móvil */
         @media (max-width: 768px) {
             .paper-sheet {
-                padding: 36px 24px;
+                padding: 28px 20px;
             }
             .cv-title {
-                font-size: 2.4rem;
+                font-size: 2.2rem;
             }
             .cv-skills-grid {
                 grid-template-columns: 1fr;
@@ -790,237 +825,261 @@
 </head>
 <body>
 
-    <!-- Pista de scroll para controlar la cinemática -->
+    <!-- Pista de scroll para controlar la cinemática DIN A4 -->
     <div id="scroll-track"></div>
 
     <!-- Escenario 3D Fijo -->
     <div id="stage-container">
 
-        <!-- Superficie del Escritorio y Objetos -->
+        <!-- Superficie del Escritorio de Madera -->
         <div class="desk-surface" id="desk-surface">
-            <!-- Taza de café -->
             <div class="desk-prop prop-coffee-stain"></div>
-            <div class="desk-prop prop-coffee" title="Café del reclutador"></div>
-
-            <!-- Bolígrafo estilográfico -->
+            <div class="desk-prop prop-coffee"></div>
             <div class="desk-prop prop-pen"></div>
         </div>
 
-        <!-- El Currículum Físico -->
-        <div class="paper-world" id="paper-world">
-            <article class="paper-sheet" id="paper-sheet">
+        <!-- Pila de Hojas DIN A4 -->
+        <div class="dossier-stack" id="dossier-stack">
+
+            <!-- ============================================================
+                 PÁGINA 1 (DIN A4): Perfil, Manifiesto & Experiencia Google
+                 ============================================================ -->
+            <article class="paper-sheet" id="page-1">
                 
-                <!-- Clip Metálico de archivo -->
+                <!-- Clip Metálico -->
                 <div class="paper-clip"></div>
 
                 <!-- Sello Oficial -->
-                <div class="stamp stamp-verified">GOOGLE CLOUD CERTIFIED</div>
+                <div class="stamp-verified">GOOGLE CLOUD CERTIFIED</div>
 
-                <!-- Cabecera del Currículum -->
-                <header class="cv-header">
-                    <span class="cv-sub-dossier">BARCELONA · CLOUD & FULLSTACK SOFTWARE ENGINEER</span>
-                    <h1 class="cv-title">Guillem Calaf Vidal</h1>
-                    <div class="cv-role">
-                        <span>Software & Cloud Engineer</span>
-                        <span class="cv-status-badge">🟢 DISPONIBLE PARA NUEVOS RETOS</span>
-                    </div>
-                </header>
-
-                <!-- 01 // SOBRE MÍ & MANIFIESTO -->
-                <section class="cv-section" id="sec-sobre-mi">
-                    <h2 class="cv-section-title">
-                        <span class="sec-idx">01 //</span>
-                        <span>Perfil & Criterio Técnico</span>
-                    </h2>
-                    <p class="cv-text">
-                        Ingeniero de software con mentalidad orientada a la <strong>arquitectura escalable, la estabilidad de sistemas en producción y el código limpio</strong>.
-                    </p>
-                    <div class="cv-quote">
-                        "Criterio de ingeniería sólido: resolver problemáticas complejas con el mínimo de código superfluo y la máxima fiabilidad operativa."
-                    </div>
-                    <p class="cv-text">
-                        Mi experiencia técnica está respaldada por el estándar de <strong>Google</strong> (a través de Concentrix), donde me desempeñé como <em>Associate Cloud Engineer</em> gestionando incidencias de infraestructura crítica en Google Cloud Platform (GCP) para clientes internacionales.
-                    </p>
-                    <p class="cv-text">
-                        Combino una sólida base en administración de servidores físicos y redes con el desarrollo moderno de microservicios con <strong>FastAPI</strong>, integración de modelos de <strong>Inteligencia Artificial</strong> y prototipado ágil con <strong>Next.js</strong>.
-                    </p>
-                </section>
-
-                <!-- 02 // EXPERIENCIA LABORAL -->
-                <section class="cv-section" id="sec-experiencia">
-                    <h2 class="cv-section-title">
-                        <span class="sec-idx">02 //</span>
-                        <span>Historial Profesional Verificado</span>
-                    </h2>
-
-                    <!-- Google Associate Cloud Engineer -->
-                    <div class="cv-job-entry">
-                        <div class="cv-job-head">
-                            <span class="cv-job-role">Google Associate Cloud Engineer</span>
-                            <span class="cv-job-date">2023 — 2024</span>
+                <div>
+                    <!-- Cabecera -->
+                    <header class="cv-header">
+                        <span class="cv-sub-dossier">BARCELONA · CLOUD & FULLSTACK SOFTWARE ENGINEER</span>
+                        <h1 class="cv-title">Guillem Calaf Vidal</h1>
+                        <div class="cv-role">
+                            <span>Software & Cloud Engineer</span>
+                            <span class="cv-status-badge">🟢 DISPONIBLE PARA NUEVOS RETOS</span>
                         </div>
-                        <div class="cv-job-company">Concentrix Corporation · Barcelona</div>
-                        <ul class="cv-job-bullets">
-                            <li>Ingeniería técnica y soporte de nivel empresarial en Google Cloud Platform (GCP) para clientes globales en entornos de producción.</li>
-                            <li>Diagnóstico de incidentes de alta complejidad en Compute Engine, Kubernetes Engine (GKE), Cloud Storage, VPC y políticas de IAM.</li>
-                            <li>Asesoramiento en arquitecturas cloud resilientes y escalables bajo rigurosos acuerdos de nivel de servicio (SLAs).</li>
-                        </ul>
-                        <div class="cv-tags">
-                            <span class="cv-tag highlight">Google Cloud Platform</span>
-                            <span class="cv-tag">GCP IAM</span>
-                            <span class="cv-tag">Kubernetes</span>
-                            <span class="cv-tag">Compute Engine</span>
-                            <span class="cv-tag">VPC Networking</span>
-                        </div>
-                    </div>
+                    </header>
 
-                    <!-- Desarrollador Fullstack - eSonde -->
-                    <div class="cv-job-entry">
-                        <div class="cv-job-head">
-                            <span class="cv-job-role">Desarrollador de Aplicaciones Web Fullstack</span>
-                            <span class="cv-job-date">2020 — 2021</span>
+                    <!-- 01 // SOBRE MÍ -->
+                    <section class="cv-section">
+                        <h2 class="cv-section-title">
+                            <span class="sec-idx">01 //</span>
+                            <span>Perfil & Criterio Técnico</span>
+                        </h2>
+                        <p class="cv-text">
+                            Ingeniero de software especializado en <strong>arquitectura cloud escalable, estabilidad de sistemas y código limpio</strong>.
+                        </p>
+                        <div class="cv-quote">
+                            "Criterio de ingeniería sólido: resolver problemáticas complejas con el mínimo de código superfluo y la máxima fiabilidad operativa."
                         </div>
-                        <div class="cv-job-company">eSonde Network Monitoring, S.L. · Molins de Rei</div>
-                        <ul class="cv-job-bullets">
-                            <li>Desarrollo de módulos e interfaces completas para plataformas de monitorización de infraestructura de redes telemáticas.</li>
-                            <li>Lógica de backend y APIs en Node.js y PHP integradas con JavaScript, HTML5 y CSS en el cliente.</li>
-                            <li>Administración de bases de datos relacionales SQL para reporting analítico en tiempo real.</li>
-                        </ul>
-                        <div class="cv-tags">
-                            <span class="cv-tag">JavaScript (ES6+)</span>
-                            <span class="cv-tag">Node.js</span>
-                            <span class="cv-tag">PHP</span>
-                            <span class="cv-tag">SQL</span>
-                            <span class="cv-tag">Network Telemetry</span>
-                        </div>
-                    </div>
+                        <p class="cv-text">
+                            Experiencia técnica respaldada por el estándar de <strong>Google</strong> (Concentrix) como <em>Associate Cloud Engineer</em>, gestionando incidencias de infraestructura crítica en Google Cloud Platform (GCP) para clientes internacionales.
+                        </p>
+                    </section>
 
-                    <!-- Administrador de Sistemas - ADTEL -->
-                    <div class="cv-job-entry">
-                        <div class="cv-job-head">
-                            <span class="cv-job-role">Administrador de Sistemas y Redes</span>
-                            <span class="cv-job-date">2019</span>
-                        </div>
-                        <div class="cv-job-company">ADTEL Sistemas de Telecomunicación, S.L. · Molins de Rei</div>
-                        <ul class="cv-job-bullets">
-                            <li>Instalación, ensamblaje y mantenimiento de servidores, switches gestionables, routers y políticas de firewall.</li>
-                            <li>Garantía de conectividad e infraestructura de red segura en centros de operaciones y despliegues de telecomunicaciones.</li>
-                        </ul>
-                        <div class="cv-tags">
-                            <span class="cv-tag">Sistemas Linux / Unix</span>
-                            <span class="cv-tag">Switches & Routers</span>
-                            <span class="cv-tag">Firewalls</span>
-                            <span class="cv-tag">Hardware</span>
-                        </div>
-                    </div>
-                </section>
+                    <!-- 02 // HISTORIAL PROFESIONAL -->
+                    <section class="cv-section">
+                        <h2 class="cv-section-title">
+                            <span class="sec-idx">02 //</span>
+                            <span>Historial Profesional Verificado</span>
+                        </h2>
 
-                <!-- 03 // STACK & HABILIDADES TÉCNICAS -->
-                <section class="cv-section" id="sec-skills">
-                    <h2 class="cv-section-title">
-                        <span class="sec-idx">03 //</span>
-                        <span>Fichas de Habilidades & Tecnologías</span>
-                    </h2>
-                    <div class="cv-skills-grid">
-                        
-                        <!-- Backend & Cloud -->
-                        <div class="cv-skill-card">
-                            <h4>Cloud & Backend Core</h4>
-                            <ul class="cv-skill-list">
-                                <li>
-                                    <strong>FastAPI:</strong>
-                                    <span class="badge-special">API Core</span><br>
-                                    APIs asíncronas de alto rendimiento con Pydantic y tipado estricto.
-                                </li>
-                                <li><strong>Python:</strong> Desarrollo backend, scripts y automatización.</li>
-                                <li><strong>Google Cloud (GCP):</strong> GKE, Compute, IAM, VPC, Cloud Run.</li>
-                                <li><strong>Django / Flask / Node.js:</strong> Servicios REST modulares.</li>
+                        <!-- Google Associate Cloud Engineer -->
+                        <div class="cv-job-entry">
+                            <div class="cv-job-head">
+                                <span class="cv-job-role">Google Associate Cloud Engineer</span>
+                                <span class="cv-job-date">2023 — 2024</span>
+                            </div>
+                            <div class="cv-job-company">Concentrix Corporation · Barcelona</div>
+                            <ul class="cv-job-bullets">
+                                <li>Soporte e ingeniería técnica en Google Cloud Platform (GCP) para cuentas internacionales en producción.</li>
+                                <li>Resolución de incidencias en Compute Engine, GKE (Kubernetes), Cloud Storage, VPC y políticas de IAM.</li>
+                                <li>Implementación de arquitecturas cloud resilientes bajo estrictos acuerdos de nivel de servicio (SLAs).</li>
                             </ul>
+                            <div class="cv-tags">
+                                <span class="cv-tag highlight">Google Cloud Platform</span>
+                                <span class="cv-tag">Kubernetes (GKE)</span>
+                                <span class="cv-tag">IAM Security</span>
+                                <span class="cv-tag">VPC Networking</span>
+                            </div>
                         </div>
 
-                        <!-- Frontend & IA Workflows -->
-                        <div class="cv-skill-card">
-                            <h4>Frontend & Agentes IA</h4>
-                            <ul class="cv-skill-list">
-                                <li>
-                                    <strong>Next.js:</strong>
-                                    <span class="badge-special">Agentes de IA</span><br>
-                                    Desarrollo acelerado de interfaces y prototipos apoyado en agentes autónomos de IA.
-                                </li>
-                                <li><strong>JavaScript Moderno (ES6+):</strong> Manipulación limpia del DOM nativo.</li>
-                                <li><strong>HTML5 Semántico & CSS3:</strong> Diseños responsivos puros sin dependencias.</li>
-                                <li><strong>Bootstrap & UI Kits:</strong> Sistemas de rejilla estructurados.</li>
+                        <!-- Desarrollador Web - eSonde -->
+                        <div class="cv-job-entry">
+                            <div class="cv-job-head">
+                                <span class="cv-job-role">Desarrollador Web Fullstack</span>
+                                <span class="cv-job-date">2020 — 2021</span>
+                            </div>
+                            <div class="cv-job-company">eSonde Network Monitoring, S.L. · Molins de Rei</div>
+                            <ul class="cv-job-bullets">
+                                <li>Desarrollo integral de herramientas de monitorización y telemetría de red con Node.js, PHP y JavaScript.</li>
+                                <li>Administración de bases de datos relacionales SQL para reporting analítico en tiempo real.</li>
                             </ul>
+                            <div class="cv-tags">
+                                <span class="cv-tag">JavaScript</span>
+                                <span class="cv-tag">Node.js</span>
+                                <span class="cv-tag">PHP</span>
+                                <span class="cv-tag">SQL Relacional</span>
+                            </div>
                         </div>
 
-                        <!-- Data & Machine Learning -->
-                        <div class="cv-skill-card">
-                            <h4>Datos & Machine Learning</h4>
-                            <ul class="cv-skill-list">
-                                <li><strong>SQL Relacional:</strong> Consultas complejas, optimización y diseño relacional.</li>
-                                <li><strong>MongoDB:</strong> Modelado NoSQL para esquemas dinámicos.</li>
-                                <li><strong>Big Data & IA:</strong> Pipelines de datos y algoritmos de Machine Learning con Python.</li>
+                        <!-- Administrador de Sistemas - ADTEL -->
+                        <div class="cv-job-entry">
+                            <div class="cv-job-head">
+                                <span class="cv-job-role">Administrador de Sistemas y Redes</span>
+                                <span class="cv-job-date">2019</span>
+                            </div>
+                            <div class="cv-job-company">ADTEL Sistemas de Telecomunicación · Molins de Rei</div>
+                            <ul class="cv-job-bullets">
+                                <li>Configuración y mantenimiento de hardware de servidores, switches gestionables y firewalls perimetrales.</li>
                             </ul>
+                            <div class="cv-tags">
+                                <span class="cv-tag">Linux</span>
+                                <span class="cv-tag">Redes Cisco</span>
+                                <span class="cv-tag">Firewalls</span>
+                            </div>
                         </div>
+                    </section>
+                </div>
 
-                        <!-- Sistemas & Redes -->
-                        <div class="cv-skill-card">
-                            <h4>Sistemas & DevOps</h4>
-                            <ul class="cv-skill-list">
-                                <li><strong>Linux:</strong> Shell scripting, administración de servidores y daemons.</li>
-                                <li><strong>Redes y Telecomunicaciones:</strong> TCP/IP, VLANs, routing y firewalls.</li>
-                                <li><strong>Git / GitHub:</strong> Control de versiones y despliegues estáticos.</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </section>
-
-                <!-- 04 // FORMACIÓN ACADÉMICA -->
-                <section class="cv-section" id="sec-formacion">
-                    <h2 class="cv-section-title">
-                        <span class="sec-idx">04 //</span>
-                        <span>Formación Académica & Certificaciones</span>
-                    </h2>
-                    <ul class="cv-job-bullets">
-                        <li>
-                            <strong>Bootcamp Big Data & IA Python (2025)</strong> — Enfoca'T, Fundación Esplai.
-                        </li>
-                        <li>
-                            <strong>Máster de FP en Inteligencia Artificial y Big Data (2022 — 2023)</strong> — INS Bernat el Ferrer.
-                        </li>
-                        <li>
-                            <strong>CFGS Desarrollo de Aplicaciones Web - DAW (2020 — 2021)</strong> — INS Bernat el Ferrer.
-                        </li>
-                        <li>
-                            <strong>CFGS Administración de Sistemas Informáticos en Red - ASIX (2018 — 2020)</strong> — INS Bernat el Ferrer.
-                        </li>
-                    </ul>
-                </section>
-
-                <!-- 05 // CONTACTO & CONCLUSIÓN -->
-                <section class="cv-contact-box" id="sec-contacto">
-                    <h4>¿Hablamos sobre una posición técnica?</h4>
-                    <p>
-                        Disponible para contrataciones y retos de ingeniería en Barcelona o en remoto.
-                    </p>
-                    <div class="cv-contact-actions">
-                        <button class="cv-btn" id="btn-copy-email">
-                            <span>📋 Copiar gcalaf99@gmail.com</span>
-                        </button>
-                        <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="cv-btn cv-btn-outline">
-                            <span>✉️ Abrir Correo</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="cv-btn cv-btn-outline">
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="cv-btn cv-btn-outline">
-                            <span>GitHub</span>
-                        </a>
-                    </div>
-                </section>
-
+                <!-- Pie de Página 1 -->
+                <footer class="paper-footer">
+                    <span>Guillem Calaf Vidal · Curriculum Vitae</span>
+                    <span class="page-nav-trigger" id="trigger-next-page">Pág. 1/2 · Pasar a Página 2 (Stack & Contacto) ↓</span>
+                </footer>
             </article>
+
+            <!-- ============================================================
+                 PÁGINA 2 (DIN A4): Stack Técnico, Formación & Contacto
+                 ============================================================ -->
+            <article class="paper-sheet" id="page-2">
+                
+                <div>
+                    <!-- Cabecera Compacta Pág 2 -->
+                    <header class="cv-header">
+                        <span class="cv-sub-dossier">EXPEDIENTE TÉCNICO · GUILLEM CALAF VIDAL</span>
+                        <h2 class="cv-title" style="font-size: 2.2rem;">Habilidades, Formación & Contacto</h2>
+                        <div class="cv-role">
+                            <span class="page-nav-trigger" id="trigger-prev-page">← Volver a Página 1</span>
+                        </div>
+                    </header>
+
+                    <!-- 03 // STACK & HABILIDADES -->
+                    <section class="cv-section">
+                        <h3 class="cv-section-title">
+                            <span class="sec-idx">03 //</span>
+                            <span>Fichas de Habilidades & Tecnologías</span>
+                        </h3>
+                        <div class="cv-skills-grid">
+                            
+                            <!-- Cloud & Backend -->
+                            <div class="cv-skill-card">
+                                <h4>Cloud & Backend Core</h4>
+                                <ul class="cv-skill-list">
+                                    <li>
+                                        <strong>FastAPI:</strong>
+                                        <span class="badge-special">API Core</span><br>
+                                        APIs asíncronas de alto rendimiento con Pydantic y tipado estricto.
+                                    </li>
+                                    <li><strong>Python:</strong> Desarrollo backend, automatización y scripting.</li>
+                                    <li><strong>Google Cloud (GCP):</strong> GKE, Compute Engine, IAM, VPC, Cloud Run.</li>
+                                    <li><strong>Django / Flask / Node.js:</strong> Microservicios REST modulares.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Frontend & Agentes IA -->
+                            <div class="cv-skill-card">
+                                <h4>Frontend & Agentes IA</h4>
+                                <ul class="cv-skill-list">
+                                    <li>
+                                        <strong>Next.js:</strong>
+                                        <span class="badge-special">Agentes de IA</span><br>
+                                        Desarrollo acelerado de interfaces y prototipado asistido con agentes de IA.
+                                    </li>
+                                    <li><strong>JavaScript Moderno (ES6+):</strong> Manipulación limpia del DOM nativo.</li>
+                                    <li><strong>HTML5 Semántico & CSS Puro:</strong> Responsive design sin frameworks pesados.</li>
+                                    <li><strong>Bootstrap & UI Systems:</strong> Interfaces limpias y estructuradas.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Datos & Machine Learning -->
+                            <div class="cv-skill-card">
+                                <h4>Datos & Machine Learning</h4>
+                                <ul class="cv-skill-list">
+                                    <li><strong>SQL Relacional:</strong> Consultas optimizadas, modelado relacional e indexación.</li>
+                                    <li><strong>MongoDB:</strong> Modelado NoSQL para esquemas dinámicos.</li>
+                                    <li><strong>Big Data & IA:</strong> Pipelines de procesamiento y Machine Learning con Python.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Sistemas & DevOps -->
+                            <div class="cv-skill-card">
+                                <h4>Sistemas & DevOps</h4>
+                                <ul class="cv-skill-list">
+                                    <li><strong>Linux / UNIX:</strong> Shell scripting y administración de servidores.</li>
+                                    <li><strong>Redes y Telecomunicaciones:</strong> TCP/IP, VLANs, routing y firewalls.</li>
+                                    <li><strong>Git & GitHub Workflows:</strong> Control de versiones y despliegues.</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- 04 // FORMACIÓN ACADÉMICA -->
+                    <section class="cv-section">
+                        <h3 class="cv-section-title">
+                            <span class="sec-idx">04 //</span>
+                            <span>Formación Académica & Certificaciones</span>
+                        </h3>
+                        <ul class="cv-job-bullets">
+                            <li>
+                                <strong>Bootcamp Big Data & IA Python (2025)</strong> — Enfoca'T, Fundación Esplai.
+                            </li>
+                            <li>
+                                <strong>Máster de FP en IA y Big Data (2022 — 2023)</strong> — INS Bernat el Ferrer.
+                            </li>
+                            <li>
+                                <strong>CFGS Desarrollo de Aplicaciones Web - DAW (2020 — 2021)</strong> — INS Bernat el Ferrer.
+                            </li>
+                            <li>
+                                <strong>CFGS Adm. de Sistemas Informáticos en Red - ASIX (2018 — 2020)</strong> — INS Bernat el Ferrer.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 05 // CONTACTO -->
+                    <section class="cv-contact-box">
+                        <h4>¿Iniciamos una conversación técnica?</h4>
+                        <p>
+                            Disponible para posiciones de Cloud, Backend o Fullstack en Barcelona o en remoto.
+                        </p>
+                        <div class="cv-contact-actions">
+                            <button class="cv-btn" id="btn-copy-email">
+                                <span>📋 Copiar gcalaf99@gmail.com</span>
+                            </button>
+                            <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="cv-btn cv-btn-outline">
+                                <span>✉️ Abrir Correo</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="cv-btn cv-btn-outline">
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="cv-btn cv-btn-outline">
+                                <span>GitHub</span>
+                            </a>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Pie de Página 2 -->
+                <footer class="paper-footer">
+                    <span>Guillem Calaf Vidal · Curriculum Vitae</span>
+                    <span>Pág. 2/2 · Fin del documento</span>
+                </footer>
+            </article>
+
         </div>
 
     </div>
@@ -1041,16 +1100,15 @@
 
         <!-- Indicador de Scroll inicial -->
         <div class="scroll-invitation" id="scroll-prompt">
-            <span>↓ HAZ SCROLL PARA EXAMINAR EL CURRÍCULUM ↓</span>
+            <span>↓ HAZ SCROLL PARA PASAR DE PÁGINA ↓</span>
         </div>
 
         <div class="hud-bottom">
-            <div class="hud-progress-box">
-                <span>Lectura:</span>
-                <div class="hud-progress-bar-bg">
-                    <div class="hud-progress-bar-fill" id="progress-bar-fill"></div>
-                </div>
-                <span id="progress-text">0%</span>
+            <!-- Paginador DIN A4 -->
+            <div class="hud-page-indicator">
+                <span>Página:</span>
+                <span class="page-pill active" id="pill-p1">1</span>
+                <span class="page-pill" id="pill-p2">2</span>
             </div>
         </div>
     </div>
@@ -1061,7 +1119,7 @@
     </div>
 
     <!-- ============================================================
-         MOTOR CINEMÁTICO 3D EN JAVASCRIPT VANILLA (<140 LÍNEAS)
+         MOTOR CINEMÁTICO 3D DE CAMBIO DE PÁGINA DIN A4
          ============================================================ -->
     <script>
         (function () {
@@ -1070,27 +1128,28 @@
             const EMAIL = 'gcalaf99@gmail.com';
 
             // Elementos del DOM
-            const paperWorld = document.getElementById('paper-world');
-            const paperSheet = document.getElementById('paper-sheet');
+            const dossierStack = document.getElementById('dossier-stack');
+            const page1 = document.getElementById('page-1');
+            const page2 = document.getElementById('page-2');
             const deskSurface = document.getElementById('desk-surface');
             const scrollPrompt = document.getElementById('scroll-prompt');
-            const progressBarFill = document.getElementById('progress-bar-fill');
-            const progressText = document.getElementById('progress-text');
+            const pillP1 = document.getElementById('pill-p1');
+            const pillP2 = document.getElementById('pill-p2');
             const btnToggleMode = document.getElementById('btn-toggle-mode');
             const modeIcon = document.getElementById('mode-icon');
             const modeText = document.getElementById('mode-text');
             const toast = document.getElementById('toast-notif');
+            const triggerNext = document.getElementById('trigger-next-page');
+            const triggerPrev = document.getElementById('trigger-prev-page');
 
             let isFlatMode = false;
             let currentScrollProgress = 0;
             let targetScrollProgress = 0;
 
-            // Función de interpolación lineal (Lerp) para movimiento cinemático
             function lerp(start, end, factor) {
                 return start + (end - start) * factor;
             }
 
-            // Sincronizar posición de scroll
             function applyProgress(newProgress) {
                 targetScrollProgress = Math.min(Math.max(newProgress, 0), 1);
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -1107,11 +1166,11 @@
                 targetScrollProgress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
             }, { passive: true });
 
-            // 2. Escuchar rueda de ratón / trackpad directamente
+            // 2. Escuchar rueda de ratón / trackpad
             window.addEventListener('wheel', (e) => {
                 if (isFlatMode) return;
                 const delta = e.deltaY;
-                const step = (delta > 0 ? 1 : -1) * Math.min(Math.abs(delta) * 0.0008, 0.06);
+                const step = (delta > 0 ? 1 : -1) * Math.min(Math.abs(delta) * 0.0009, 0.07);
                 targetScrollProgress = Math.min(Math.max(targetScrollProgress + step, 0), 1);
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 if (maxScroll > 0) {
@@ -1119,7 +1178,7 @@
                 }
             }, { passive: true });
 
-            // 3. Soporte táctil continuo para móviles/tablets
+            // 3. Soporte táctil
             let touchStartY = 0;
             window.addEventListener('touchstart', (e) => {
                 if (e.touches && e.touches.length > 0) {
@@ -1133,7 +1192,7 @@
                     const currentY = e.touches[0].clientY;
                     const diff = touchStartY - currentY;
                     touchStartY = currentY;
-                    const step = diff * 0.002;
+                    const step = diff * 0.0022;
                     targetScrollProgress = Math.min(Math.max(targetScrollProgress + step, 0), 1);
                     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                     if (maxScroll > 0) {
@@ -1142,75 +1201,97 @@
                 }
             }, { passive: true });
 
-            // 4. Teclado: Flechas, Espacio, Page Up/Down
+            // 4. Teclado
             window.addEventListener('keydown', (e) => {
                 if (isFlatMode) return;
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
                 if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
                     e.preventDefault();
-                    applyProgress(targetScrollProgress + 0.08);
+                    applyProgress(targetScrollProgress + 0.12);
                 } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
                     e.preventDefault();
-                    applyProgress(targetScrollProgress - 0.08);
+                    applyProgress(targetScrollProgress - 0.12);
+                } else if (e.key.toLowerCase() === 'v') {
+                    e.preventDefault();
+                    toggleMode();
                 }
             });
 
-            // 5. Clic interactivo en la barra de progreso
-            const progressBox = document.querySelector('.hud-progress-box');
-            if (progressBox) {
-                progressBox.style.cursor = 'pointer';
-                progressBox.title = 'Haz clic para saltar a una sección';
-                progressBox.addEventListener('click', (e) => {
-                    const rect = progressBox.getBoundingClientRect();
-                    const clickX = e.clientX - rect.left;
-                    const pct = Math.min(Math.max(clickX / rect.width, 0), 1);
-                    applyProgress(pct);
-                });
-            }
+            // 5. Controles de página directa
+            if (pillP1) pillP1.addEventListener('click', () => applyProgress(0.05));
+            if (pillP2) pillP2.addEventListener('click', () => applyProgress(0.95));
+            if (triggerNext) triggerNext.addEventListener('click', () => applyProgress(0.90));
+            if (triggerPrev) triggerPrev.addEventListener('click', () => applyProgress(0.05));
+            if (scrollPrompt) scrollPrompt.addEventListener('click', () => applyProgress(0.75));
 
-            // 6. Clic en la invitación inicial de scroll
-            if (scrollPrompt) {
-                scrollPrompt.style.cursor = 'pointer';
-                scrollPrompt.addEventListener('click', () => {
-                    applyProgress(0.25);
-                });
-            }
-
-            // Bucle de renderizado 60-120fps con inercia
+            // ============================================================
+            // BUCLE DE RENDERIZADO 3D (ANIMACIÓN DE CAMBIO DE PÁGINA)
+            // ============================================================
             function renderLoop() {
                 if (!isFlatMode) {
                     currentScrollProgress = lerp(currentScrollProgress, targetScrollProgress, 0.08);
-
                     const p = currentScrollProgress;
 
-                    // Ocultar la invitación de scroll al empezar a interactuar
+                    // Ocultar invitación de scroll
                     if (scrollPrompt) {
-                        scrollPrompt.style.opacity = p > 0.03 ? '0' : '0.95';
+                        scrollPrompt.style.opacity = p > 0.05 ? '0' : '0.95';
                     }
 
-                    // Actualizar barra de progreso del HUD
-                    const pct = Math.round(p * 100);
-                    if (progressBarFill) progressBarFill.style.width = `${pct}%`;
-                    if (progressText) progressText.textContent = `${pct}%`;
-
-                    // Cinemática 3D natural y lectura completa de arriba a abajo
-                    const viewportH = window.innerHeight;
-                    const paperH = paperSheet ? paperSheet.offsetHeight : 2200;
-                    // Distancia total para recorrer el currículum desde la cabecera (p=0) hasta el pie (p=1)
-                    const totalTravel = Math.max(paperH - viewportH + 100, 100);
-
-                    const transY = - (p * totalTravel);
-                    const rotX = lerp(10, 1.2, p);
-                    const rotY = lerp(-1, 0.5, p);
-                    const transZ = lerp(0, 35, p);
-
-                    if (paperWorld) {
-                        paperWorld.style.transform = `translate3d(0px, ${transY}px, ${transZ}px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+                    // Actualizar píldoras del HUD
+                    if (p < 0.5) {
+                        if (pillP1) pillP1.classList.add('active');
+                        if (pillP2) pillP2.classList.remove('active');
+                    } else {
+                        if (pillP1) pillP1.classList.remove('active');
+                        if (pillP2) pillP2.classList.add('active');
                     }
 
-                    // Sutil desenfoque del fondo de la mesa conforme avanzamos
+                    // Angulación sutil de la mesa y la pila
+                    const stackRotX = lerp(10, 4, p);
+                    const stackRotY = lerp(-1, 1, p);
+                    if (dossierStack) {
+                        dossierStack.style.transform = `rotateX(${stackRotX}deg) rotateY(${stackRotY}deg)`;
+                    }
+
+                    // ANIMACIÓN DE CAMBIO DE PÁGINA (DIN A4 Flip)
+                    // p: 0.00 -> 0.35: Leyendo Página 1
+                    // p: 0.35 -> 0.65: Transición de pase de página
+                    // p: 0.65 -> 1.00: Leyendo Página 2
+                    if (page1) {
+                        if (p <= 0.35) {
+                            // Página 1 en reposo
+                            page1.style.transform = 'none';
+                            page1.style.boxShadow = '0 25px 50px -12px var(--paper-shadow)';
+                        } else if (p < 0.65) {
+                            // En pleno pase de página 3D
+                            const flipProgress = (p - 0.35) / 0.30;
+                            // Rotación y elevación física
+                            const flipRotY = - lerp(0, 160, flipProgress);
+                            const flipTransX = - lerp(0, 90, flipProgress);
+                            const liftZ = Math.sin(flipProgress * Math.PI) * 70;
+                            page1.style.transform = `translateX(${flipTransX}px) translateZ(${liftZ}px) rotateY(${flipRotY}deg)`;
+                            page1.style.boxShadow = `0 ${25 + liftZ * 0.4}px 60px rgba(0,0,0,0.5)`;
+                        } else {
+                            // Página 1 reposa a la izquierda
+                            page1.style.transform = 'translateX(-90px) rotateY(-160deg)';
+                            page1.style.boxShadow = 'none';
+                        }
+                    }
+
+                    // Página 2 entra en foco y se ilumina
+                    if (page2) {
+                        if (p > 0.45) {
+                            const p2Progress = Math.min((p - 0.45) / 0.20, 1);
+                            const zOffset = lerp(-2, 4, p2Progress);
+                            page2.style.transform = `translateZ(${zOffset}px)`;
+                        } else {
+                            page2.style.transform = 'translateZ(-2px)';
+                        }
+                    }
+
+                    // Sutil desenfoque de mesa
                     if (deskSurface) {
-                        const blurVal = lerp(0, 4, Math.min(p * 2.5, 1));
+                        const blurVal = lerp(0, 3, Math.min(p * 2, 1));
                         deskSurface.style.filter = `blur(${blurVal}px)`;
                     }
                 }
@@ -1221,7 +1302,7 @@
             requestAnimationFrame(renderLoop);
 
             // ============================================================
-            // CONMUTADOR DE MODO: VISTA RÁPIDA / 3D CINEMÁTICO
+            // CONMUTADOR DE MODO: VISTA RÁPIDA / MODO 3D
             // ============================================================
             function toggleMode() {
                 isFlatMode = !isFlatMode;
@@ -1230,6 +1311,8 @@
                 if (isFlatMode) {
                     if (modeIcon) modeIcon.textContent = '🕶️';
                     if (modeText) modeText.textContent = 'Modo 3D';
+                    if (page1) page1.style.transform = 'none';
+                    if (page2) page2.style.transform = 'none';
                     window.scrollTo({ top: 0, behavior: 'instant' });
                 } else {
                     if (modeIcon) modeIcon.textContent = '📄';
@@ -1244,17 +1327,8 @@
                 btnToggleMode.addEventListener('click', toggleMode);
             }
 
-            // Atajo de teclado 'V' para alternar vista rápida
-            window.addEventListener('keydown', (e) => {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-                if (e.key.toLowerCase() === 'v') {
-                    e.preventDefault();
-                    toggleMode();
-                }
-            });
-
             // ============================================================
-            // COPIADO DE EMAIL AL PORTAPAPELES
+            // COPIADO DE EMAIL
             // ============================================================
             let toastTimer = null;
             function copyEmail() {
