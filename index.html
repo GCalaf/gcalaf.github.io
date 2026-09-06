@@ -284,26 +284,6 @@
             gap: 10px;
             flex-wrap: wrap;
         }
-
-        .p1-desc {
-            font-size: 1.25rem;
-            font-weight: 400;
-            color: var(--fg-secondary);
-            line-height: 1.65;
-            max-width: 700px;
-        }
-
-        .p1-desc strong {
-            color: var(--fg);
-            font-weight: 600;
-        }
-
-        .text-links-row {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 4px;
         }
 
         .text-link {
@@ -492,20 +472,6 @@
             opacity: 1;
         }
 
-        /* Inline Toast Feedback */
-        .inline-feedback {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            color: var(--fg-muted);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            margin-left: 8px;
-        }
-
-        .inline-feedback.active {
-            opacity: 1;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .theme-toggle-wrap, .chiseled-bulb-wrap, .chiseled-switch-wrap {
@@ -531,9 +497,6 @@
             .stack-list, .f4-columns {
                 grid-template-columns: 1fr;
                 gap: 20px;
-            }
-            .p1-desc {
-                font-size: 1.05rem;
             }
         }
 
@@ -568,7 +531,7 @@
          Modo Negro (Luna): Botón invisible
          ============================================================ -->
     <div class="theme-toggle-wrap">
-        <button class="theme-toggle-btn" id="btn-switch" title="Cambiar modo (Sol / Luna) · Atajo: T" aria-label="Cambiar entre modo día y noche">
+        <button class="theme-toggle-btn" id="btn-switch" title="Cambiar modo (Sol / Luna)" aria-label="Cambiar entre modo día y noche">
             <div class="theme-icon-slot">
                 <!-- Sol minimalista (Modo Blanco) -->
                 <svg class="icon-sun" viewBox="0 0 24 24" fill="none">
@@ -608,22 +571,6 @@
 
                     <div class="p1-subtitle">
                         <span>Software & Cloud Engineer</span>
-                        <span>·</span>
-                        <span>Ex-Google Associate Cloud Engineer (Concentrix)</span>
-                    </div>
-
-                    <p class="p1-desc">
-                        Diseño de infraestructura cloud en <strong>Google Cloud Platform (GCP)</strong>, desarrollo de APIs asíncronas de alto rendimiento con <strong>FastAPI</strong> y creación ágil de interfaces frontend con <strong>Next.js asistido por agentes de IA</strong>.
-                    </p>
-
-                    <div class="text-links-row">
-                        <button class="text-link" id="btn-copy-p1">
-                            <span>Copiar gcalaf99@gmail.com</span>
-                        </button>
-                        <span class="inline-feedback" id="feedback-p1">✓ copiado</span>
-                        <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="text-link">Contactar ↗</a>
-                        <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="text-link">LinkedIn ↗</a>
-                        <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="text-link">GitHub ↗</a>
                     </div>
                 </div>
             </section>
@@ -748,18 +695,10 @@
                         <!-- Contacto -->
                         <div class="f4-block">
                             <span class="f4-label">Contacto Directo</span>
-                            <p class="f4-contact-prompt">
-                                Abierto a posiciones de Cloud, Backend o Fullstack en Barcelona o en remoto.
-                            </p>
                             <div class="f4-links-stack">
-                                <div>
-                                    <button class="text-link" id="btn-copy-p4">Copiar gcalaf99@gmail.com</button>
-                                    <span class="inline-feedback" id="feedback-p4">✓ copiado</span>
-                                </div>
-                                <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="text-link">Abrir Correo ↗</a>
+                                <a href="mailto:gcalaf99@gmail.com" class="text-link" title="gcalaf99@gmail.com">Correo ↗</a>
                                 <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="text-link">LinkedIn ↗</a>
                                 <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="text-link">GitHub ↗</a>
-                                <button class="text-link" id="btn-print-p4">Exportar a PDF ↗</button>
                             </div>
                         </div>
                     </div>
@@ -776,7 +715,6 @@
         (function () {
             'use strict';
 
-            const EMAIL = 'gcalaf99@gmail.com';
             const TOTAL = 4;
             let current = 0;
             let locked = false;
@@ -784,11 +722,6 @@
             const track = document.getElementById('phases-track');
             const counter = document.getElementById('phase-counter');
             const btnSwitch = document.getElementById('btn-switch');
-            const btnCopyP1 = document.getElementById('btn-copy-p1');
-            const btnCopyP4 = document.getElementById('btn-copy-p4');
-            const fbP1 = document.getElementById('feedback-p1');
-            const fbP4 = document.getElementById('feedback-p4');
-            const btnPrintP4 = document.getElementById('btn-print-p4');
 
             // 1. Navegar entre Fases
             function setPhase(idx) {
@@ -829,7 +762,7 @@
                 }
             }, { passive: true });
 
-            // 4. Conmutador de Luz Cincelado (Modo Blanco / Modo Negro)
+            // 4. Conmutador Sol / Luna (Modo Blanco / Modo Negro)
             function toggleLight() {
                 const html = document.documentElement;
                 const isLight = (html.getAttribute('data-theme') || 'light') === 'light';
@@ -844,48 +777,6 @@
             } catch(e) {}
 
             if (btnSwitch) btnSwitch.addEventListener('click', toggleLight);
-
-            // 5. Copiado de Correo con Feedback Inline
-            function copyEmail(feedbackEl) {
-                const showFeedback = () => {
-                    if (feedbackEl) {
-                        feedbackEl.classList.add('active');
-                        setTimeout(() => feedbackEl.classList.remove('active'), 2000);
-                    }
-                };
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(EMAIL).then(showFeedback);
-                } else {
-                    const ta = document.createElement('textarea');
-                    ta.value = EMAIL;
-                    ta.style.position = 'fixed';
-                    ta.style.opacity = '0';
-                    document.body.appendChild(ta);
-                    ta.select();
-                    try { document.execCommand('copy'); showFeedback(); } catch(e){}
-                    document.body.removeChild(ta);
-                }
-            }
-
-            if (btnCopyP1) btnCopyP1.addEventListener('click', () => copyEmail(fbP1));
-            if (btnCopyP4) btnCopyP4.addEventListener('click', () => copyEmail(fbP4));
-            if (btnPrintP4) btnPrintP4.addEventListener('click', () => window.print());
-
-            // 6. Atajos de Teclado
-            window.addEventListener('keydown', (e) => {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-                const k = e.key.toLowerCase();
-                if (k === 'arrowdown' || k === 'pagedown' || k === ' ') {
-                    e.preventDefault(); setPhase(current + 1);
-                } else if (k === 'arrowup' || k === 'pageup') {
-                    e.preventDefault(); setPhase(current - 1);
-                } else if (k === '1') setPhase(0);
-                else if (k === '2') setPhase(1);
-                else if (k === '3') setPhase(2);
-                else if (k === '4') setPhase(3);
-                else if (k === 't') { e.preventDefault(); toggleLight(); }
-                else if (k === 'c') { e.preventDefault(); copyEmail(fbP1); }
-            });
 
         })();
     </script>
