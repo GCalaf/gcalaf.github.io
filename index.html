@@ -31,17 +31,13 @@
             --link-border: rgba(0, 0, 0, 0.25);
             --link-border-hover: #000000;
 
-            /* Interruptor cincelado en superficie blanca */
-            --switch-border: rgba(0, 0, 0, 0.2);
-            --switch-plate: 
-                inset 1px 1px 2px rgba(0, 0, 0, 0.08),
-                inset -1px -1px 2px rgba(255, 255, 255, 1),
-                0 1px 2px rgba(0, 0, 0, 0.04);
-            --switch-rocker: 
-                0 1px 3px rgba(0, 0, 0, 0.12),
-                inset 0 1px 0 rgba(255, 255, 255, 1);
-            --switch-rocker-active: 
-                inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+            /* Silueta de bombilla cincelada en relieve (Modo Blanco) */
+            --bulb-filter: 
+                drop-shadow(1px 1px 0px rgba(255, 255, 255, 1))
+                drop-shadow(-0.8px -0.8px 0.5px rgba(0, 0, 0, 0.45))
+                drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            --bulb-filament-opacity: 1;
+            --bulb-filament-filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
 
             --trans-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             --trans-phase: 0.55s cubic-bezier(0.16, 1, 0.3, 1);
@@ -57,17 +53,13 @@
             --link-border: rgba(255, 255, 255, 0.3);
             --link-border-hover: #ffffff;
 
-            /* Interruptor cincelado en superficie negra */
-            --switch-border: rgba(255, 255, 255, 0.25);
-            --switch-plate: 
-                inset 1px 1px 3px rgba(0, 0, 0, 0.95),
-                inset -1px -1px 2px rgba(255, 255, 255, 0.14),
-                0 1px 2px rgba(0, 0, 0, 0.6);
-            --switch-rocker: 
-                0 1px 3px rgba(0, 0, 0, 0.8),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            --switch-rocker-active: 
-                inset 1px 1px 3px rgba(0, 0, 0, 0.9);
+            /* Silueta de bombilla cincelada en relieve (Modo Negro) */
+            --bulb-filter: 
+                drop-shadow(-0.8px -0.8px 0.5px rgba(255, 255, 255, 0.5))
+                drop-shadow(1px 1.5px 2px rgba(0, 0, 0, 0.95))
+                drop-shadow(0 2px 5px rgba(0, 0, 0, 0.8));
+            --bulb-filament-opacity: 0.22;
+            --bulb-filament-filter: none;
         }
 
         /* Reset Absoluto */
@@ -96,86 +88,79 @@
         }
 
         /* ============================================================
-           INTERRUPTOR DE LUZ CINCELADO (ARRIBA A LA DERECHA)
-           Micro-relieve arquitectónico cincelado en la pared
+           SILUETA DE BOMBILLA EN RELIEVE (ARRIBA A LA DERECHA)
+           Ultra-minimalista, cincelada directamente en la superficie
            ============================================================ */
-        .chiseled-switch-wrap {
+        .chiseled-bulb-wrap {
             position: fixed;
             top: 36px;
             right: 42px;
             z-index: 1000;
         }
 
-        .chiseled-switch {
-            position: relative;
-            width: 48px;
-            height: 52px;
-            background: var(--bg);
-            border: 1px solid var(--switch-border);
-            border-radius: 6px;
-            box-shadow: var(--switch-plate);
+        .chiseled-bulb-btn {
+            background: transparent;
+            border: none;
+            padding: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all var(--trans-fast);
-            padding: 0;
             outline: none;
+            border-radius: 50%;
+            color: var(--fg);
+            transition: transform var(--trans-fast);
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .chiseled-switch:hover {
-            transform: translateY(-1px);
+        .chiseled-bulb-btn:hover {
+            transform: scale(1.1);
         }
 
-        /* Tecla basculante del interruptor de la luz (Architectural Rocker) */
-        .switch-rocker {
-            width: 24px;
-            height: 32px;
-            background: var(--bg);
-            border: 1px solid var(--switch-border);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+        .chiseled-bulb-btn:active {
+            transform: scale(0.92);
         }
 
-        /* Indicador de posición de contacto */
-        .switch-indicator {
-            width: 8px;
-            height: 2px;
-            background: var(--fg);
-            border-radius: 1px;
-            opacity: 0.85;
-            transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), opacity var(--trans-fast);
+        .chiseled-bulb-btn:focus-visible {
+            outline: 1px solid var(--fg-muted);
+            outline-offset: 4px;
         }
 
-        /* Estado Luz Encendida (#FFFFFF): Bascula hacia arriba (ON) */
-        [data-theme="light"] .switch-rocker {
-            transform: perspective(140px) rotateX(-12deg);
-            box-shadow: 
-                0 2px 4px rgba(0, 0, 0, 0.12),
-                inset 0 1px 0 rgba(255, 255, 255, 1),
-                inset 0 -2px 0 rgba(0, 0, 0, 0.06);
+        .bulb-silhouette {
+            width: 28px;
+            height: 28px;
+            overflow: visible;
+            display: block;
+            filter: var(--bulb-filter);
+            transition: filter var(--trans-fast);
         }
 
-        [data-theme="light"] .switch-indicator {
-            transform: translateY(-5px);
+        .bulb-dome {
+            stroke: var(--fg);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: stroke var(--trans-fast);
         }
 
-        /* Estado Luz Apagada (#000000): Bascula hacia abajo (OFF) */
-        [data-theme="dark"] .switch-rocker {
-            transform: perspective(140px) rotateX(12deg);
-            box-shadow: 
-                0 -2px 4px rgba(0, 0, 0, 0.8),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.25),
-                inset 0 2px 0 rgba(0, 0, 0, 0.5);
+        .bulb-base-thread,
+        .bulb-base-tip {
+            stroke: var(--fg);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            transition: stroke var(--trans-fast);
         }
 
-        [data-theme="dark"] .switch-indicator {
-            transform: translateY(5px);
-            opacity: 0.4;
+        .bulb-filament {
+            stroke: var(--fg);
+            stroke-width: 1.4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            opacity: var(--bulb-filament-opacity);
+            filter: var(--bulb-filament-filter);
+            transition: opacity var(--trans-fast), stroke var(--trans-fast), filter var(--trans-fast);
         }
 
         /* ============================================================
@@ -469,7 +454,7 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .chiseled-switch-wrap {
+            .chiseled-bulb-wrap, .chiseled-switch-wrap {
                 top: 24px;
                 right: 24px;
             }
@@ -506,7 +491,7 @@
                 background: #ffffff !important;
                 color: #000000 !important;
             }
-            .chiseled-switch-wrap, .bottom-counter {
+            .chiseled-bulb-wrap, .chiseled-switch-wrap, .bottom-counter {
                 display: none !important;
             }
             .phases-track {
@@ -524,13 +509,19 @@
 <body>
 
     <!-- ============================================================
-         INTERRUPTOR DE LA LUZ CINCELADO (ARRIBA A LA DERECHA)
+         SILUETA DE BOMBILLA EN RELIEVE (ARRIBA A LA DERECHA)
          ============================================================ -->
-    <div class="chiseled-switch-wrap">
-        <button class="chiseled-switch" id="btn-switch" title="Interruptor de la luz (Atajo: T)" aria-label="Interruptor de la luz">
-            <div class="switch-rocker">
-                <span class="switch-indicator"></span>
-            </div>
+    <div class="chiseled-bulb-wrap">
+        <button class="chiseled-bulb-btn" id="btn-switch" title="Luz / Modo oscuro (Atajo: T)" aria-label="Conmutar modo de luz">
+            <svg class="bulb-silhouette" viewBox="0 0 24 24" fill="none">
+                <!-- Cúpula de vidrio de la bombilla -->
+                <path class="bulb-dome" d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5v3.5h6V14z" />
+                <!-- Filamento interno (activo en modo claro / apagado en oscuro) -->
+                <path class="bulb-filament" d="M10 13.5v-1.5a2 2 0 0 1 4 0v1.5" />
+                <!-- Rosca y borne de contacto inferior -->
+                <path class="bulb-base-thread" d="M10 20h4" />
+                <path class="bulb-base-tip" d="M11 22.5h2" />
+            </svg>
         </button>
     </div>
 
