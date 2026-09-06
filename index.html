@@ -4,83 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guillem Calaf Vidal · Software & Cloud Engineer</title>
-    <meta name="description" content="Portfolio de Guillem Calaf Vidal. Software & Cloud Engineer. Ex-Google Associate Cloud Engineer (Concentrix), APIs con FastAPI y Next.js con agentes de IA.">
+    <meta name="description" content="Guillem Calaf Vidal. Software & Cloud Engineer. Ex-Google Associate Cloud Engineer (Concentrix), FastAPI y Next.js con agentes de IA.">
     <meta name="author" content="Guillem Calaf Vidal">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='none' stroke='currentColor' stroke-width='10'/><circle cx='50' cy='50' r='18' fill='currentColor'/></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' fill='none' stroke='currentColor' stroke-width='12'/><circle cx='50' cy='50' r='16' fill='currentColor'/></svg>">
 
-    <!-- Tipografía Editorial Suiza de Alta Precisión -->
+    <!-- Tipografía Editorial de Máxima Pureza (Inter & JetBrains Mono) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
         /* ============================================================
-           SISTEMA DE DISEÑO ULTRA-MINIMALISTA MONOCROMO EN RELIEVE
-           Pure Contrast: #FFFFFF & #000000
+           MINIMALISMO RADICAL MONOCROMO (#FFFFFF & #000000)
+           Lienzo Blanco Puro · Tipografía Suiza · Cero Elementos Innecesarios
            ============================================================ */
         :root {
-            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --font-mono: 'JetBrains Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            --font-mono: "JetBrains Mono", monospace;
 
             /* Modo Claro (Por Defecto) */
             --bg: #ffffff;
             --fg: #000000;
-            --fg-secondary: #333333;
-            --fg-muted: #666666;
-            --border: #000000;
-            --border-light: rgba(0, 0, 0, 0.12);
-            --border-relief: rgba(0, 0, 0, 0.08);
+            --fg-secondary: #444444;
+            --fg-muted: #888888;
+            --fg-ghost: #cccccc;
+            --link-border: rgba(0, 0, 0, 0.25);
+            --link-border-hover: #000000;
 
-            --card-bg: #ffffff;
-            --pill-bg: rgba(0, 0, 0, 0.04);
-            --pill-active-bg: #000000;
-            --pill-active-fg: #ffffff;
+            /* Interruptor cincelado en superficie blanca */
+            --switch-border: rgba(0, 0, 0, 0.2);
+            --switch-plate: 
+                inset 1px 1px 2px rgba(0, 0, 0, 0.08),
+                inset -1px -1px 2px rgba(255, 255, 255, 1),
+                0 1px 2px rgba(0, 0, 0, 0.04);
+            --switch-rocker: 
+                0 1px 3px rgba(0, 0, 0, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+            --switch-rocker-active: 
+                inset 1px 1px 3px rgba(0, 0, 0, 0.2);
 
-            /* Micro-relieve sutil: biselado táctil de precisión */
-            --relief-shadow: 
-                0 1px 2px rgba(0, 0, 0, 0.05),
-                0 4px 12px rgba(0, 0, 0, 0.03),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9);
-            --relief-btn: 
-                0 1px 2px rgba(0, 0, 0, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 1),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.06);
-            --relief-btn-active: 
-                inset 0 2px 4px rgba(0, 0, 0, 0.12);
-
-            --radius-sm: 4px;
-            --radius-md: 8px;
-            --radius-full: 9999px;
-            --trans: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            --trans-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            --trans-phase: 0.55s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         [data-theme="dark"] {
+            /* Modo Oscuro */
             --bg: #000000;
             --fg: #ffffff;
-            --fg-secondary: #cccccc;
-            --fg-muted: #888888;
-            --border: #ffffff;
-            --border-light: rgba(255, 255, 255, 0.18);
-            --border-relief: rgba(255, 255, 255, 0.12);
+            --fg-secondary: #bbbbbb;
+            --fg-muted: #777777;
+            --fg-ghost: #333333;
+            --link-border: rgba(255, 255, 255, 0.3);
+            --link-border-hover: #ffffff;
 
-            --card-bg: #000000;
-            --pill-bg: rgba(255, 255, 255, 0.08);
-            --pill-active-bg: #ffffff;
-            --pill-active-fg: #000000;
-
-            --relief-shadow: 
-                0 1px 2px rgba(0, 0, 0, 0.8),
-                0 4px 16px rgba(0, 0, 0, 0.6),
-                inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            --relief-btn: 
-                0 1px 2px rgba(0, 0, 0, 0.6),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.5);
-            --relief-btn-active: 
-                inset 0 2px 4px rgba(0, 0, 0, 0.7);
+            /* Interruptor cincelado en superficie negra */
+            --switch-border: rgba(255, 255, 255, 0.25);
+            --switch-plate: 
+                inset 1px 1px 3px rgba(0, 0, 0, 0.95),
+                inset -1px -1px 2px rgba(255, 255, 255, 0.14),
+                0 1px 2px rgba(0, 0, 0, 0.6);
+            --switch-rocker: 
+                0 1px 3px rgba(0, 0, 0, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            --switch-rocker-active: 
+                inset 1px 1px 3px rgba(0, 0, 0, 0.9);
         }
 
-        /* Reset & Caja */
+        /* Reset Absoluto */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -96,604 +86,412 @@
             font-family: var(--font-sans);
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
-            transition: background-color var(--trans), color var(--trans);
+            transition: background-color var(--trans-fast), color var(--trans-fast);
+            user-select: none;
+        }
+
+        /* Permitir selección de texto dentro de las fases */
+        .phase-content {
+            user-select: text;
         }
 
         /* ============================================================
-           CABECERA FIJA SUPERIOR
+           INTERRUPTOR DE LUZ CINCELADO (ARRIBA A LA DERECHA)
+           Micro-relieve arquitectónico cincelado en la pared
            ============================================================ */
-        .top-nav {
+        .chiseled-switch-wrap {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 100;
-            background: linear-gradient(180deg, var(--bg) 70%, transparent 100%);
-            transition: background var(--trans);
+            top: 36px;
+            right: 42px;
+            z-index: 1000;
         }
 
-        .brand-box {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-        }
-
-        .brand-name {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .brand-sub {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            color: var(--fg-muted);
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        /* Paginador numérico de fases en cabecera */
-        .phase-stepper-pills {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: var(--pill-bg);
-            padding: 3px 6px;
-            border-radius: var(--radius-full);
-            border: 1px solid var(--border-relief);
-        }
-
-        .step-pill {
-            font-family: var(--font-mono);
-            font-size: 0.74rem;
-            font-weight: 600;
-            padding: 3px 9px;
-            border-radius: var(--radius-full);
-            border: none;
-            background: transparent;
-            color: var(--fg-muted);
-            cursor: pointer;
-            transition: all var(--trans);
-        }
-
-        .step-pill:hover {
-            color: var(--fg);
-        }
-
-        .step-pill.active {
-            background: var(--pill-active-bg);
-            color: var(--pill-active-fg);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-        }
-
-        /* Conmutador de Bombilla en Relieve (Lightbulb Switch) */
-        .lightbulb-toggle {
+        .chiseled-switch {
             position: relative;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
             background: var(--bg);
-            border: 1px solid var(--border);
-            box-shadow: var(--relief-btn);
+            border: 1px solid var(--switch-border);
+            border-radius: 8px;
+            box-shadow: var(--switch-plate);
             cursor: pointer;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--fg);
-            transition: all var(--trans);
+            transition: all var(--trans-fast);
+            padding: 0;
+            outline: none;
         }
 
-        .lightbulb-toggle:hover {
+        .chiseled-switch:hover {
             transform: translateY(-1px);
         }
 
-        .lightbulb-toggle:active {
+        .chiseled-switch:active {
             transform: translateY(1px);
-            box-shadow: var(--relief-btn-active);
+            box-shadow: var(--switch-rocker-active);
         }
 
-        .lightbulb-icon {
-            width: 20px;
-            height: 20px;
+        /* Silueta cincelada de la bombilla / conmutador */
+        .chiseled-bulb-svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--fg);
+            stroke-width: 1.5;
             fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
-            transition: all var(--trans);
+            transition: all var(--trans-fast);
         }
 
-        [data-theme="light"] .lightbulb-icon .bulb-fill {
+        /* En modo luz encendida (fondo blanco): filamento activo */
+        [data-theme="light"] .chiseled-bulb-svg .filament {
             fill: #000000;
             opacity: 1;
         }
 
-        [data-theme="dark"] .lightbulb-icon .bulb-fill {
+        /* En modo luz apagada (fondo negro): filamento hueco cincelado */
+        [data-theme="dark"] .chiseled-bulb-svg .filament {
             fill: transparent;
-            opacity: 0.2;
+            opacity: 0.3;
         }
 
         /* ============================================================
-           CONTENEDOR DE FASES (Single-Viewport Stepper)
+           CONTENEDOR DE FASES (SINGLE-VIEWPORT 100VH)
            ============================================================ */
-        .stage-wrapper {
-            position: relative;
+        .stage-container {
             width: 100%;
             height: 100vh;
+            position: relative;
             overflow: hidden;
         }
 
         .phases-track {
-            display: flex;
-            flex-direction: column;
             width: 100%;
             height: 400vh;
-            transition: transform 0.52s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--trans-phase);
             will-change: transform;
         }
 
-        .phase-view {
+        .phase-screen {
             width: 100%;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 90px 24px 70px 24px;
+            padding: 60px 48px;
             position: relative;
         }
 
-        .phase-inner {
+        .phase-content {
             width: 100%;
-            max-width: 820px;
+            max-width: 780px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 28px;
         }
 
-        /* Etiqueta de fase */
-        .phase-counter-label {
+        /* Micro-indicador de fase */
+        .phase-num {
             font-family: var(--font-mono);
-            font-size: 0.76rem;
-            font-weight: 700;
+            font-size: 0.72rem;
             letter-spacing: 0.12em;
-            text-transform: uppercase;
             color: var(--fg-muted);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .phase-counter-label::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: var(--border-relief);
+            text-transform: uppercase;
         }
 
         /* ============================================================
-           FASE 1: IDENTIDAD & VALOR
+           FASE 01 // IDENTIDAD & TESIS TÉCNICA
            ============================================================ */
-        .hero-name {
-            font-size: 3.2rem;
-            font-weight: 800;
+        .p1-title {
+            font-size: 3.4rem;
+            font-weight: 700;
             letter-spacing: -0.04em;
             line-height: 1.05;
             color: var(--fg);
         }
 
-        .hero-tagline {
+        .p1-subtitle {
             font-family: var(--font-mono);
             font-size: 0.95rem;
-            font-weight: 600;
             color: var(--fg);
+            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .tagline-sep {
-            color: var(--fg-muted);
-        }
-
-        .hero-manifesto {
-            font-size: 1.15rem;
+        .p1-desc {
+            font-size: 1.25rem;
+            font-weight: 400;
             color: var(--fg-secondary);
-            line-height: 1.6;
-            max-width: 720px;
+            line-height: 1.65;
+            max-width: 700px;
         }
 
-        .hero-manifesto strong {
-            color: var(--fg);
-            font-weight: 700;
-        }
-
-        .hero-actions-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-
-        /* Botones en Relieve Táctil (Biselado de precisión) */
-        .btn-relief {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 18px;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            background: var(--bg);
-            color: var(--fg);
-            box-shadow: var(--relief-btn);
-            cursor: pointer;
-            text-decoration: none;
-            transition: all var(--trans);
-            white-space: nowrap;
-        }
-
-        .btn-relief:hover {
-            transform: translateY(-1px);
-        }
-
-        .btn-relief:active {
-            transform: translateY(1px);
-            box-shadow: var(--relief-btn-active);
-        }
-
-        .btn-relief.btn-solid {
-            background: var(--fg);
-            color: var(--bg);
-        }
-
-        kbd {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            padding: 1px 4px;
-            border: 1px solid currentColor;
-            border-radius: 3px;
-            opacity: 0.75;
-        }
-
-        /* ============================================================
-           FASE 2: TRAYECTORIA PROFESIONAL VERIFICADA
-           ============================================================ */
-        .timeline-clean {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .job-item {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 14px 18px;
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            background: var(--card-bg);
-            box-shadow: var(--relief-shadow);
-            transition: all var(--trans);
-        }
-
-        .job-item:hover {
-            border-color: var(--border);
-        }
-
-        .job-head {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .job-role {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--fg);
-        }
-
-        .job-company {
-            font-size: 0.85rem;
-            color: var(--fg-muted);
-            font-family: var(--font-mono);
-        }
-
-        .job-year {
-            font-family: var(--font-mono);
-            font-size: 0.74rem;
+        .p1-desc strong {
             color: var(--fg);
             font-weight: 600;
-            border: 1px solid var(--border-light);
-            padding: 2px 6px;
-            border-radius: var(--radius-sm);
         }
 
-        .job-desc {
-            font-size: 0.88rem;
-            color: var(--fg-secondary);
-            line-height: 1.45;
-        }
-
-        .job-pills {
+        .text-links-row {
             display: flex;
+            align-items: center;
+            gap: 20px;
             flex-wrap: wrap;
-            gap: 6px;
             margin-top: 4px;
         }
 
-        .mini-pill {
+        .text-link {
             font-family: var(--font-mono);
-            font-size: 0.68rem;
-            padding: 2px 7px;
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            color: var(--fg-secondary);
+            font-size: 0.82rem;
+            color: var(--fg);
+            text-decoration: none;
+            border-bottom: 1px solid var(--link-border);
+            padding-bottom: 2px;
+            transition: border-color var(--trans-fast), color var(--trans-fast);
+            cursor: pointer;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-weight: 500;
         }
 
-        .mini-pill.accent {
-            border-color: var(--border);
-            font-weight: 700;
-            color: var(--fg);
+        .text-link:hover {
+            border-bottom-color: var(--link-border-hover);
         }
 
         /* ============================================================
-           FASE 3: STACK TÉCNICO & HABILIDADES CORE
+           FASE 02 // TRAYECTORIA PROFESIONAL VERIFICADA
            ============================================================ */
-        .stack-matrix {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+        .section-headline {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--fg);
+            margin-bottom: 4px;
         }
 
-        .stack-card {
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            padding: 16px;
-            background: var(--card-bg);
-            box-shadow: var(--relief-shadow);
+        .timeline-stream {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            transition: all var(--trans);
+            gap: 24px;
         }
 
-        .stack-card:hover {
-            border-color: var(--border);
-        }
-
-        .stack-card-title {
-            font-family: var(--font-mono);
-            font-size: 0.82rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--fg);
+        .stream-entry {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .entry-head {
+            display: flex;
+            align-items: baseline;
             justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
-        .badge-core {
-            font-size: 0.65rem;
-            padding: 1px 6px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
+        .entry-role {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--fg);
         }
 
-        .stack-point {
+        .entry-dates {
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            color: var(--fg-muted);
+        }
+
+        .entry-sub {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--fg-muted);
+        }
+
+        .entry-summary {
+            font-size: 0.95rem;
+            color: var(--fg-secondary);
+            line-height: 1.55;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+           FASE 03 // STACK TÉCNICO CORE
+           ============================================================ */
+        .stack-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px 32px;
+        }
+
+        .stack-entry {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stack-label {
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            color: var(--fg-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .stack-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--fg);
+        }
+
+        .stack-text {
+            font-size: 0.88rem;
+            color: var(--fg-secondary);
+            line-height: 1.5;
+        }
+
+        /* ============================================================
+           FASE 04 // FORMACIÓN & CONTACTO DIRECTO
+           ============================================================ */
+        .f4-columns {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+        }
+
+        .f4-block {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .f4-label {
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            color: var(--fg-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .f4-edu-item {
             display: flex;
             flex-direction: column;
             gap: 2px;
         }
 
-        .point-name {
-            font-size: 0.88rem;
-            font-weight: 700;
+        .f4-edu-title {
+            font-size: 0.95rem;
+            font-weight: 600;
             color: var(--fg);
         }
 
-        .point-desc {
-            font-size: 0.78rem;
-            color: var(--fg-secondary);
-            line-height: 1.35;
-        }
-
-        /* ============================================================
-           FASE 4: FORMACIÓN & CONTACTO DIRECTO
-           ============================================================ */
-        .dual-panel {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .panel-box {
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            padding: 18px;
-            background: var(--card-bg);
-            box-shadow: var(--relief-shadow);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .panel-title {
+        .f4-edu-meta {
             font-family: var(--font-mono);
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--fg);
-        }
-
-        .edu-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .edu-item {
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-        }
-
-        .edu-name {
-            font-size: 0.84rem;
-            font-weight: 700;
-            color: var(--fg);
-            line-height: 1.25;
-        }
-
-        .edu-meta {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
+            font-size: 0.74rem;
             color: var(--fg-muted);
         }
 
-        .contact-cta-text {
-            font-size: 0.9rem;
+        .f4-contact-prompt {
+            font-size: 1.05rem;
             color: var(--fg-secondary);
             line-height: 1.5;
         }
 
-        .contact-stack-btns {
+        .f4-links-stack {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-top: 4px;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 6px;
         }
 
         /* ============================================================
-           PIE FIJO INFERIOR
+           ESQUINA INFERIOR: INDICADOR ULTRA-DISCRETO
            ============================================================ */
-        .bottom-bar {
+        .bottom-counter {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 14px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            bottom: 36px;
+            right: 42px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--fg-muted);
+            letter-spacing: 0.1em;
             z-index: 100;
+            opacity: 0.45;
+            transition: opacity var(--trans-fast);
+        }
+
+        .bottom-counter:hover {
+            opacity: 1;
+        }
+
+        /* Inline Toast Feedback */
+        .inline-feedback {
             font-family: var(--font-mono);
             font-size: 0.72rem;
             color: var(--fg-muted);
-            background: linear-gradient(0deg, var(--bg) 70%, transparent 100%);
-            transition: background var(--trans);
-        }
-
-        .bottom-hint {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .bottom-nav-arrows {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .arrow-nav-btn {
-            border: 1px solid var(--border-light);
-            background: var(--bg);
-            color: var(--fg);
-            width: 28px;
-            height: 28px;
-            border-radius: var(--radius-sm);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: var(--relief-btn);
-            transition: all var(--trans);
-        }
-
-        .arrow-nav-btn:hover {
-            border-color: var(--border);
-        }
-
-        /* Toast Feedback */
-        .toast-box {
-            position: fixed;
-            top: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-25px);
-            background: var(--fg);
-            color: var(--bg);
-            font-family: var(--font-mono);
-            font-size: 0.78rem;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: var(--radius-sm);
             opacity: 0;
-            pointer-events: none;
-            transition: all var(--trans);
-            z-index: 999;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+            transition: opacity 0.2s ease;
+            margin-left: 8px;
         }
 
-        .toast-box.active {
+        .inline-feedback.active {
             opacity: 1;
-            transform: translateX(-50%) translateY(0);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .top-nav {
-                padding: 16px 20px;
+            .chiseled-switch-wrap {
+                top: 24px;
+                right: 24px;
             }
-            .bottom-bar {
-                padding: 12px 20px;
+            .bottom-counter {
+                bottom: 24px;
+                right: 24px;
             }
-            .hero-name {
-                font-size: 2.2rem;
-            }
-            .stack-matrix, .dual-panel {
-                grid-template-columns: 1fr;
-            }
-            .phase-view {
-                padding: 80px 16px 60px 16px;
+            .phase-screen {
+                padding: 40px 24px;
+                align-items: flex-start;
+                padding-top: 90px;
                 overflow-y: auto;
+            }
+            .p1-title {
+                font-size: 2.4rem;
+            }
+            .section-headline {
+                font-size: 1.8rem;
+            }
+            .stack-list, .f4-columns {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .p1-desc {
+                font-size: 1.05rem;
             }
         }
 
-        /* Impresión (PDF A4 Impecable) */
+        /* Impresión (PDF Limpio) */
         @media print {
             body, html {
-                overflow: visible !important;
                 height: auto !important;
+                overflow: visible !important;
                 background: #ffffff !important;
                 color: #000000 !important;
             }
-            .top-nav, .bottom-bar, .toast-box, .lightbulb-toggle {
+            .chiseled-switch-wrap, .bottom-counter {
                 display: none !important;
             }
             .phases-track {
                 transform: none !important;
                 height: auto !important;
             }
-            .phase-view {
+            .phase-screen {
                 height: auto !important;
                 padding: 30px 0 !important;
                 page-break-after: always;
@@ -703,293 +501,193 @@
 </head>
 <body>
 
-    <!-- Toast Feedback -->
-    <div class="toast-box" id="toast">✓ Email copiado al portapapeles</div>
+    <!-- ============================================================
+         INTERRUPTOR CINCELADO EN LA ESQUINA SUPERIOR DERECHA
+         ============================================================ -->
+    <div class="chiseled-switch-wrap">
+        <button class="chiseled-switch" id="btn-switch" title="Interruptor de luz (Atajo: T)" aria-label="Alternar luz">
+            <!-- Icono Cincelado de Bombilla / Conmutador -->
+            <svg class="chiseled-bulb-svg" viewBox="0 0 24 24">
+                <!-- Rosca / Base cincelada -->
+                <path d="M9 19h6M10 22h4" />
+                <!-- Contorno de la bombilla -->
+                <path class="bulb-outline" d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z" />
+                <!-- Filamento interior activo / inactivo -->
+                <circle class="filament" cx="12" cy="9" r="2.5" />
+            </svg>
+        </button>
+    </div>
 
-    <!-- Navegación Superior Fija -->
-    <header class="top-nav">
-        <div class="brand-box">
-            <span class="brand-name">Guillem Calaf Vidal</span>
-            <span class="brand-sub">Cloud & Software Engineer</span>
-        </div>
+    <!-- Micro-indicador de fase en la esquina inferior -->
+    <div class="bottom-counter" id="phase-counter">01 / 04</div>
 
-        <div class="nav-controls">
-            <!-- Píldoras de Fase 01 / 04 -->
-            <nav class="phase-stepper-pills" aria-label="Navegación de fases">
-                <button class="step-pill active" data-step="0">01</button>
-                <button class="step-pill" data-step="1">02</button>
-                <button class="step-pill" data-step="2">03</button>
-                <button class="step-pill" data-step="3">04</button>
-            </nav>
-
-            <!-- Conmutador Bombilla en Relieve (Lightbulb Toggle) -->
-            <button class="lightbulb-toggle" id="btn-bulb" title="Alternar modo claro / modo oscuro (Atajo: T)">
-                <svg class="lightbulb-icon" viewBox="0 0 24 24">
-                    <!-- Base de la bombilla -->
-                    <path d="M9 18h6M10 21h4" />
-                    <!-- Cristal / Filamento -->
-                    <path class="bulb-fill" d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z" />
-                </svg>
-            </button>
-        </div>
-    </header>
-
-    <!-- Contenedor de Fases (Single Viewport) -->
-    <main class="stage-wrapper" id="stage-wrapper">
+    <!-- ============================================================
+         ESCENARIO DE FASES (SINGLE VIEWPORT 100VH)
+         ============================================================ -->
+    <div class="stage-container" id="stage-container">
         <div class="phases-track" id="phases-track">
 
-            <!-- ============================================================
-                 FASE 1: IDENTIDAD & PROPUESTA DE VALOR
-                 ============================================================ -->
-            <section class="phase-view" id="phase-0">
-                <div class="phase-inner">
-                    <div class="phase-counter-label">
-                        <span>01 // Identidad & Enfoque</span>
-                    </div>
+            <!-- FASE 01: IDENTIDAD -->
+            <section class="phase-screen" id="phase-0">
+                <div class="phase-content">
+                    <span class="phase-num">01 / 04 · Identidad</span>
 
-                    <h1 class="hero-name">Guillem Calaf Vidal</h1>
+                    <h1 class="p1-title">Guillem Calaf Vidal</h1>
 
-                    <div class="hero-tagline">
+                    <div class="p1-subtitle">
                         <span>Software & Cloud Engineer</span>
-                        <span class="tagline-sep">·</span>
+                        <span>·</span>
                         <span>Ex-Google Associate Cloud Engineer (Concentrix)</span>
-                        <span class="tagline-sep">·</span>
-                        <span>Barcelona</span>
                     </div>
 
-                    <p class="hero-manifesto">
-                        Diseño arquitecturas cloud escalables sobre <strong>Google Cloud Platform (GCP)</strong>. Desarrollo de <strong>APIs asíncronas de alto rendimiento con FastAPI</strong> y creación ágil de interfaces frontend con <strong>Next.js asistido por agentes de IA</strong>.
+                    <p class="p1-desc">
+                        Diseño de infraestructura cloud en <strong>Google Cloud Platform (GCP)</strong>, desarrollo de APIs asíncronas de alto rendimiento con <strong>FastAPI</strong> y creación ágil de interfaces frontend con <strong>Next.js asistido por agentes de IA</strong>.
                     </p>
 
-                    <div class="hero-actions-row">
-                        <button class="btn-relief btn-solid" id="btn-copy-p1">
-                            <span>📋 Copiar Email</span>
-                            <kbd>C</kbd>
+                    <div class="text-links-row">
+                        <button class="text-link" id="btn-copy-p1">
+                            <span>Copiar gcalaf99@gmail.com</span>
                         </button>
-                        <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="btn-relief">
-                            <span>✉️ Contactar</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="btn-relief">
-                            <span>LinkedIn ↗</span>
-                            <kbd>L</kbd>
-                        </a>
-                        <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="btn-relief">
-                            <span>GitHub ↗</span>
-                            <kbd>G</kbd>
-                        </a>
+                        <span class="inline-feedback" id="feedback-p1">✓ copiado</span>
+                        <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="text-link">Contactar ↗</a>
+                        <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="text-link">LinkedIn ↗</a>
+                        <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="text-link">GitHub ↗</a>
                     </div>
                 </div>
             </section>
 
-            <!-- ============================================================
-                 FASE 2: TRAYECTORIA PROFESIONAL
-                 ============================================================ -->
-            <section class="phase-view" id="phase-1">
-                <div class="phase-inner">
-                    <div class="phase-counter-label">
-                        <span>02 // Trayectoria Profesional Verificada</span>
-                    </div>
+            <!-- FASE 02: TRAYECTORIA -->
+            <section class="phase-screen" id="phase-1">
+                <div class="phase-content">
+                    <span class="phase-num">02 / 04 · Trayectoria Profesional</span>
 
-                    <div class="timeline-clean">
+                    <h2 class="section-headline">Experiencia Verificada</h2>
+
+                    <div class="timeline-stream">
                         <!-- Google / Concentrix -->
-                        <article class="job-item">
-                            <div class="job-head">
-                                <h2 class="job-role">Google Associate Cloud Engineer</h2>
-                                <span class="job-company">Concentrix Corporation · Barcelona</span>
-                                <span class="job-year">2023 — 2024</span>
+                        <div class="stream-entry">
+                            <div class="entry-head">
+                                <span class="entry-role">Google Associate Cloud Engineer</span>
+                                <span class="entry-dates">2023 — 2024</span>
                             </div>
-                            <p class="job-desc">
-                                Ingeniería y soporte de infraestructura crítica en Google Cloud Platform (GCP) para cuentas internacionales en producción. Resolución de incidencias complejas en Compute Engine, clústeres GKE (Kubernetes), Cloud Storage, VPC e IAM bajo estrictos acuerdos de nivel de servicio (SLAs).
+                            <span class="entry-sub">Concentrix Corporation · Barcelona</span>
+                            <p class="entry-summary">
+                                Soporte e ingeniería técnica de infraestructura crítica en Google Cloud Platform (GCP) para producción internacional. Diagnóstico y resolución en Compute Engine, GKE (Kubernetes), VPC, IAM y Cloud Storage bajo estrictos acuerdos de nivel de servicio (SLAs).
                             </p>
-                            <div class="job-pills">
-                                <span class="mini-pill accent">Google Cloud Platform</span>
-                                <span class="mini-pill accent">Kubernetes (GKE)</span>
-                                <span class="mini-pill">Compute Engine</span>
-                                <span class="mini-pill">IAM Security</span>
-                                <span class="mini-pill">VPC Networking</span>
-                                <span class="mini-pill">SLAs Críticos</span>
-                            </div>
-                        </article>
+                        </div>
 
                         <!-- eSonde -->
-                        <article class="job-item">
-                            <div class="job-head">
-                                <h2 class="job-role">Desarrollador Web Fullstack</h2>
-                                <span class="job-company">eSonde Network Monitoring, S.L. · Molins de Rei</span>
-                                <span class="job-year">2020 — 2021</span>
+                        <div class="stream-entry">
+                            <div class="entry-head">
+                                <span class="entry-role">Desarrollador Web Fullstack</span>
+                                <span class="entry-dates">2020 — 2021</span>
                             </div>
-                            <p class="job-desc">
-                                Desarrollo de herramientas de telemetría y monitorización de red en tiempo real. Construcción de servicios con Node.js, PHP y JavaScript, junto a normalización y optimización de consultas en bases de datos relacionales SQL.
+                            <span class="entry-sub">eSonde Network Monitoring · Molins de Rei</span>
+                            <p class="entry-summary">
+                                Telemetría de red y monitorización en tiempo real. Construcción de servicios con Node.js, PHP y JavaScript, junto a normalización y modelado de consultas analíticas en bases de datos relacionales SQL.
                             </p>
-                            <div class="job-pills">
-                                <span class="mini-pill">JavaScript</span>
-                                <span class="mini-pill">Node.js</span>
-                                <span class="mini-pill">PHP</span>
-                                <span class="mini-pill">SQL Relacional</span>
-                                <span class="mini-pill">Telemetría</span>
-                            </div>
-                        </article>
+                        </div>
 
                         <!-- ADTEL -->
-                        <article class="job-item">
-                            <div class="job-head">
-                                <h2 class="job-role">Administrador de Sistemas y Redes</h2>
-                                <span class="job-company">ADTEL Telecomunicaciones · Molins de Rei</span>
-                                <span class="job-year">2019</span>
+                        <div class="stream-entry">
+                            <div class="entry-head">
+                                <span class="entry-role">Administrador de Sistemas y Redes</span>
+                                <span class="entry-dates">2019</span>
                             </div>
-                            <p class="job-desc">
-                                Despliegue y mantenimiento de servidores físicos y virtuales Linux, gestión de switches gestionables, routers Cisco y políticas de cortafuegos perimetrales.
+                            <span class="entry-sub">ADTEL Telecomunicaciones · Molins de Rei</span>
+                            <p class="entry-summary">
+                                Despliegue y administración de servidores físicos y virtuales Linux, conmutación de red gestionable Cisco y políticas de seguridad perimetral con cortafuegos.
                             </p>
-                            <div class="job-pills">
-                                <span class="mini-pill">Linux Server</span>
-                                <span class="mini-pill">Redes Cisco</span>
-                                <span class="mini-pill">Firewalls</span>
-                            </div>
-                        </article>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ============================================================
-                 FASE 3: STACK TÉCNICO CORE
-                 ============================================================ -->
-            <section class="phase-view" id="phase-2">
-                <div class="phase-inner">
-                    <div class="phase-counter-label">
-                        <span>03 // Stack Técnico & Metodología</span>
-                    </div>
+            <!-- FASE 03: STACK TÉCNICO -->
+            <section class="phase-screen" id="phase-2">
+                <div class="phase-content">
+                    <span class="phase-num">03 / 04 · Stack Técnico</span>
 
-                    <div class="stack-matrix">
-                        <!-- Backend Core: FastAPI -->
-                        <div class="stack-card">
-                            <div class="stack-card-title">
-                                <span>⚡ Backend & APIs</span>
-                                <span class="badge-core">API Core</span>
-                            </div>
-                            <div class="stack-point">
-                                <span class="point-name">FastAPI & Python</span>
-                                <span class="point-desc">Framework prioritario: APIs REST asíncronas de alta velocidad, tipado Pydantic y documentación OpenAPI.</span>
-                            </div>
-                            <div class="stack-point">
-                                <span class="point-name">Node.js & Persistencia</span>
-                                <span class="point-desc">Microservicios JavaScript, bases de datos PostgreSQL, MySQL y MongoDB.</span>
-                            </div>
+                    <h2 class="section-headline">Habilidades Core</h2>
+
+                    <div class="stack-list">
+                        <!-- Backend Core -->
+                        <div class="stack-entry">
+                            <span class="stack-label">API Core</span>
+                            <h3 class="stack-name">FastAPI & Python</h3>
+                            <p class="stack-text">Framework prioritario para microservicios REST asíncronos de baja latencia, tipado estricto con Pydantic y documentación OpenAPI nativa.</p>
                         </div>
 
-                        <!-- Frontend: Next.js con IA -->
-                        <div class="stack-card">
-                            <div class="stack-card-title">
-                                <span>🤖 Frontend & Flujo IA</span>
-                                <span class="badge-core">Agentes IA</span>
-                            </div>
-                            <div class="stack-point">
-                                <span class="point-name">Next.js & React</span>
-                                <span class="point-desc">Interfaces modernas de usuario, Server Components y renderizado híbrido.</span>
-                            </div>
-                            <div class="stack-point">
-                                <span class="point-name">Pair-Programming con Agentes de IA</span>
-                                <span class="point-desc">Metodología transparente: iteración ultrarrápida (x3) y validación de arquitectura asistida por IA.</span>
-                            </div>
+                        <!-- Frontend Ágil -->
+                        <div class="stack-entry">
+                            <span class="stack-label">Agentes de IA</span>
+                            <h3 class="stack-name">Next.js & React</h3>
+                            <p class="stack-text">Desarrollo acelerado de interfaces reactivas modernas y Server Components mediante pair-programming con agentes autónomos de IA.</p>
                         </div>
 
-                        <!-- Cloud & DevOps -->
-                        <div class="stack-card">
-                            <div class="stack-card-title">
-                                <span>☁️ Cloud & Infraestructura</span>
-                                <span class="badge-core">Certificado</span>
-                            </div>
-                            <div class="stack-point">
-                                <span class="point-name">Google Cloud Platform (GCP)</span>
-                                <span class="point-desc">Compute Engine, Cloud Run, Cloud Functions, Pub/Sub, Cloud Storage y BigQuery.</span>
-                            </div>
-                            <div class="stack-point">
-                                <span class="point-name">Kubernetes (GKE) & Docker</span>
-                                <span class="point-desc">Contenedores, despliegues declarativos, ingress y políticas de seguridad IAM.</span>
-                            </div>
+                        <!-- Cloud & Infraestructura -->
+                        <div class="stack-entry">
+                            <span class="stack-label">Cloud Certified</span>
+                            <h3 class="stack-name">Google Cloud (GCP) & GKE</h3>
+                            <p class="stack-text">Compute Engine, Kubernetes (GKE), Docker, Cloud Storage, políticas de menor privilegio con IAM y topologías VPC seguras.</p>
                         </div>
 
                         <!-- Datos & Sistemas -->
-                        <div class="stack-card">
-                            <div class="stack-card-title">
-                                <span>🧠 Datos & Sistemas</span>
-                                <span class="badge-core">Linux Core</span>
-                            </div>
-                            <div class="stack-point">
-                                <span class="point-name">Big Data & Machine Learning</span>
-                                <span class="point-desc">Pandas, NumPy y conceptos aplicados de analítica de datos en Python.</span>
-                            </div>
-                            <div class="stack-point">
-                                <span class="point-name">Sistemas Linux & Redes</span>
-                                <span class="point-desc">Administración Debian/Ubuntu, Bash scripting, topologías TCP/IP y cortafuegos.</span>
-                            </div>
+                        <div class="stack-entry">
+                            <span class="stack-label">Sistemas & Datos</span>
+                            <h3 class="stack-name">Linux & Bases de Datos</h3>
+                            <p class="stack-text">PostgreSQL, MySQL, MongoDB, scripts de automatización en Bash, administración de servidores Debian/Ubuntu y redes TCP/IP.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ============================================================
-                 FASE 4: FORMACIÓN & CONTACTO DIRECTO
-                 ============================================================ -->
-            <section class="phase-view" id="phase-3">
-                <div class="phase-inner">
-                    <div class="phase-counter-label">
-                        <span>04 // Formación Oficial & Contacto</span>
-                    </div>
+            <!-- FASE 04: FORMACIÓN & CONTACTO -->
+            <section class="phase-screen" id="phase-3">
+                <div class="phase-content">
+                    <span class="phase-num">04 / 04 · Formación & Contacto</span>
 
-                    <div class="dual-panel">
+                    <div class="f4-columns">
                         <!-- Formación -->
-                        <div class="panel-box">
-                            <h3 class="panel-title">Acreditaciones & Títulos</h3>
-                            <ul class="edu-list">
-                                <li class="edu-item">
-                                    <span class="edu-name">Google Associate Cloud Engineer</span>
-                                    <span class="edu-meta">Certificación Oficial Google Cloud</span>
-                                </li>
-                                <li class="edu-item">
-                                    <span class="edu-name">Bootcamp Big Data & IA con Python</span>
-                                    <span class="edu-meta">Fundación Esplai · 2025</span>
-                                </li>
-                                <li class="edu-item">
-                                    <span class="edu-name">Máster FP en Inteligencia Artificial y Big Data</span>
-                                    <span class="edu-meta">INS Bernat el Ferrer · 2022 — 2023</span>
-                                </li>
-                                <li class="edu-item">
-                                    <span class="edu-name">CFGS Desarrollo de Aplicaciones Web (DAW)</span>
-                                    <span class="edu-meta">INS Bernat el Ferrer · 2020 — 2021</span>
-                                </li>
-                                <li class="edu-item">
-                                    <span class="edu-name">CFGS Adm. de Sistemas Informáticos en Red (ASIX)</span>
-                                    <span class="edu-meta">INS Bernat el Ferrer · 2018 — 2020</span>
-                                </li>
-                            </ul>
+                        <div class="f4-block">
+                            <span class="f4-label">Acreditaciones Técnicas</span>
+                            <div class="f4-edu-item">
+                                <span class="f4-edu-title">Google Associate Cloud Engineer</span>
+                                <span class="f4-edu-meta">Certificación Oficial Google Cloud</span>
+                            </div>
+                            <div class="f4-edu-item">
+                                <span class="f4-edu-title">Bootcamp Big Data & IA con Python</span>
+                                <span class="f4-edu-meta">Fundación Esplai · 2025</span>
+                            </div>
+                            <div class="f4-edu-item">
+                                <span class="f4-edu-title">Máster FP en IA y Big Data</span>
+                                <span class="f4-edu-meta">INS Bernat el Ferrer · 2022 — 2023</span>
+                            </div>
+                            <div class="f4-edu-item">
+                                <span class="f4-edu-title">CFGS Desarrollo de Aplicaciones Web (DAW)</span>
+                                <span class="f4-edu-meta">INS Bernat el Ferrer · 2020 — 2021</span>
+                            </div>
+                            <div class="f4-edu-item">
+                                <span class="f4-edu-title">CFGS Adm. de Sistemas Informáticos en Red (ASIX)</span>
+                                <span class="f4-edu-meta">INS Bernat el Ferrer · 2018 — 2020</span>
+                            </div>
                         </div>
 
-                        <!-- Contacto Directo -->
-                        <div class="panel-box">
-                            <h3 class="panel-title">Contacto Directo</h3>
-                            <p class="contact-cta-text">
-                                Disponible para posiciones de Cloud, Backend o Fullstack en Barcelona o en remoto.
+                        <!-- Contacto -->
+                        <div class="f4-block">
+                            <span class="f4-label">Contacto Directo</span>
+                            <p class="f4-contact-prompt">
+                                Abierto a posiciones de Cloud, Backend o Fullstack en Barcelona o en remoto.
                             </p>
-
-                            <div class="contact-stack-btns">
-                                <button class="btn-relief btn-solid" id="btn-copy-p4">
-                                    <span>📋 Copiar gcalaf99@gmail.com</span>
-                                    <kbd>C</kbd>
-                                </button>
-                                <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="btn-relief">
-                                    <span>✉️ Abrir Correo</span>
-                                </a>
-                                <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="btn-relief">
-                                    <span>LinkedIn ↗</span>
-                                    <kbd>L</kbd>
-                                </a>
-                                <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="btn-relief">
-                                    <span>GitHub ↗</span>
-                                    <kbd>G</kbd>
-                                </a>
-                                <button class="btn-relief" id="btn-print-p4">
-                                    <span>🖨️ Exportar CV en PDF</span>
-                                </button>
+                            <div class="f4-links-stack">
+                                <div>
+                                    <button class="text-link" id="btn-copy-p4">Copiar gcalaf99@gmail.com</button>
+                                    <span class="inline-feedback" id="feedback-p4">✓ copiado</span>
+                                </div>
+                                <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="text-link">Abrir Correo ↗</a>
+                                <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="text-link">LinkedIn ↗</a>
+                                <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="text-link">GitHub ↗</a>
+                                <button class="text-link" id="btn-print-p4">Exportar a PDF ↗</button>
                             </div>
                         </div>
                     </div>
@@ -997,132 +695,94 @@
             </section>
 
         </div>
-    </main>
-
-    <!-- Barra Inferior Fija -->
-    <footer class="bottom-bar">
-        <div class="bottom-hint">
-            <span>Scroll, flechas <kbd>↑</kbd> <kbd>↓</kbd> o números para navegar fases</span>
-        </div>
-
-        <div class="bottom-nav-arrows">
-            <button class="arrow-nav-btn" id="btn-prev" title="Fase anterior (↑)">↑</button>
-            <button class="arrow-nav-btn" id="btn-next" title="Siguiente fase (↓)">↓</button>
-        </div>
-    </footer>
+    </div>
 
     <!-- ============================================================
-         CONTROLADOR DE FASES & INTERACCIÓN (<75 LÍNEAS)
+         CONTROLADOR MINIMALISTA DE FASES & INTERRUPTOR (<60 LÍNEAS)
          ============================================================ -->
     <script>
         (function () {
             'use strict';
 
             const EMAIL = 'gcalaf99@gmail.com';
-            const TOTAL_PHASES = 4;
-            let currentPhase = 0;
-            let isLocked = false;
+            const TOTAL = 4;
+            let current = 0;
+            let locked = false;
 
             const track = document.getElementById('phases-track');
-            const stepPills = document.querySelectorAll('.step-pill');
-            const btnBulb = document.getElementById('btn-bulb');
-            const btnPrev = document.getElementById('btn-prev');
-            const btnNext = document.getElementById('btn-next');
+            const counter = document.getElementById('phase-counter');
+            const btnSwitch = document.getElementById('btn-switch');
             const btnCopyP1 = document.getElementById('btn-copy-p1');
             const btnCopyP4 = document.getElementById('btn-copy-p4');
+            const fbP1 = document.getElementById('feedback-p1');
+            const fbP4 = document.getElementById('feedback-p4');
             const btnPrintP4 = document.getElementById('btn-print-p4');
-            const toast = document.getElementById('toast');
 
-            // 1. Navegación entre Fases
-            function goToPhase(index) {
-                if (index < 0 || index >= TOTAL_PHASES) return;
-                currentPhase = index;
-                track.style.transform = `translateY(-${currentPhase * 100}vh)`;
-
-                stepPills.forEach((p, idx) => {
-                    if (idx === currentPhase) {
-                        p.classList.add('active');
-                    } else {
-                        p.classList.remove('active');
-                    }
-                });
+            // 1. Navegar entre Fases
+            function setPhase(idx) {
+                if (idx < 0 || idx >= TOTAL) return;
+                current = idx;
+                track.style.transform = `translateY(-${current * 100}vh)`;
+                counter.textContent = `0${current + 1} / 0${TOTAL}`;
             }
 
-            stepPills.forEach(p => {
-                p.addEventListener('click', () => {
-                    const step = parseInt(p.getAttribute('data-step'), 10);
-                    goToPhase(step);
-                });
-            });
-
-            if (btnNext) btnNext.addEventListener('click', () => goToPhase(currentPhase + 1));
-            if (btnPrev) btnPrev.addEventListener('click', () => goToPhase(currentPhase - 1));
-
-            // 2. Control de Rueda de Ratón con Debounce Preciso
+            // 2. Control de Rueda de Ratón / Trackpad con Debounce
             window.addEventListener('wheel', (e) => {
-                if (isLocked) return;
-                const delta = e.deltaY;
-                if (Math.abs(delta) > 28) {
-                    isLocked = true;
-                    if (delta > 0) {
-                        goToPhase(currentPhase + 1);
-                    } else {
-                        goToPhase(currentPhase - 1);
-                    }
-                    setTimeout(() => { isLocked = false; }, 520);
+                if (locked) return;
+                const dy = e.deltaY;
+                if (Math.abs(dy) > 25) {
+                    locked = true;
+                    if (dy > 0) setPhase(current + 1);
+                    else setPhase(current - 1);
+                    setTimeout(() => { locked = false; }, 480);
                 }
             }, { passive: true });
 
-            // 3. Control Táctil (Móvil)
-            let touchStartY = 0;
+            // 3. Control Táctil en Móvil
+            let touchY = 0;
             window.addEventListener('touchstart', (e) => {
-                if (e.touches && e.touches.length > 0) {
-                    touchStartY = e.touches[0].clientY;
-                }
+                if (e.touches && e.touches.length > 0) touchY = e.touches[0].clientY;
             }, { passive: true });
 
             window.addEventListener('touchend', (e) => {
-                if (isLocked) return;
+                if (locked) return;
                 if (e.changedTouches && e.changedTouches.length > 0) {
-                    const diff = touchStartY - e.changedTouches[0].clientY;
-                    if (Math.abs(diff) > 42) {
-                        isLocked = true;
-                        if (diff > 0) {
-                            goToPhase(currentPhase + 1);
-                        } else {
-                            goToPhase(currentPhase - 1);
-                        }
-                        setTimeout(() => { isLocked = false; }, 520);
+                    const diff = touchY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 38) {
+                        locked = true;
+                        if (diff > 0) setPhase(current + 1);
+                        else setPhase(current - 1);
+                        setTimeout(() => { locked = false; }, 480);
                     }
                 }
             }, { passive: true });
 
-            // 4. Conmutador de Bombilla (Modo Claro #FFFFFF / Modo Oscuro #000000)
-            function toggleTheme() {
+            // 4. Conmutador de Luz Cincelado (Modo Blanco / Modo Negro)
+            function toggleLight() {
                 const html = document.documentElement;
-                const current = html.getAttribute('data-theme') || 'light';
-                const next = current === 'light' ? 'dark' : 'light';
-                html.setAttribute('data-theme', next);
-                try { localStorage.setItem('mono_theme', next); } catch (e) {}
+                const isLight = (html.getAttribute('data-theme') || 'light') === 'light';
+                const nextTheme = isLight ? 'dark' : 'light';
+                html.setAttribute('data-theme', nextTheme);
+                try { localStorage.setItem('radical_theme', nextTheme); } catch(e) {}
             }
 
             try {
-                const saved = localStorage.getItem('mono_theme');
+                const saved = localStorage.getItem('radical_theme');
                 if (saved) document.documentElement.setAttribute('data-theme', saved);
-            } catch (e) {}
+            } catch(e) {}
 
-            if (btnBulb) btnBulb.addEventListener('click', toggleTheme);
+            if (btnSwitch) btnSwitch.addEventListener('click', toggleLight);
 
-            // 5. Copiado de Email
-            let toastTimer = null;
-            function copyEmail() {
-                const onCopied = () => {
-                    toast.classList.add('active');
-                    if (toastTimer) clearTimeout(toastTimer);
-                    toastTimer = setTimeout(() => toast.classList.remove('active'), 2200);
+            // 5. Copiado de Correo con Feedback Inline
+            function copyEmail(feedbackEl) {
+                const showFeedback = () => {
+                    if (feedbackEl) {
+                        feedbackEl.classList.add('active');
+                        setTimeout(() => feedbackEl.classList.remove('active'), 2000);
+                    }
                 };
                 if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(EMAIL).then(onCopied);
+                    navigator.clipboard.writeText(EMAIL).then(showFeedback);
                 } else {
                     const ta = document.createElement('textarea');
                     ta.value = EMAIL;
@@ -1130,45 +790,29 @@
                     ta.style.opacity = '0';
                     document.body.appendChild(ta);
                     ta.select();
-                    try { document.execCommand('copy'); onCopied(); } catch(e){}
+                    try { document.execCommand('copy'); showFeedback(); } catch(e){}
                     document.body.removeChild(ta);
                 }
             }
 
-            if (btnCopyP1) btnCopyP1.addEventListener('click', copyEmail);
-            if (btnCopyP4) btnCopyP4.addEventListener('click', copyEmail);
+            if (btnCopyP1) btnCopyP1.addEventListener('click', () => copyEmail(fbP1));
+            if (btnCopyP4) btnCopyP4.addEventListener('click', () => copyEmail(fbP4));
             if (btnPrintP4) btnPrintP4.addEventListener('click', () => window.print());
 
             // 6. Atajos de Teclado
             window.addEventListener('keydown', (e) => {
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-                const key = e.key.toLowerCase();
-
-                if (key === 'arrowdown' || key === 'pagedown' || key === ' ') {
-                    e.preventDefault();
-                    goToPhase(currentPhase + 1);
-                } else if (key === 'arrowup' || key === 'pageup') {
-                    e.preventDefault();
-                    goToPhase(currentPhase - 1);
-                } else if (key === '1') {
-                    goToPhase(0);
-                } else if (key === '2') {
-                    goToPhase(1);
-                } else if (key === '3') {
-                    goToPhase(2);
-                } else if (key === '4') {
-                    goToPhase(3);
-                } else if (key === 't') {
-                    e.preventDefault();
-                    toggleTheme();
-                } else if (key === 'c') {
-                    e.preventDefault();
-                    copyEmail();
-                } else if (key === 'l') {
-                    window.open('https://www.linkedin.com/in/guillem-calaf-vidal/', '_blank');
-                } else if (key === 'g') {
-                    window.open('https://github.com/GCalaf', '_blank');
-                }
+                const k = e.key.toLowerCase();
+                if (k === 'arrowdown' || k === 'pagedown' || k === ' ') {
+                    e.preventDefault(); setPhase(current + 1);
+                } else if (k === 'arrowup' || k === 'pageup') {
+                    e.preventDefault(); setPhase(current - 1);
+                } else if (k === '1') setPhase(0);
+                else if (k === '2') setPhase(1);
+                else if (k === '3') setPhase(2);
+                else if (k === '4') setPhase(3);
+                else if (k === 't') { e.preventDefault(); toggleLight(); }
+                else if (k === 'c') { e.preventDefault(); copyEmail(fbP1); }
             });
 
         })();
