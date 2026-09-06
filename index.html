@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guillem Calaf Vidal · Software & Cloud Engineer</title>
-    <meta name="description" content="Guillem Calaf Vidal. Software & Cloud Engineer. Ex-Google Associate Cloud Engineer (Concentrix), FastAPI y Next.js con agentes de IA.">
+    <meta name="description" content="Guillem Calaf Vidal. Software & Cloud Engineer. Ex-Google Associate Cloud Engineer, FastAPI y Next.js con agentes de IA.">
     <meta name="author" content="Guillem Calaf Vidal">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' fill='none' stroke='currentColor' stroke-width='12'/><circle cx='50' cy='50' r='16' fill='currentColor'/></svg>">
+    <script>
+        try {
+            var th = localStorage.getItem('radical_theme');
+            if (th) document.documentElement.setAttribute('data-theme', th);
+            var lg = localStorage.getItem('portfolio_lang');
+            if (lg) document.documentElement.setAttribute('lang', lg);
+        } catch(e) {}
+    </script>
 
     <!-- Tipografía Editorial de Máxima Pureza (Inter & JetBrains Mono) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,6 +77,163 @@
         /* Permitir selección de texto dentro de las fases */
         .phase-content {
             user-select: text;
+        }
+
+        /* ============================================================
+           SELECTOR INICIAL DE IDIOMA / LANGUAGE GATE
+           Aprovechando para añadir nivel: Español (Nativo) / English (B2)
+           ============================================================ */
+        .lang-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+        }
+
+        .lang-gate.dismissed {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .lang-gate-card {
+            max-width: 480px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+        }
+
+        .lang-gate-meta {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: var(--fg-muted);
+            text-transform: uppercase;
+        }
+
+        .lang-gate-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--fg);
+        }
+
+        .lang-gate-options {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .lang-gate-btn {
+            background: transparent;
+            border: 1px solid var(--link-border);
+            border-radius: 6px;
+            padding: 14px 24px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            min-width: 140px;
+            transition: 
+                border-color var(--trans-fast),
+                transform var(--trans-fast),
+                box-shadow var(--trans-fast);
+            outline: none;
+            color: var(--fg);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lang-gate-btn:hover {
+            border-color: var(--fg);
+            transform: translateY(-2px);
+        }
+
+        .lang-gate-btn:active {
+            transform: translateY(0);
+        }
+
+        .lang-gate-btn:focus-visible {
+            outline: 1px solid var(--fg);
+            outline-offset: 3px;
+        }
+
+        .lang-gate-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--fg);
+        }
+
+        .lang-gate-level {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--fg-muted);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .lang-gate-sep {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--fg-ghost);
+        }
+
+        /* ============================================================
+           CONMUTADOR PERSISTENTE DE IDIOMA (ARRIBA A LA IZQUIERDA)
+           ============================================================ */
+        .top-lang-wrap {
+            position: fixed;
+            top: 36px;
+            left: 42px;
+            z-index: 1000;
+        }
+
+        .top-lang-toggle {
+            background: transparent;
+            border: 1px solid var(--link-border);
+            border-radius: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--fg);
+            letter-spacing: 0.06em;
+            transition: 
+                border-color var(--trans-fast),
+                color var(--trans-fast),
+                transform var(--trans-fast);
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .top-lang-toggle:hover {
+            border-color: var(--fg);
+            transform: translateY(-1px);
+        }
+
+        .top-lang-toggle:active {
+            transform: translateY(0);
+        }
+
+        .top-lang-toggle:focus-visible {
+            outline: 1px solid var(--fg);
+            outline-offset: 2px;
         }
 
         /* ============================================================
@@ -490,6 +655,10 @@
                 top: 24px;
                 right: 24px;
             }
+            .top-lang-wrap {
+                top: 24px;
+                left: 24px;
+            }
             .bottom-counter {
                 bottom: 24px;
                 right: 24px;
@@ -523,7 +692,7 @@
                 background: #ffffff !important;
                 color: #000000 !important;
             }
-            .theme-toggle-wrap, .chiseled-bulb-wrap, .chiseled-switch-wrap, .bottom-counter {
+            .lang-gate, .top-lang-wrap, .theme-toggle-wrap, .chiseled-bulb-wrap, .chiseled-switch-wrap, .bottom-counter {
                 display: none !important;
             }
             .phases-track {
@@ -539,6 +708,44 @@
     </style>
 </head>
 <body>
+
+    <!-- ============================================================
+         SELECTOR INICIAL DE IDIOMA / LANGUAGE GATE
+         Aprovechando para añadir nivel: Español (Nativo) / English (B2)
+         ============================================================ -->
+    <div class="lang-gate" id="lang-gate" role="dialog" aria-modal="true" aria-label="Selección de idioma / Language selection">
+        <div class="lang-gate-card">
+            <span class="lang-gate-meta">00 / Idioma · Language</span>
+            <h2 class="lang-gate-title">Selecciona idioma / Select language</h2>
+            <div class="lang-gate-options">
+                <button class="lang-gate-btn" id="btn-gate-es" data-lang="es" aria-label="Español (Nativo)">
+                    <span class="lang-gate-name">Español</span>
+                    <span class="lang-gate-level">Nativo</span>
+                </button>
+                <div class="lang-gate-sep">/</div>
+                <button class="lang-gate-btn" id="btn-gate-en" data-lang="en" aria-label="English (B2)">
+                    <span class="lang-gate-name">English</span>
+                    <span class="lang-gate-level">B2</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        try {
+            if (sessionStorage.getItem('portfolio_lang_set') === 'true') {
+                document.getElementById('lang-gate').classList.add('dismissed');
+            }
+        } catch(e) {}
+    </script>
+
+    <!-- ============================================================
+         CONMUTADOR PERSISTENTE DE IDIOMA (ARRIBA A LA IZQUIERDA)
+         ============================================================ -->
+    <div class="top-lang-wrap">
+        <button class="top-lang-toggle" id="btn-top-lang" title="Cambiar idioma / Switch language" aria-label="Cambiar idioma">
+            <span class="lang-badge" id="lang-indicator">ES · Nativo</span>
+        </button>
+    </div>
 
     <!-- ============================================================
          CONMUTADOR SOL / LUNA MINIMALISTA (ARRIBA A LA DERECHA)
@@ -580,17 +787,17 @@
             <!-- FASE 01: IDENTIDAD -->
             <section class="phase-screen" id="phase-0">
                 <div class="phase-content">
-                    <span class="phase-num">01 / 04 · Identidad</span>
+                    <span class="phase-num" data-i18n="p0_num">01 / 04 · Identidad</span>
 
                     <h1 class="p1-title">Guillem Calaf Vidal</h1>
 
                     <div class="p1-subtitle">
-                        <span>Software & Cloud Engineer</span>
+                        <span data-i18n="p0_sub_role">Software & Cloud Engineer</span>
                         <span>·</span>
-                        <span>Ex-Google Associate Cloud Engineer</span>
+                        <span data-i18n="p0_sub_ex">Ex-Google Associate Cloud Engineer</span>
                     </div>
 
-                    <p class="p1-desc">
+                    <p class="p1-desc" data-i18n="p0_desc">
                         Diseño de infraestructura cloud en <strong>Google Cloud Platform (GCP)</strong>, desarrollo de APIs asíncronas de alto rendimiento con <strong>FastAPI</strong> y creación ágil de interfaces frontend con <strong>Next.js asistido por agentes de IA</strong>.
                     </p>
                 </div>
@@ -599,19 +806,19 @@
             <!-- FASE 02: TRAYECTORIA -->
             <section class="phase-screen" id="phase-1">
                 <div class="phase-content">
-                    <span class="phase-num">02 / 04 · Trayectoria Profesional</span>
+                    <span class="phase-num" data-i18n="p1_num">02 / 04 · Trayectoria Profesional</span>
 
-                    <h2 class="section-headline">Experiencia Verificada</h2>
+                    <h2 class="section-headline" data-i18n="p1_headline">Experiencia Verificada</h2>
 
                     <div class="timeline-stream">
                         <!-- Google / Concentrix -->
                         <div class="stream-entry">
                             <div class="entry-head">
-                                <span class="entry-role">Google Associate Cloud Engineer</span>
-                                <span class="entry-dates">2023 — 2024</span>
+                                <span class="entry-role" data-i18n="p1_r1_role">Google Associate Cloud Engineer</span>
+                                <span class="entry-dates" data-i18n="p1_r1_dates">2023 — 2024</span>
                             </div>
-                            <span class="entry-sub">Concentrix Corporation · Barcelona</span>
-                            <p class="entry-summary">
+                            <span class="entry-sub" data-i18n="p1_r1_sub">Concentrix Corporation · Barcelona</span>
+                            <p class="entry-summary" data-i18n="p1_r1_desc">
                                 Soporte e ingeniería técnica de infraestructura crítica en Google Cloud Platform (GCP) para producción internacional. Diagnóstico y resolución en Compute Engine, GKE (Kubernetes), VPC, IAM y Cloud Storage bajo estrictos acuerdos de nivel de servicio (SLAs).
                             </p>
                         </div>
@@ -619,11 +826,11 @@
                         <!-- eSonde -->
                         <div class="stream-entry">
                             <div class="entry-head">
-                                <span class="entry-role">Desarrollador Web Fullstack</span>
-                                <span class="entry-dates">2020 — 2021</span>
+                                <span class="entry-role" data-i18n="p1_r2_role">Desarrollador Web Fullstack</span>
+                                <span class="entry-dates" data-i18n="p1_r2_dates">2020 — 2021</span>
                             </div>
-                            <span class="entry-sub">eSonde Network Monitoring · Molins de Rei</span>
-                            <p class="entry-summary">
+                            <span class="entry-sub" data-i18n="p1_r2_sub">eSonde Network Monitoring · Molins de Rei</span>
+                            <p class="entry-summary" data-i18n="p1_r2_desc">
                                 Telemetría de red y monitorización en tiempo real. Construcción de servicios con Node.js, PHP y JavaScript, junto a normalización y modelado de consultas analíticas en bases de datos relacionales SQL.
                             </p>
                         </div>
@@ -631,11 +838,11 @@
                         <!-- ADTEL -->
                         <div class="stream-entry">
                             <div class="entry-head">
-                                <span class="entry-role">Administrador de Sistemas y Redes</span>
-                                <span class="entry-dates">2019</span>
+                                <span class="entry-role" data-i18n="p1_r3_role">Administrador de Sistemas y Redes</span>
+                                <span class="entry-dates" data-i18n="p1_r3_dates">2019</span>
                             </div>
-                            <span class="entry-sub">ADTEL Telecomunicaciones · Molins de Rei</span>
-                            <p class="entry-summary">
+                            <span class="entry-sub" data-i18n="p1_r3_sub">ADTEL Telecomunicaciones · Molins de Rei</span>
+                            <p class="entry-summary" data-i18n="p1_r3_desc">
                                 Despliegue y administración de servidores físicos y virtuales Linux, conmutación de red gestionable Cisco y políticas de seguridad perimetral con cortafuegos.
                             </p>
                         </div>
@@ -646,37 +853,37 @@
             <!-- FASE 03: STACK TÉCNICO -->
             <section class="phase-screen" id="phase-2">
                 <div class="phase-content">
-                    <span class="phase-num">03 / 04 · Stack Técnico</span>
+                    <span class="phase-num" data-i18n="p2_num">03 / 04 · Stack Técnico</span>
 
-                    <h2 class="section-headline">Habilidades Core</h2>
+                    <h2 class="section-headline" data-i18n="p2_headline">Habilidades Core</h2>
 
                     <div class="stack-list">
                         <!-- Backend Core -->
                         <div class="stack-entry">
-                            <span class="stack-label">API Core</span>
-                            <h3 class="stack-name">FastAPI & Python</h3>
-                            <p class="stack-text">Framework prioritario para microservicios REST asíncronos de baja latencia, tipado estricto con Pydantic y documentación OpenAPI nativa.</p>
+                            <span class="stack-label" data-i18n="p2_s1_label">API Core</span>
+                            <h3 class="stack-name" data-i18n="p2_s1_name">FastAPI & Python</h3>
+                            <p class="stack-text" data-i18n="p2_s1_desc">Framework prioritario para microservicios REST asíncronos de baja latencia, tipado estricto con Pydantic y documentación OpenAPI nativa.</p>
                         </div>
 
                         <!-- Frontend Ágil -->
                         <div class="stack-entry">
-                            <span class="stack-label">Agentes de IA</span>
-                            <h3 class="stack-name">Next.js & React</h3>
-                            <p class="stack-text">Desarrollo acelerado de interfaces reactivas modernas y Server Components mediante pair-programming con agentes autónomos de IA.</p>
+                            <span class="stack-label" data-i18n="p2_s2_label">Agentes de IA</span>
+                            <h3 class="stack-name" data-i18n="p2_s2_name">Next.js & React</h3>
+                            <p class="stack-text" data-i18n="p2_s2_desc">Desarrollo acelerado de interfaces reactivas modernas y Server Components mediante pair-programming con agentes autónomos de IA.</p>
                         </div>
 
                         <!-- Cloud & Infraestructura -->
                         <div class="stack-entry">
-                            <span class="stack-label">Cloud Certified</span>
-                            <h3 class="stack-name">Google Cloud (GCP) & GKE</h3>
-                            <p class="stack-text">Compute Engine, Kubernetes (GKE), Docker, Cloud Storage, políticas de menor privilegio con IAM y topologías VPC seguras.</p>
+                            <span class="stack-label" data-i18n="p2_s3_label">Cloud Certified</span>
+                            <h3 class="stack-name" data-i18n="p2_s3_name">Google Cloud (GCP) & GKE</h3>
+                            <p class="stack-text" data-i18n="p2_s3_desc">Compute Engine, Kubernetes (GKE), Docker, Cloud Storage, políticas de menor privilegio con IAM y topologías VPC seguras.</p>
                         </div>
 
                         <!-- Datos & Sistemas -->
                         <div class="stack-entry">
-                            <span class="stack-label">Sistemas & Datos</span>
-                            <h3 class="stack-name">Linux & Bases de Datos</h3>
-                            <p class="stack-text">PostgreSQL, MySQL, MongoDB, scripts de automatización en Bash, administración de servidores Debian/Ubuntu y redes TCP/IP.</p>
+                            <span class="stack-label" data-i18n="p2_s4_label">Sistemas & Datos</span>
+                            <h3 class="stack-name" data-i18n="p2_s4_name">Linux & Bases de Datos</h3>
+                            <p class="stack-text" data-i18n="p2_s4_desc">PostgreSQL, MySQL, MongoDB, scripts de automatización en Bash, administración de servidores Debian/Ubuntu y redes TCP/IP.</p>
                         </div>
                     </div>
                 </div>
@@ -685,39 +892,39 @@
             <!-- FASE 04: FORMACIÓN & CONTACTO -->
             <section class="phase-screen" id="phase-3">
                 <div class="phase-content">
-                    <span class="phase-num">04 / 04 · Formación & Contacto</span>
+                    <span class="phase-num" data-i18n="p3_num">04 / 04 · Formación & Contacto</span>
 
                     <div class="f4-columns">
                         <!-- Formación -->
                         <div class="f4-block">
-                            <span class="f4-label">Acreditaciones Técnicas</span>
+                            <span class="f4-label" data-i18n="p3_edu_label">Acreditaciones Técnicas</span>
                             <div class="f4-edu-item">
-                                <span class="f4-edu-title">Google Associate Cloud Engineer</span>
-                                <span class="f4-edu-meta">Certificación Oficial Google Cloud</span>
+                                <span class="f4-edu-title" data-i18n="p3_e1_title">Google Associate Cloud Engineer</span>
+                                <span class="f4-edu-meta" data-i18n="p3_e1_meta">Certificación Oficial Google Cloud</span>
                             </div>
                             <div class="f4-edu-item">
-                                <span class="f4-edu-title">Bootcamp Big Data & IA con Python</span>
-                                <span class="f4-edu-meta">Fundación Esplai · 2025</span>
+                                <span class="f4-edu-title" data-i18n="p3_e2_title">Bootcamp Big Data & IA con Python</span>
+                                <span class="f4-edu-meta" data-i18n="p3_e2_meta">Fundación Esplai · 2025</span>
                             </div>
                             <div class="f4-edu-item">
-                                <span class="f4-edu-title">Máster FP en IA y Big Data</span>
-                                <span class="f4-edu-meta">INS Bernat el Ferrer · 2022 — 2023</span>
+                                <span class="f4-edu-title" data-i18n="p3_e3_title">Máster FP en IA y Big Data</span>
+                                <span class="f4-edu-meta" data-i18n="p3_e3_meta">INS Bernat el Ferrer · 2022 — 2023</span>
                             </div>
                             <div class="f4-edu-item">
-                                <span class="f4-edu-title">CFGS Desarrollo de Aplicaciones Web (DAW)</span>
-                                <span class="f4-edu-meta">INS Bernat el Ferrer · 2020 — 2021</span>
+                                <span class="f4-edu-title" data-i18n="p3_e4_title">CFGS Desarrollo de Aplicaciones Web (DAW)</span>
+                                <span class="f4-edu-meta" data-i18n="p3_e4_meta">INS Bernat el Ferrer · 2020 — 2021</span>
                             </div>
                             <div class="f4-edu-item">
-                                <span class="f4-edu-title">CFGS Adm. de Sistemas Informáticos en Red (ASIX)</span>
-                                <span class="f4-edu-meta">INS Bernat el Ferrer · 2018 — 2020</span>
+                                <span class="f4-edu-title" data-i18n="p3_e5_title">CFGS Adm. de Sistemas Informáticos en Red (ASIX)</span>
+                                <span class="f4-edu-meta" data-i18n="p3_e5_meta">INS Bernat el Ferrer · 2018 — 2020</span>
                             </div>
                         </div>
 
                         <!-- Contacto -->
                         <div class="f4-block">
-                            <span class="f4-label">Contacto Directo</span>
+                            <span class="f4-label" data-i18n="p3_contact_label">Contacto Directo</span>
                             <div class="f4-links-stack">
-                                <a href="mailto:gcalaf99@gmail.com" class="text-link" title="gcalaf99@gmail.com">Correo ↗</a>
+                                <a href="mailto:gcalaf99@gmail.com" class="text-link" title="gcalaf99@gmail.com" data-i18n="p3_link_email">Correo ↗</a>
                                 <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="text-link">LinkedIn ↗</a>
                                 <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="text-link">GitHub ↗</a>
                             </div>
@@ -744,7 +951,7 @@
             const counter = document.getElementById('phase-counter');
             const btnSwitch = document.getElementById('btn-switch');
 
-            // 1. Navegar entre Fases
+            // 1. Navegar entre Fases (Rueda y Táctil, sin atajos de teclado)
             function setPhase(idx) {
                 if (idx < 0 || idx >= TOTAL) return;
                 current = idx;
@@ -798,6 +1005,181 @@
             } catch(e) {}
 
             if (btnSwitch) btnSwitch.addEventListener('click', toggleLight);
+
+            // 5. Diccionario de Traducción & Internacionalización (i18n)
+            const I18N = {
+                es: {
+                    p0_num: '01 / 04 · Identidad',
+                    p0_sub_role: 'Software & Cloud Engineer',
+                    p0_sub_ex: 'Ex-Google Associate Cloud Engineer',
+                    p0_desc: 'Diseño de infraestructura cloud en <strong>Google Cloud Platform (GCP)</strong>, desarrollo de APIs asíncronas de alto rendimiento con <strong>FastAPI</strong> y creación ágil de interfaces frontend con <strong>Next.js asistido por agentes de IA</strong>.',
+                    p1_num: '02 / 04 · Trayectoria Profesional',
+                    p1_headline: 'Experiencia Verificada',
+                    p1_r1_role: 'Google Associate Cloud Engineer',
+                    p1_r1_dates: '2023 — 2024',
+                    p1_r1_sub: 'Concentrix Corporation · Barcelona',
+                    p1_r1_desc: 'Soporte e ingeniería técnica de infraestructura crítica en Google Cloud Platform (GCP) para producción internacional. Diagnóstico y resolución en Compute Engine, GKE (Kubernetes), VPC, IAM y Cloud Storage bajo estrictos acuerdos de nivel de servicio (SLAs).',
+                    p1_r2_role: 'Desarrollador Web Fullstack',
+                    p1_r2_dates: '2020 — 2021',
+                    p1_r2_sub: 'eSonde Network Monitoring · Molins de Rei',
+                    p1_r2_desc: 'Telemetría de red y monitorización en tiempo real. Construcción de servicios con Node.js, PHP y JavaScript, junto a normalización y modelado de consultas analíticas en bases de datos relacionales SQL.',
+                    p1_r3_role: 'Administrador de Sistemas y Redes',
+                    p1_r3_dates: '2019',
+                    p1_r3_sub: 'ADTEL Telecomunicaciones · Molins de Rei',
+                    p1_r3_desc: 'Despliegue y administración de servidores físicos y virtuales Linux, conmutación de red gestionable Cisco y políticas de seguridad perimetral con cortafuegos.',
+                    p2_num: '03 / 04 · Stack Técnico',
+                    p2_headline: 'Habilidades Core',
+                    p2_s1_label: 'API Core',
+                    p2_s1_name: 'FastAPI & Python',
+                    p2_s1_desc: 'Framework prioritario para microservicios REST asíncronos de baja latencia, tipado estricto con Pydantic y documentación OpenAPI nativa.',
+                    p2_s2_label: 'Agentes de IA',
+                    p2_s2_name: 'Next.js & React',
+                    p2_s2_desc: 'Desarrollo acelerado de interfaces reactivas modernas y Server Components mediante pair-programming con agentes autónomos de IA.',
+                    p2_s3_label: 'Cloud Certified',
+                    p2_s3_name: 'Google Cloud (GCP) & GKE',
+                    p2_s3_desc: 'Compute Engine, Kubernetes (GKE), Docker, Cloud Storage, políticas de menor privilegio con IAM y topologías VPC seguras.',
+                    p2_s4_label: 'Sistemas & Datos',
+                    p2_s4_name: 'Linux & Bases de Datos',
+                    p2_s4_desc: 'PostgreSQL, MySQL, MongoDB, scripts de automatización en Bash, administración de servidores Debian/Ubuntu y redes TCP/IP.',
+                    p3_num: '04 / 04 · Formación & Contacto',
+                    p3_edu_label: 'Acreditaciones Técnicas',
+                    p3_e1_title: 'Google Associate Cloud Engineer',
+                    p3_e1_meta: 'Certificación Oficial Google Cloud',
+                    p3_e2_title: 'Bootcamp Big Data & IA con Python',
+                    p3_e2_meta: 'Fundación Esplai · 2025',
+                    p3_e3_title: 'Máster FP en IA y Big Data',
+                    p3_e3_meta: 'INS Bernat el Ferrer · 2022 — 2023',
+                    p3_e4_title: 'CFGS Desarrollo de Aplicaciones Web (DAW)',
+                    p3_e4_meta: 'INS Bernat el Ferrer · 2020 — 2021',
+                    p3_e5_title: 'CFGS Adm. de Sistemas Informáticos en Red (ASIX)',
+                    p3_e5_meta: 'INS Bernat el Ferrer · 2018 — 2020',
+                    p3_contact_label: 'Contacto Directo',
+                    p3_link_email: 'Correo ↗'
+                },
+                en: {
+                    p0_num: '01 / 04 · Identity',
+                    p0_sub_role: 'Software & Cloud Engineer',
+                    p0_sub_ex: 'Ex-Google Associate Cloud Engineer',
+                    p0_desc: 'Cloud infrastructure engineering on <strong>Google Cloud Platform (GCP)</strong>, high-performance asynchronous API design with <strong>FastAPI</strong>, and rapid frontend development with <strong>Next.js assisted by AI agents</strong>.',
+                    p1_num: '02 / 04 · Career Track',
+                    p1_headline: 'Verified Experience',
+                    p1_r1_role: 'Google Associate Cloud Engineer',
+                    p1_r1_dates: '2023 — 2024',
+                    p1_r1_sub: 'Concentrix Corporation · Barcelona',
+                    p1_r1_desc: 'Tier-3 enterprise support and engineering for mission-critical Google Cloud Platform (GCP) infrastructure in global production environments. Troubleshooting Compute Engine, GKE (Kubernetes), VPC networking, IAM security, and Cloud Storage under strict SLA agreements.',
+                    p1_r2_role: 'Fullstack Web Developer',
+                    p1_r2_dates: '2020 — 2021',
+                    p1_r2_sub: 'eSonde Network Monitoring · Molins de Rei',
+                    p1_r2_desc: 'Network telemetry and real-time monitoring solutions. Engineered web services with Node.js, PHP, and JavaScript, coupled with SQL database modeling and analytical query optimization.',
+                    p1_r3_role: 'Systems & Network Administrator',
+                    p1_r3_dates: '2019',
+                    p1_r3_sub: 'ADTEL Telecomunicaciones · Molins de Rei',
+                    p1_r3_desc: 'Deployment and administration of bare-metal and virtual Linux servers, Cisco managed network switching, and perimeter firewall security rules.',
+                    p2_num: '03 / 04 · Technical Stack',
+                    p2_headline: 'Core Proficiencies',
+                    p2_s1_label: 'Core API',
+                    p2_s1_name: 'FastAPI & Python',
+                    p2_s1_desc: 'Primary choice for low-latency asynchronous microservices, strict type enforcement with Pydantic, and native OpenAPI specifications.',
+                    p2_s2_label: 'AI Agents',
+                    p2_s2_name: 'Next.js & React',
+                    p2_s2_desc: 'Accelerated delivery of modern reactive web applications and Server Components through pair-programming with autonomous AI agents.',
+                    p2_s3_label: 'Cloud Certified',
+                    p2_s3_name: 'Google Cloud (GCP) & GKE',
+                    p2_s3_desc: 'Compute Engine, Kubernetes (GKE), Docker, Cloud Storage, least-privilege IAM policies, and secure VPC architectures.',
+                    p2_s4_label: 'Systems & Data',
+                    p2_s4_name: 'Linux & Databases',
+                    p2_s4_desc: 'PostgreSQL, MySQL, MongoDB, Bash automation scripting, Debian/Ubuntu server administration, and TCP/IP networking.',
+                    p3_num: '04 / 04 · Education & Contact',
+                    p3_edu_label: 'Technical Credentials',
+                    p3_e1_title: 'Google Associate Cloud Engineer',
+                    p3_e1_meta: 'Official Google Cloud Certification',
+                    p3_e2_title: 'Big Data & AI Bootcamp with Python',
+                    p3_e2_meta: 'Fundación Esplai · 2025',
+                    p3_e3_title: 'Higher Vocational Master in AI & Big Data',
+                    p3_e3_meta: 'INS Bernat el Ferrer · 2022 — 2023',
+                    p3_e4_title: 'Higher National Diploma in Web App Development (DAW)',
+                    p3_e4_meta: 'INS Bernat el Ferrer · 2020 — 2021',
+                    p3_e5_title: 'Higher National Diploma in Network Systems Admin (ASIX)',
+                    p3_e5_meta: 'INS Bernat el Ferrer · 2018 — 2020',
+                    p3_contact_label: 'Direct Contact',
+                    p3_link_email: 'Email ↗'
+                }
+            };
+
+            const langGate = document.getElementById('lang-gate');
+            const btnGateEs = document.getElementById('btn-gate-es');
+            const btnGateEn = document.getElementById('btn-gate-en');
+            const btnTopLang = document.getElementById('btn-top-lang');
+            const langIndicator = document.getElementById('lang-indicator');
+
+            let currentLang = 'es';
+
+            // 6. Aplicar Idioma a la Vista
+            function applyLanguage(lang) {
+                if (!I18N[lang]) return;
+                currentLang = lang;
+                document.documentElement.lang = lang;
+
+                const translatables = document.querySelectorAll('[data-i18n]');
+                translatables.forEach((el) => {
+                    const key = el.getAttribute('data-i18n');
+                    if (I18N[lang][key]) {
+                        el.innerHTML = I18N[lang][key];
+                    }
+                });
+
+                if (langIndicator) {
+                    langIndicator.textContent = lang === 'es' ? 'ES · Nativo' : 'EN · B2';
+                }
+
+                if (btnTopLang) {
+                    btnTopLang.setAttribute('aria-label', lang === 'es' ? 'Cambiar idioma' : 'Switch language');
+                    btnTopLang.setAttribute('title', lang === 'es' ? 'Cambiar idioma / Switch language' : 'Switch language / Cambiar idioma');
+                }
+
+                try {
+                    localStorage.setItem('portfolio_lang', lang);
+                } catch(e) {}
+            }
+
+            function dismissGate() {
+                if (langGate) {
+                    langGate.classList.add('dismissed');
+                }
+                try {
+                    sessionStorage.setItem('portfolio_lang_set', 'true');
+                } catch(e) {}
+            }
+
+            function selectLanguageAndDismiss(lang) {
+                applyLanguage(lang);
+                dismissGate();
+            }
+
+            if (btnGateEs) {
+                btnGateEs.addEventListener('click', () => selectLanguageAndDismiss('es'));
+            }
+            if (btnGateEn) {
+                btnGateEn.addEventListener('click', () => selectLanguageAndDismiss('en'));
+            }
+            if (btnTopLang) {
+                btnTopLang.addEventListener('click', () => {
+                    const next = currentLang === 'es' ? 'en' : 'es';
+                    applyLanguage(next);
+                    dismissGate();
+                });
+            }
+
+            // Inicialización de Idioma
+            try {
+                if (sessionStorage.getItem('portfolio_lang_set') === 'true') {
+                    if (langGate) langGate.classList.add('dismissed');
+                }
+                const savedLang = localStorage.getItem('portfolio_lang') || 'es';
+                applyLanguage(savedLang);
+            } catch(e) {
+                applyLanguage('es');
+            }
 
         })();
     </script>
