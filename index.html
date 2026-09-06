@@ -109,10 +109,10 @@
         .chiseled-switch {
             position: relative;
             width: 48px;
-            height: 48px;
+            height: 52px;
             background: var(--bg);
             border: 1px solid var(--switch-border);
-            border-radius: 8px;
+            border-radius: 6px;
             box-shadow: var(--switch-plate);
             cursor: pointer;
             display: flex;
@@ -127,33 +127,55 @@
             transform: translateY(-1px);
         }
 
-        .chiseled-switch:active {
-            transform: translateY(1px);
-            box-shadow: var(--switch-rocker-active);
+        /* Tecla basculante del interruptor de la luz (Architectural Rocker) */
+        .switch-rocker {
+            width: 24px;
+            height: 32px;
+            background: var(--bg);
+            border: 1px solid var(--switch-border);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Silueta cincelada de la bombilla / conmutador */
-        .chiseled-bulb-svg {
-            width: 22px;
-            height: 22px;
-            stroke: var(--fg);
-            stroke-width: 1.5;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transition: all var(--trans-fast);
+        /* Indicador de posición de contacto */
+        .switch-indicator {
+            width: 8px;
+            height: 2px;
+            background: var(--fg);
+            border-radius: 1px;
+            opacity: 0.85;
+            transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), opacity var(--trans-fast);
         }
 
-        /* En modo luz encendida (fondo blanco): filamento activo */
-        [data-theme="light"] .chiseled-bulb-svg .filament {
-            fill: #000000;
-            opacity: 1;
+        /* Estado Luz Encendida (#FFFFFF): Bascula hacia arriba (ON) */
+        [data-theme="light"] .switch-rocker {
+            transform: perspective(140px) rotateX(-12deg);
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 1),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.06);
         }
 
-        /* En modo luz apagada (fondo negro): filamento hueco cincelado */
-        [data-theme="dark"] .chiseled-bulb-svg .filament {
-            fill: transparent;
-            opacity: 0.3;
+        [data-theme="light"] .switch-indicator {
+            transform: translateY(-5px);
+        }
+
+        /* Estado Luz Apagada (#000000): Bascula hacia abajo (OFF) */
+        [data-theme="dark"] .switch-rocker {
+            transform: perspective(140px) rotateX(12deg);
+            box-shadow: 
+                0 -2px 4px rgba(0, 0, 0, 0.8),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.25),
+                inset 0 2px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="dark"] .switch-indicator {
+            transform: translateY(5px);
+            opacity: 0.4;
         }
 
         /* ============================================================
@@ -502,19 +524,13 @@
 <body>
 
     <!-- ============================================================
-         INTERRUPTOR CINCELADO EN LA ESQUINA SUPERIOR DERECHA
+         INTERRUPTOR DE LA LUZ CINCELADO (ARRIBA A LA DERECHA)
          ============================================================ -->
     <div class="chiseled-switch-wrap">
-        <button class="chiseled-switch" id="btn-switch" title="Interruptor de luz (Atajo: T)" aria-label="Alternar luz">
-            <!-- Icono Cincelado de Bombilla / Conmutador -->
-            <svg class="chiseled-bulb-svg" viewBox="0 0 24 24">
-                <!-- Rosca / Base cincelada -->
-                <path d="M9 19h6M10 22h4" />
-                <!-- Contorno de la bombilla -->
-                <path class="bulb-outline" d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z" />
-                <!-- Filamento interior activo / inactivo -->
-                <circle class="filament" cx="12" cy="9" r="2.5" />
-            </svg>
+        <button class="chiseled-switch" id="btn-switch" title="Interruptor de la luz (Atajo: T)" aria-label="Interruptor de la luz">
+            <div class="switch-rocker">
+                <span class="switch-indicator"></span>
+            </div>
         </button>
     </div>
 
