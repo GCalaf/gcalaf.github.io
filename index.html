@@ -1,909 +1,1574 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guillem Calaf Vidal - Desarrollador Fullstack | Portafolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/your_fontawesome_kit_id.js" crossorigin="anonymous"></script>
+    <title>Guillem Calaf Vidal — Software & Cloud Engineer</title>
+    <meta name="description" content="Portfolio de Guillem Calaf Vidal. Desarrollador Fullstack & Cloud Engineer (ex-Google Associate Cloud Engineer). Especialista en GCP, FastAPI, Next.js, Python, Big Data e IA.">
+    <meta name="keywords" content="Guillem Calaf, Cloud Engineer, Fullstack Developer, Google Cloud, GCP, FastAPI, Next.js, Python, Big Data, IA, Barcelona">
+    <meta name="author" content="Guillem Calaf Vidal">
+
+    <!-- Open Graph / Meta Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gcalaf.github.io/">
+    <meta property="og:title" content="Guillem Calaf Vidal — Software & Cloud Engineer">
+    <meta property="og:description" content="Ex-Google Associate Cloud Engineer. Arquitecturas cloud, desarrollo backend en Python/FastAPI, interfaces modernas con Next.js y soluciones de Big Data & IA.">
+
+    <!-- Favicon SVG Embebido -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2310b981'/><text x='16' y='22' font-family='monospace' font-size='15' font-weight='bold' fill='%230a0b0e' text-anchor='middle'>GC</text></svg>">
+
+    <!-- Fuentes Web seleccionadas (Tipografía moderna + Monospace técnico) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            margin: 0;
-            font-family: 'Press Start 2P', monospace;
-            background-color: #000;
-            color: #00ff00;
-            overflow-x: hidden;
+        /* ============================================================
+           SISTEMA DE DISEÑO / DESIGN TOKENS
+           ============================================================ */
+        :root {
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-full: 9999px;
+            --transition-fast: 0.15s var(--ease-out);
+            --transition-normal: 0.25s var(--ease-out);
         }
 
-        #matrix-canvas {
+        /* TEMA OSCURO (Default / Obsidian Studio) */
+        [data-theme="dark"] {
+            --bg: #090a0f;
+            --bg-translucent: rgba(9, 10, 15, 0.85);
+            --surface: #12141c;
+            --surface-hover: #181b26;
+            --surface-subtle: #151821;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.18);
+            --border-active: rgba(16, 185, 129, 0.4);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --text-accent: #34d399;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.16);
+            --accent-badge-bg: rgba(16, 185, 129, 0.1);
+            --accent-badge-border: rgba(16, 185, 129, 0.25);
+            --badge-bg: rgba(255, 255, 255, 0.05);
+            --badge-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --nav-active-bg: rgba(255, 255, 255, 0.08);
+            --code-bg: rgba(255, 255, 255, 0.06);
+        }
+
+        /* TEMA CLARO (Warm Editorial Paper) */
+        [data-theme="light"] {
+            --bg: #f8f9fa;
+            --bg-translucent: rgba(248, 249, 250, 0.88);
+            --surface: #ffffff;
+            --surface-hover: #f1f3f5;
+            --surface-subtle: #f8fafc;
+            --border: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(0, 0, 0, 0.18);
+            --border-active: rgba(5, 150, 105, 0.45);
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-muted: #9ca3af;
+            --text-accent: #059669;
+            --accent: #059669;
+            --accent-glow: rgba(5, 150, 105, 0.12);
+            --accent-badge-bg: rgba(5, 150, 105, 0.08);
+            --accent-badge-border: rgba(5, 150, 105, 0.2);
+            --badge-bg: rgba(0, 0, 0, 0.04);
+            --badge-border: rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.07);
+            --nav-active-bg: rgba(0, 0, 0, 0.06);
+            --code-bg: rgba(0, 0, 0, 0.04);
+        }
+
+        /* ============================================================
+           RESET & ESTILOS BASE
+           ============================================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+            position: relative;
+        }
+
+        /* Cuadrícula sutil de fondo (editorial, 100% CSS sin imágenes) */
+        body::before {
+            content: "";
             position: fixed;
             inset: 0;
-            z-index: 0;
+            background-image: 
+                linear-gradient(to right, var(--border) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+            background-size: 64px 64px;
+            opacity: 0.35;
             pointer-events: none;
-            display: block;
-            width: 100%;
-            height: 100%;
+            z-index: 0;
         }
 
-        .container {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .header {
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
-            animation-delay: 0s;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .header.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .header h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            white-space: nowrap;
-            overflow: hidden;
-            color: #00ff00;
-            animation: typewriter 2s steps(20) 0s normal both,
-                        blink-cursor 750ms steps(1) infinite normal both,
-                        fadeIn 1s ease forwards 0s;
-            max-width: 100%; /* Asegura que el título no se desborde en pantallas pequeñas */
-            box-sizing: border-box; /* Incluye el padding y el border en el ancho total */
-        }
-
-        .header p {
-            font-size: 1rem;
-            color: #00aaff;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typewriter 3s steps(30) 2s normal both,
-                        blink-cursor 750ms steps(1) infinite normal both,
-                        fadeIn 1s ease forwards 1s;
-            max-width: 100%; /* Asegura que el subtítulo no se desborde */
-            box-sizing: border-box;
-        }
-
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink-cursor {
-            from, to { border-color: transparent; }
-            50% { border-color: #00ff00; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .start-button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            color: #fff;
-            background-color: #333;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, opacity 0.5s ease, visibility 0.5s ease;
-            margin-top: 20px;
-            animation: fadeIn 1s ease forwards 5s,
-                        blink 2s infinite;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
-            font-family: 'Press Start 2P', monospace;
-            text-shadow: 2px 2px 5px #000;
-            z-index: 2;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .start-button.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .start-button.visible {
-            opacity: 1;
-            visibility: visible;
-            animation: fadeIn 1s ease forwards 5s,
-                        blink 2s infinite;
-        }
-
-        .start-button:hover {
-            background-color: #00ff00;
-            color: #000;
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
-            border-color: #fff;
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
-        }
-
-        .section {
-            margin-bottom: 30px;
-            width: 100%;
-            max-width: 800px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            overflow: hidden;
-            z-index: 1;
-            text-align: left;
-            visibility: hidden;
-        }
-
-        .section.appear {
-            opacity: 1;
-            transform: translate(-50%, -50%);
-            visibility: visible;
-            z-index: 2;
-        }
-
-        .section.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .section h2 {
-            font-size: 1.2rem;
-            border-bottom: 2px solid #00ff00;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-            color: #00ff00;
-            text-align: center;
-        }
-
-        .section p {
-            font-size: 0.7rem;
-            line-height: 1.5;
-            color: #eee;
-        }
-
-        .section ul {
-            font-size: 0.7rem;
-            line-height: 1.5;
-            color: #eee;
-            padding-left: 20px;
-        }
-
-        .section li {
-            margin-bottom: 5px;
-        }
-
-        .contact-info {
-            list-style: none;
-            padding: 0;
-            margin-top: 10px;
-            font-size: 0.7rem;
-        }
-
-        .contact-info li {
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
-
-        .contact-info li i {
-            margin-right: 5px;
-            color: #00aaff;
-        }
-
-        .container > * {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-
-        .container > :last-child {
-            margin-bottom: 0;
-        }
-
-        @media (min-width: 1200px) {
-            .header h1 {
-                font-size: 3rem;
-            }
-
-            .header p {
-                font-size: 1.2rem;
-            }
-
-            .section h2 {
-                font-size: 2rem;
-            }
-
-            .section p {
-                font-size: 0.8rem;
-            }
-
-            .section ul {
-                font-size: 0.8rem;
-            }
-
-            .contact-info li {
-                font-size: 0.8rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header p {
-                font-size: 0.8rem;
-            }
-
-            .section h2 {
-                font-size: 1.2rem;
-            }
-
-            .section p {
-                font-size: 0.7rem;
-            }
-
-            .section ul {
-                font-size: 0.7rem;
-            }
-
-            .contact-info li {
-                font-size: 0.7rem;
-            }
+        ::selection {
+            background-color: var(--accent);
+            color: #ffffff;
         }
 
         a {
-            color: #00aaff;
+            color: inherit;
             text-decoration: none;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
+            transition: color var(--transition-fast);
         }
 
-        a:hover {
-            color: #00ffff;
-            text-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+        button {
+            background: none;
+            border: none;
+            font: inherit;
+            color: inherit;
+            cursor: pointer;
         }
 
-        .hidden {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+        /* ============================================================
+           LAYOUT PRINCIPAL (Split Grid Awwwards / Editorial)
+           ============================================================ */
+        .page-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 64px;
+            min-height: 100vh;
         }
 
-        .navigation-buttons {
+        @media (max-width: 1024px) {
+            .page-container {
+                grid-template-columns: 360px 1fr;
+                gap: 40px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 860px) {
+            .page-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                padding: 0 16px;
+            }
+        }
+
+        /* ============================================================
+           SIDEBAR FIJO (Identidad, Estado, Navegación & Acciones)
+           ============================================================ */
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 48px 0;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (max-width: 860px) {
+            .sidebar {
+                position: relative;
+                height: auto;
+                padding: 32px 0 16px 0;
+            }
+        }
+
+        /* Indicador de Disponibilidad */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px;
+            background: var(--accent-badge-bg);
+            border: 1px solid var(--accent-badge-border);
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-family: var(--font-mono);
+            color: var(--text-accent);
+            font-weight: 500;
+            width: fit-content;
+            margin-bottom: 24px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .pulse-dot::after {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            opacity: 0.4;
+            animation: pulseWave 2s infinite cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        @keyframes pulseWave {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(2.4); opacity: 0; }
+        }
+
+        /* Títulos e Identidad */
+        .sidebar-brand h1 {
+            font-size: 2.35rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .sidebar-brand .role-tag {
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .sidebar-brand .bio-summary {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .bio-summary strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Reloj y Meta en vivo */
+        .sidebar-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .live-clock {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-clock-time {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Navegación por Secciones (Scrollspy) */
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 860px) {
+            .sidebar-nav {
+                display: none;
+            }
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 9px 14px;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-link .nav-num {
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            transition: color var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--surface-hover);
+            transform: translateX(4px);
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--nav-active-bg);
+            font-weight: 600;
+        }
+
+        .nav-link.active .nav-num {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .nav-link.active::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 25%;
+            bottom: 25%;
+            width: 3px;
+            background: var(--accent);
+            border-radius: var(--radius-full);
+        }
+
+        /* Acciones Rápidas & Enlaces Sociales */
+        .sidebar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .action-btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+            user-select: none;
+        }
+
+        .btn:active, .btn-icon:active, .theme-toggle:active {
+            transform: scale(0.97) !important;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        section[id] {
+            scroll-margin-top: 48px;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg);
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--text-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text-primary);
+            border-color: var(--border);
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon {
+            padding: 10px;
+            background: var(--surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-icon:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+            color: var(--text-accent);
+            transform: translateY(-2px);
+        }
+
+        .social-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Selector de Tema */
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .theme-toggle:hover {
+            background: var(--surface-hover);
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+        }
+
+        /* Atajos de teclado en footer sidebar */
+        .keyboard-hint {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .keyboard-hint kbd {
+            display: inline-block;
+            padding: 1px 5px;
+            background: var(--badge-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.68rem;
+        }
+
+        /* ============================================================
+           CONTENIDO PRINCIPAL (Feed / Secciones)
+           ============================================================ */
+        .content-area {
+            padding: 56px 0 96px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        @media (max-width: 860px) {
+            .content-area {
+                padding: 16px 0 64px 0;
+                gap: 56px;
+            }
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .section-num {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-accent);
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+           SECCIÓN 01: SOBRE MÍ / MANIFIESTO TÉCNICO
+           ============================================================ */
+        .manifesto-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manifesto-box p {
+            font-size: 1.02rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-bottom: 18px;
+        }
+
+        .manifesto-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .manifesto-box strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .highlight-phrase {
+            color: var(--text-primary);
+            border-left: 3px solid var(--accent);
+            padding-left: 18px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        /* ============================================================
+           SECCIÓN 02: EXPERIENCIA LABORAL (Cards Interactivas)
+           ============================================================ */
+        .experience-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .exp-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            transition: all var(--transition-normal);
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        .exp-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .exp-header {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 400px;
-            position: relative;
-            z-index: 3;
-            margin-top: 40px;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
         }
 
-        .nav-button {
-            padding: 10px 20px;
-            font-size: 0.8rem;
-            color: #fff;
-            background-color: #333;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            font-family: 'Press Start 2P', monospace;
-            text-shadow: 2px 2px 5px #000;
+        .exp-role-group h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .nav-button:hover {
-            background-color: #00ff00;
-            color: #000;
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
-            border-color: #fff;
+        .featured-pill {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            background: var(--accent-badge-bg);
+            color: var(--text-accent);
+            border: 1px solid var(--accent-badge-border);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
-        .nav-button:disabled {
-            background-color: #222;
-            border-color: #004d00;
-            color: #666;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .exp-company {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .next-button {
-            margin-left: auto;
+        .exp-period {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            background: var(--badge-bg);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            white-space: nowrap;
         }
 
-        #section1 {
-            display: none;
-            opacity: 0;
-        }
-        #section1.appear{
-            display: block;
-            opacity: 1;
+        .exp-description {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 18px;
         }
 
-        .subsection {
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            box-sizing: border-box;
-        }
-
-        .subsection:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
-            z-index: 3;
-        }
-
-        #section2 .subsection, #section3 .subsection {
+        .exp-achievements {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
             margin-bottom: 20px;
-            border: 2px solid #00ff00;
         }
 
-        #grid-container {
+        .exp-achievements li {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            line-height: 1.5;
+        }
+
+        .exp-achievements li::before {
+            content: "▹";
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            padding: 3px 9px;
+            border-radius: var(--radius-sm);
+            background: var(--badge-bg);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            transition: all var(--transition-fast);
+        }
+
+        .tag:hover {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+        }
+
+        .tag.accent {
+            color: var(--text-accent);
+            border-color: var(--accent-badge-border);
+            background: var(--accent-badge-bg);
+        }
+
+        /* ============================================================
+           SECCIÓN 03: HABILIDADES & ARQUITECTURA (Grid Especializado)
+           ============================================================ */
+        .skills-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        #grid-container .subsection{
-            height: auto;
-            overflow: visible;
-            position: relative;
         }
 
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.5rem;
-            }
-            .header p {
-                font-size: 0.7rem;
-            }
-            .container {
-                padding: 10px;
-            }
-            .section {
-                padding: 10px;
-                transform: translate(-50%, -50%);
-            }
-            .section h2 {
-                font-size: 1rem;
-            }
-            .section p {
-                font-size: 0.6rem;
-            }
-            .section ul {
-                font-size: 0.6rem;
-            }
-            .nav-button {
-                font-size: 0.7rem;
-                padding: 8px 15px;
-            }
-            .subsection {
-                padding: 10px;
-                margin-bottom: 10px;
-            }
-            .contact-info li {
-                font-size: 0.6rem;
-            }
-            #grid-container {
+        @media (max-width: 640px) {
+            .skills-grid {
                 grid-template-columns: 1fr;
             }
-            .header h1, .header p{
-                white-space: normal;
-            }
         }
 
-        @media (min-width: 481px) and (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            .header p {
-                font-size: 0.9rem;
-            }
-            .section p {
-                font-size: 0.7rem;
-            }
-            .section ul{
-                font-size: 0.7rem;
-            }
-            .contact-info li{
-                font-size: 0.7rem;
-            }
-        }
-
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.9);
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            z-index: 5;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-            box-sizing: border-box;
-        }
-
-        .popup h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #00ff00;
-            text-align: center;
-        }
-
-        .popup p {
-            font-size: 0.7rem;
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-
-        .popup .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1rem;
-            cursor: pointer;
-            color: #fff;
-        }
-
-        /* Estilos adicionales para la sección de tecnologías */
-        #section4 {
-            text-align: center; /* Centra el contenido de la sección */
-        }
-
-        #section4 h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        #section4 .tecnologias-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Crea una cuadrícula flexible */
-            gap: 15px;
-            justify-content: center; /* Centra las celdas en la cuadrícula */
-            margin-bottom: 20px;
-        }
-
-        #section4 .tecnologia-card {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid #00ff00;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center; /* Centra el texto dentro de cada tarjeta */
-            box-sizing: border-box;
-        }
-
-        #section4 .tecnologia-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
-        }
-
-        #section4 .tecnologia-card h3 {
-            font-size: 0.8rem;
-            margin-bottom: 5px;
-            color: #fff;
-        }
-
-        /* Nuevos estilos para botones en la sección de contacto */
-        #section5 h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        #section5 .contact-buttons {
+        .skill-group {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--card-shadow);
             display: flex;
             flex-direction: column;
+            gap: 16px;
+            transition: border-color var(--transition-fast);
+        }
+
+        .skill-group:hover {
+            border-color: var(--border-hover);
+        }
+
+        .skill-group-header {
+            display: flex;
             align-items: center;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 10px;
         }
 
-        #section5 .contact-button {
-            padding: 12px 25px;
-            font-size: 0.9rem;
-            color: #fff;
-            background-color: #333;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            font-family: 'Press Start 2P', monospace;
-            text-shadow: 2px 2px 5px #000;
-            width: 250px; /* Ancho fijo para los botones */
-            text-align: center; /* Centra el texto dentro del botón */
-            box-sizing: border-box;
+        .skill-group-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: var(--badge-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
         }
 
-        #section5 .contact-button:hover {
-            background-color: #00ff00;
-            color: #000;
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.9);
-            border-color: #fff;
+        .skill-group-header h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-primary);
         }
 
-        #section5 .contact-button i {
-            margin-right: 10px; /* Espacio entre el icono y el texto */
-            font-size: 1.2rem; /* Tamaño del icono */
-            vertical-align: middle; /* Alinea el icono verticalmente con el texto */
+        .skill-items {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
-        .subsection p.institution{
-            font-size: 0.6rem;
-            color: #00ffff;
-            margin-top: 5px;
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .skill-item-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .skill-item-note {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Destacados específicos requeridos por el usuario */
+        .featured-skill {
+            background: var(--surface-subtle);
+            border: 1px solid var(--border-active);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            margin: -4px -4px;
+        }
+
+        .badge-ai-flow {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: var(--radius-full);
+            background: var(--accent-badge-bg);
+            color: var(--text-accent);
+            border: 1px solid var(--accent-badge-border);
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           SECCIÓN 04: FORMACIÓN ACADÉMICA & ESPECIALIZACIÓN
+           ============================================================ */
+        .education-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .edu-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            transition: all var(--transition-fast);
+        }
+
+        .edu-item:hover {
+            border-color: var(--border-hover);
+            transform: translateX(4px);
+        }
+
+        .edu-info h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .edu-institution {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+        }
+
+        .edu-year {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            background: var(--badge-bg);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 580px) {
+            .edu-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        /* ============================================================
+           SECCIÓN 05: CONTACTO / FOOTER DE CONVERSIÓN
+           ============================================================ */
+        .contact-card {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-subtle) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .contact-card h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .contact-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 540px;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .contact-methods {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .footer-note {
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* ============================================================
+           TOAST NOTIFICATION (Feedback ultra-satisfactorio)
+           ============================================================ */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--text-primary);
+            color: var(--bg);
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(16px);
+            pointer-events: none;
+            transition: all 0.25s var(--ease-out);
+        }
+
+        .toast-notification.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Iconos SVG inline */
+        .icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            display: inline-block;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
-    <canvas id="matrix-canvas"></canvas>
-    <div class="container">
-        <header class="header">
-            <h1>Guillem Calaf Vidal</h1>
-            <p>DESARROLLADOR FULLSTACK</p>
-        </header>
-        <button class="start-button" id="start-button">START</button>
-        <section class="section hidden" id="section1">
-            <h2>¿Quién soy?</h2>
-            <p>
-                ¡Hola! Me llamo Guillem. Desde que tengo uso de razón, me ha interesado el mundo de la tecnología y cómo las máquinas pueden transformar nuestra realidad. Esa curiosidad me impulsó a explorar campos como la ingeniería en la nube y el desarrollo web.
-            </p>
-            <p>
-                Mi experiencia trabajando para Google me enseñó a ser organizado, proactivo y a resolver problemas de manera eficiente. Aprendí a trabajar en equipo y a gestionar proyectos, habilidades que considero cruciales en este sector.
-            </p>
-            <p>
-                Además de la tecnología, me gusta desconectar con los videojuegos, disfrutar de la música y pasar tiempo al aire libre.
-            </p>
-            <p>
-                Actualmente, estoy enfocado en ampliar mis conocimientos en Python, Big Data e Inteligencia Artificial, áreas que creo que tienen un enorme potencial.
-            </p>
-            <div class="navigation-buttons">
-                <button class="nav-button prev-button" data-section="1" disabled>Atrás</button>
-                <button class="nav-button next-button" data-section="1">Siguiente</button>
+
+    <!-- Contenedor Principal en Dos Columnas -->
+    <div class="page-container">
+
+        <!-- ============================================================
+             SIDEBAR FIJO (Identidad, Estado, Navegación & Acciones)
+             ============================================================ -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <!-- Indicador de Disponibilidad en tiempo real -->
+                <div class="status-badge">
+                    <span class="pulse-dot"></span>
+                    <span>Disponible · Barcelona & Remoto</span>
+                </div>
+
+                <header class="sidebar-brand">
+                    <h1>Guillem Calaf Vidal</h1>
+                    <span class="role-tag">Software & Cloud Engineer</span>
+                    <p class="bio-summary">
+                        Ex-<strong>Google Associate Cloud Engineer</strong>. Construyendo arquitecturas backend de alto rendimiento, microservicios en la nube y aplicaciones web de código limpio.
+                    </p>
+                </header>
+
+                <!-- Hora local en Barcelona -->
+                <div class="sidebar-meta">
+                    <div class="live-clock">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span>Barcelona:</span>
+                        <span class="live-clock-time" id="barcelona-time">--:--:-- CET</span>
+                    </div>
+                </div>
+
+                <!-- Navegación Scrollspy -->
+                <nav class="sidebar-nav" aria-label="Navegación del sitio">
+                    <a href="#sobre-mi" class="nav-link active" data-section="sobre-mi">
+                        <span class="nav-num">01</span>
+                        <span>Sobre mí</span>
+                    </a>
+                    <a href="#experiencia" class="nav-link" data-section="experiencia">
+                        <span class="nav-num">02</span>
+                        <span>Experiencia</span>
+                    </a>
+                    <a href="#habilidades" class="nav-link" data-section="habilidades">
+                        <span class="nav-num">03</span>
+                        <span>Stack & Habilidades</span>
+                    </a>
+                    <a href="#formacion" class="nav-link" data-section="formacion">
+                        <span class="nav-num">04</span>
+                        <span>Formación</span>
+                    </a>
+                    <a href="#contacto" class="nav-link" data-section="contacto">
+                        <span class="nav-num">05</span>
+                        <span>Contacto</span>
+                    </a>
+                </nav>
             </div>
-        </section>
-        <section class="section hidden" id="section2">
-            <h2>¿Dónde he trabajado?</h2>
-            <div id="grid-container">
-                <div class="subsection" data-title="GOOGLE ASSOCIATE CLOUD ENGINEER" data-location="Concentrix, Corporation | 2023-2024, Barcelona">
-                    <h3>GOOGLE ASSOCIATE CLOUD ENGINEER</h3>
+
+            <!-- Acciones Rápidas del Sidebar -->
+            <div class="sidebar-actions">
+                <div class="action-btn-group">
+                    <button class="btn btn-primary" id="copy-email-btn" title="Copiar email al portapapeles">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span>Copiar Email</span>
+                    </button>
+                    <a href="mailto:gcalaf99@gmail.com" class="btn btn-secondary" title="Escribir correo directamente">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        <span>Escribir</span>
+                    </a>
                 </div>
-                <div class="subsection" data-title="DESARROLLADOR DE APLICACIONES WEB" data-location="eSonde Network Monitoring, S.L. | 2020-2021, Molins de Rei">
-                    <h3>DESARROLLADOR DE APLICACIONES WEB</h3>
+
+                <div class="social-row">
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="btn-icon" title="Perfil de LinkedIn" aria-label="LinkedIn">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.64 1.64 0 1 0 1.64 1.64 1.64 1.64 0 0 0-1.64-1.64z"/></svg>
+                        </a>
+                        <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="btn-icon" title="Perfil de GitHub" aria-label="GitHub">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                        </a>
+                    </div>
+
+                    <button class="theme-toggle" id="theme-toggle-btn" title="Alternar tema claro/oscuro (Atajo: tecla T)">
+                        <span id="theme-toggle-icon">🌙</span>
+                        <span id="theme-toggle-label">Oscuro</span>
+                    </button>
                 </div>
-                <div class="subsection" data-title="ADMINISTRADOR DE SISTEMAS Y REDES" data-location="ADTEL Sistemas de Telecomunicación, S.L. | 2019, Molins de Rei">
-                    <h3>ADMINISTRADOR DE SISTEMAS Y REDES</h3>
-                </div>
-            </div>
-            <div class="navigation-buttons">
-                <button class="nav-button prev-button" data-section="2">Atrás</button>
-                <button class="nav-button next-button" data-section="2">Siguiente</button>
-            </div>
-            <div class="popup" id="work-popup">
-                <h3 id="work-popup-title">Título</h3>
-                <p id="work-popup-location">Lugar y fechas</p>
-                <p id="work-popup-description"></p>
-                <span class="close-button" id="work-popup-close">X</span>
-            </div>
-        </section>
-        <section class="section hidden" id="section3">
-            <h2>¿Qué he estudiado?</h2>
-            <div id="grid-container">
-                <div class="subsection" data-title="BOOTCAMP BIG DATA & IA PYTHON" data-location="Enfoca'T - Fundación Esplai | 2025">
-                    <h3>BOOTCAMP BIG DATA & IA PYTHON</h3>
-                    <p class="institution">Enfoca'T - Fundación Esplai | 2025</p>
-                </div>
-                <div class="subsection" data-title="MÁSTER DE FP EN IA Y BIG DATA" data-location="INS Bernat el Ferrer | 2022-2023">
-                    <h3>MÁSTER DE FP EN IA Y BIG DATA</h3>
-                    <p class="institution">INS Bernat el Ferrer | 2022-2023</p>
-                </div>
-                <div class="subsection" data-title="CFGS DESARROLLO DE APLICACIONES WEB" data-location="INS Bernat el Ferrer | 2020-2021">
-                    <h3>CFGS DESARROLLO APLICACIONES WEB</h3>
-                    <p class="institution">INS Bernat el Ferrer | 2020-2021</p>
-                </div>
-                <div class="subsection" data-title="CFGS ADM. SISTEMAS INFORMÁTICOS EN RED" data-location="INS Bernat el Ferrer | 2018-2020">
-                    <h3>CFGS ADM. SISTEMAS INFORMÁTICOS</h3>
-                    <p class="institution">INS Bernat el Ferrer | 2018-2020</p>
-                </div>
-            </div>
-            <div class="navigation-buttons">
-                <button class="nav-button prev-button" data-section="3">Atrás</button>
-                <button class="nav-button next-button" data-section="3">Siguiente</button>
-            </div>
-        </section>
-        <section class="section hidden" id="section4">
-            <h2>¿Qué herramientas manejo?</h2>
-            <p style="margin-bottom: 20px; font-size: 0.7rem; color: #eee;">
-                A lo largo de mi carrera, he tenido la oportunidad de trabajar con diversas herramientas y tecnologías.
-                Aquí te dejo un resumen de las que considero más importantes y con las que me siento más cómodo:
-            </p>
-            <div class="tecnologias-grid">
-                <div class="tecnologia-card">
-                    <h3>Python</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>Java</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>JS</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>SQL</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>MongoDB</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>HTML</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>PHP</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>CSS</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>Bootstrap</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>Node</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>Django</h3>
-                </div>
-                <div class="tecnologia-card">
-                    <h3>Flask</h3>
+
+                <div class="keyboard-hint">
+                    Atajos: <kbd>1</kbd>-<kbd>5</kbd> secciones · <kbd>T</kbd> tema
                 </div>
             </div>
-            <div class="navigation-buttons">
-                <button class="nav-button prev-button" data-section="4">Atrás</button>
-                <button class="nav-button next-button" data-section="4">Siguiente</button>
-            </div>
-        </section>
-        <section class="section hidden" id="section5">
-            <h2>¡Contacta conmigo!</h2>
-            <div class="contact-buttons">
-                <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" class="contact-button">
-                    <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
-                <a href="mailto:gcalaf99@gmail.com" target="_blank" class="contact-button">
-                    <i class="fas fa-envelope"></i> Correo Electrónico
-                </a>
-                <a href="https://github.com/GCalaf" target="_blank" class="contact-button">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-            </div>
-            <div class="navigation-buttons">
-                <button class="nav-button prev-button" data-section="5">Atrás</button>
-                <button class="nav-button next-button" data-section="5" disabled>Siguiente</button>
-            </div>
-        </section>
+        </aside>
+
+        <!-- ============================================================
+             CONTENIDO PRINCIPAL (Scrollable Narrative Feed)
+             ============================================================ -->
+        <main class="content-area">
+
+            <!-- 01 // SOBRE MÍ -->
+            <section id="sobre-mi">
+                <div class="section-header">
+                    <span class="section-num">01 //</span>
+                    <h2 class="section-title">Sobre mí</h2>
+                </div>
+                <div class="manifesto-box">
+                    <p>
+                        Mi enfoque como ingeniero se basa en una premisa clara: <strong>hacer que los sistemas complejos funcionen con la máxima fiabilidad y el mínimo código superfluo</strong>.
+                    </p>
+                    <p class="highlight-phrase">
+                        "Criterio de ingeniería sólido, sin fuegos artificiales innecesarios ni atajos que comprometan la mantenibilidad del software."
+                    </p>
+                    <p>
+                        Mi trayectoria profesional cuenta con el estándar de exigencia técnica de <strong>Google</strong> (a través de Concentrix), donde me desempeñé como <em>Associate Cloud Engineer</em> resolviendo problemáticas de infraestructura en Google Cloud Platform (GCP) para clientes internacionales en entornos productivos críticos.
+                    </p>
+                    <p>
+                        Cuento con una base transversal que va desde la administración de sistemas físicos y redes hasta la concepción de arquitecturas modernas de microservicios con <strong>FastAPI</strong> y <strong>Python</strong>, complementada con especialización avanzada en <strong>Inteligencia Artificial y Big Data</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 02 // EXPERIENCIA LABORAL -->
+            <section id="experiencia">
+                <div class="section-header">
+                    <span class="section-num">02 //</span>
+                    <h2 class="section-title">Experiencia Laboral</h2>
+                </div>
+                <div class="experience-stack">
+
+                    <!-- Google Associate Cloud Engineer -->
+                    <article class="exp-card">
+                        <div class="exp-header">
+                            <div class="exp-role-group">
+                                <h3>
+                                    <span>Google Associate Cloud Engineer</span>
+                                    <span class="featured-pill">Destacado</span>
+                                </h3>
+                                <div class="exp-company">Concentrix Corporation · Barcelona</div>
+                            </div>
+                            <span class="exp-period">2023 — 2024</span>
+                        </div>
+                        <p class="exp-description">
+                            Soporte e ingeniería técnica de nivel empresarial en la plataforma oficial de Google Cloud Platform (GCP), asesorando y resolviendo incidencias arquitectónicas complejas para clientes internacionales.
+                        </p>
+                        <ul class="exp-achievements">
+                            <li>Diagnóstico y resolución de incidencias en Compute Engine, Google Kubernetes Engine (GKE), Cloud Storage y redes virtuales (VPC).</li>
+                            <li>Implementación de arquitecturas cloud robustas y escalables conforme a las mejores prácticas de fiabilidad y seguridad de Google.</li>
+                            <li>Comunicación técnica de alta precisión en entornos multilingües con equipos globales de ingeniería bajo estrictos SLAs.</li>
+                        </ul>
+                        <div class="tag-cloud">
+                            <span class="tag accent">Google Cloud Platform</span>
+                            <span class="tag">GCP IAM</span>
+                            <span class="tag">Compute Engine</span>
+                            <span class="tag">Kubernetes</span>
+                            <span class="tag">VPC & Cloud Networking</span>
+                            <span class="tag">Troubleshooting</span>
+                        </div>
+                    </article>
+
+                    <!-- Desarrollador Fullstack - eSonde -->
+                    <article class="exp-card">
+                        <div class="exp-header">
+                            <div class="exp-role-group">
+                                <h3>Desarrollador de Aplicaciones Web</h3>
+                                <div class="exp-company">eSonde Network Monitoring, S.L. · Molins de Rei</div>
+                            </div>
+                            <span class="exp-period">2020 — 2021</span>
+                        </div>
+                        <p class="exp-description">
+                            Desarrollo full-stack e integración de plataformas web para sistemas de monitorización de red e infraestructura telemática en tiempo real.
+                        </p>
+                        <ul class="exp-achievements">
+                            <li>Diseño y desarrollo de módulos frontend y backend utilizando JavaScript, Node.js, PHP, HTML5 y CSS3.</li>
+                            <li>Optimización y administración de bases de datos relacionales SQL para garantizar integridad transaccional y reporting de alta velocidad.</li>
+                            <li>Conexión de telemetría y visualización de métricas de rendimiento de red para clientes corporativos.</li>
+                        </ul>
+                        <div class="tag-cloud">
+                            <span class="tag">Fullstack</span>
+                            <span class="tag">JavaScript (ES6+)</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">PHP</span>
+                            <span class="tag">SQL Relacional</span>
+                            <span class="tag">Network Monitoring</span>
+                        </div>
+                    </article>
+
+                    <!-- Administrador de Sistemas - ADTEL -->
+                    <article class="exp-card">
+                        <div class="exp-header">
+                            <div class="exp-role-group">
+                                <h3>Administrador de Sistemas y Redes</h3>
+                                <div class="exp-company">ADTEL Sistemas de Telecomunicación, S.L. · Molins de Rei</div>
+                            </div>
+                            <span class="exp-period">2019</span>
+                        </div>
+                        <p class="exp-description">
+                            Gestión integral de hardware, servidores y redes corporativas de telecomunicaciones en entornos de alta disponibilidad.
+                        </p>
+                        <ul class="exp-achievements">
+                            <li>Montaje, configuración y mantenimiento de equipamiento físico de servidores y estaciones de trabajo informáticas.</li>
+                            <li>Administración de switches gestionables, routers y políticas de seguridad perimetral mediante firewalls.</li>
+                            <li>Garantía de conectividad e infraestructura de red sólida y segura para operaciones de campo.</li>
+                        </ul>
+                        <div class="tag-cloud">
+                            <span class="tag">Sistemas Linux / Unix</span>
+                            <span class="tag">Redes Cisco & Switches</span>
+                            <span class="tag">Firewalls & Seguridad</span>
+                            <span class="tag">Hardware Servers</span>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- 03 // STACK & HABILIDADES -->
+            <section id="habilidades">
+                <div class="section-header">
+                    <span class="section-num">03 //</span>
+                    <h2 class="section-title">Stack & Habilidades</h2>
+                </div>
+                <div class="skills-grid">
+
+                    <!-- Backend & Cloud Architecture -->
+                    <div class="skill-group">
+                        <div class="skill-group-header">
+                            <div class="skill-group-icon">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                            </div>
+                            <h3>Cloud & Backend</h3>
+                        </div>
+                        <ul class="skill-items">
+                            <li class="skill-item featured-skill">
+                                <div class="skill-item-title">
+                                    <span>FastAPI</span>
+                                    <span class="badge-ai-flow">API Core</span>
+                                </div>
+                                <span class="skill-item-note">Servicios asíncronos ultrarrápidos, esquemas Pydantic y tipado estricto.</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>Python</span>
+                                </div>
+                                <span class="skill-item-note">Lenguaje principal para backend, scripts de automatización e IA.</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>Google Cloud Platform (GCP)</span>
+                                </div>
+                                <span class="skill-item-note">Compute, Kubernetes, VPC, IAM, Cloud Run y Storage.</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>Django & Flask / Node.js</span>
+                                </div>
+                                <span class="skill-item-note">Desarrollo de servicios web modulares y endpoints RESTful.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Frontend & AI-Augmented Workflows -->
+                    <div class="skill-group">
+                        <div class="skill-group-header">
+                            <div class="skill-group-icon">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            </div>
+                            <h3>Frontend & Agentes</h3>
+                        </div>
+                        <ul class="skill-items">
+                            <li class="skill-item featured-skill">
+                                <div class="skill-item-title">
+                                    <span>Next.js</span>
+                                    <span class="badge-ai-flow">Agentes de IA</span>
+                                </div>
+                                <span class="skill-item-note">Desarrollo acelerado mediante agentes de IA aplicados a prototipado y frontend moderno.</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>JavaScript Moderno (ES6+)</span>
+                                </div>
+                                <span class="skill-item-note">Manipulación del DOM limpia, eventos nativos y lógica asíncrona.</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>HTML5 Semántico & CSS Puro</span>
+                                </div>
+                                <span class="skill-item-note">Responsive design sin dependencias pesadas, CSS variables y accesibilidad.</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>Bootstrap & Design Systems</span>
+                                </div>
+                                <span class="skill-item-note">Sistemas de rejillas y componentes para interfaces corporativas limpias.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Data & Artificial Intelligence -->
+                    <div class="skill-group">
+                        <div class="skill-group-header">
+                            <div class="skill-group-icon">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                            </div>
+                            <h3>Datos & Machine Learning</h3>
+                        </div>
+                        <ul class="skill-items">
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>Bases de Datos Relacionales (SQL)</span>
+                                </div>
+                                <span class="skill-item-note">Modelado de datos, consultas optimizadas e indexación (PostgreSQL, MySQL).</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>MongoDB (NoSQL)</span>
+                                </div>
+                                <span class="skill-item-note">Almacenamiento orientado a documentos y esquemas dinámicos.</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>Pipelines de Big Data & IA</span>
+                                </div>
+                                <span class="skill-item-note">Procesamiento de datos a gran escala y fundamentos de Machine Learning con Python.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Sistemas, Redes & DevOps -->
+                    <div class="skill-group">
+                        <div class="skill-group-header">
+                            <div class="skill-group-icon">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            </div>
+                            <h3>Sistemas & Redes</h3>
+                        </div>
+                        <ul class="skill-items">
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>Linux & Entornos UNIX</span>
+                                </div>
+                                <span class="skill-item-note">Administración de servidores, scripting Bash y configuración de servicios.</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>Arquitectura de Redes</span>
+                                </div>
+                                <span class="skill-item-note">Routing, switching, VLANs, políticas de firewall y protocolos TCP/IP.</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-item-title">
+                                    <span>Control de Versiones & CI/CD</span>
+                                </div>
+                                <span class="skill-item-note">Git, GitHub Workflows y despliegues estáticos optimizados.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 04 // FORMACIÓN ACADÉMICA -->
+            <section id="formacion">
+                <div class="section-header">
+                    <span class="section-num">04 //</span>
+                    <h2 class="section-title">Formación Académica</h2>
+                </div>
+                <div class="education-list">
+
+                    <div class="edu-item">
+                        <div class="edu-info">
+                            <h3>Bootcamp Big Data & IA Python</h3>
+                            <span class="edu-institution">Enfoca'T — Fundación Esplai</span>
+                        </div>
+                        <span class="edu-year">2025</span>
+                    </div>
+
+                    <div class="edu-item">
+                        <div class="edu-info">
+                            <h3>Curso de Especialización (Máster FP) en IA y Big Data</h3>
+                            <span class="edu-institution">INS Bernat el Ferrer · Molins de Rei</span>
+                        </div>
+                        <span class="edu-year">2022 — 2023</span>
+                    </div>
+
+                    <div class="edu-item">
+                        <div class="edu-info">
+                            <h3>CFGS Desarrollo de Aplicaciones Web (DAW)</h3>
+                            <span class="edu-institution">INS Bernat el Ferrer · Molins de Rei</span>
+                        </div>
+                        <span class="edu-year">2020 — 2021</span>
+                    </div>
+
+                    <div class="edu-item">
+                        <div class="edu-info">
+                            <h3>CFGS Adm. de Sistemas Informáticos en Red (ASIX)</h3>
+                            <span class="edu-institution">INS Bernat el Ferrer · Molins de Rei</span>
+                        </div>
+                        <span class="edu-year">2018 — 2020</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 05 // CONTACTO -->
+            <section id="contacto">
+                <div class="section-header">
+                    <span class="section-num">05 //</span>
+                    <h2 class="section-title">Contacto</h2>
+                </div>
+                <div class="contact-card">
+                    <h3>¿Iniciamos una conversación técnica?</h3>
+                    <p>
+                        Estoy abierto a oportunidades laborales que busquen solidez en arquitectura cloud, desarrollo de APIs robustas en Python/FastAPI o integración de soluciones de datos e IA.
+                    </p>
+                    <div class="contact-methods">
+                        <button class="btn btn-primary" id="copy-email-footer-btn">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            <span>Copiar gcalaf99@gmail.com</span>
+                        </button>
+                        <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="btn btn-secondary">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <span>Abrir Cliente de Correo</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            <span>LinkedIn</span>
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </a>
+                        <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            <span>GitHub</span>
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </a>
+                    </div>
+                    <footer class="footer-note">
+                        <span>Guillem Calaf Vidal · Barcelona</span>
+                        <span>Single-file architecture · 100% Vanilla Clean Code</span>
+                    </footer>
+                </div>
+            </section>
+
+        </main>
+
     </div>
+
+    <!-- Feedback Toast -->
+    <div class="toast-notification" id="clipboard-toast" role="status" aria-live="polite">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>gcalaf99@gmail.com copiado al portapapeles</span>
+    </div>
+
+    <!-- ============================================================
+         JAVASCRIPT VANILLA (<120 LÍNEAS / MODULAR & CLEAN)
+         ============================================================ -->
     <script>
-        // Efecto Matrix
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
+        (function () {
+            'use strict';
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+            const EMAIL = 'gcalaf99@gmail.com';
 
-        resizeCanvas();
-
-        const katakana = 'アァカサタナハマヤャラワガザダバパ';
-        const fontSize = 10;
-        let columns = Math.floor(canvas.width / fontSize);
-        let drops = [];
-        let dropSpeeds = [];
-
-        function initializeDrops() {
-            columns = Math.floor(canvas.width / fontSize);
-            drops = [];
-            dropSpeeds = [];
-            for (let x = 0; x < columns; x++) {
-                drops[x] = Math.floor(Math.random() * canvas.height) - 50;
-                dropSpeeds[x] = Math.random() * 1 + 0.5;
-            }
-        }
-
-        initializeDrops();
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00ff00';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = katakana.charAt(Math.floor(Math.random() * katakana.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                drops[i] += dropSpeeds[i];
-
-                if (drops[i] * fontSize > canvas.height) {
-                    drops[i] = Math.floor(Math.random() * canvas.height) - 50;
+            // 1. Reloj en vivo de Barcelona (CET/CEST)
+            const clockEl = document.getElementById('barcelona-time');
+            function updateClock() {
+                if (!clockEl) return;
+                try {
+                    const now = new Date();
+                    const options = {
+                        timeZone: 'Europe/Madrid',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: false
+                    };
+                    const timeStr = new Intl.DateTimeFormat('es-ES', options).format(now);
+                    clockEl.textContent = `${timeStr} CET`;
+                } catch (e) {
+                    clockEl.textContent = new Date().toLocaleTimeString();
                 }
             }
-        }
+            updateClock();
+            setInterval(updateClock, 1000);
 
-        let matrixInterval; // Variable para almacenar el intervalo de la matriz
+            // 2. Copiado de Email al portapapeles con feedback táctil (Toast)
+            const toast = document.getElementById('clipboard-toast');
+            let toastTimer = null;
 
-        function startMatrix() {
-            matrixInterval = setInterval(drawMatrix, 30);
-        }
-
-        function stopMatrix() {
-            if (matrixInterval) {
-                clearInterval(matrixInterval);
-            }
-        }
-
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initializeDrops();
-        });
-
-        const startButton = document.getElementById('start-button');
-        const headerSection = document.querySelector('.header');
-        const sections = document.querySelectorAll('.section');
-        const prevButtons = document.querySelectorAll('.nav-button.prev-button');
-        const nextButtons = document.querySelectorAll('.nav-button.next-button');
-        const subsections = document.querySelectorAll('.subsection');
-        const workPopup = document.getElementById('work-popup');
-        const workPopupTitle = document.getElementById('work-popup-title');
-        const workPopupLocation = document.getElementById('work-popup-location');
-        const workPopupDescription = document.getElementById('work-popup-description');
-        const workPopupClose = document.getElementById('work-popup-close');
-
-        let currentSectionIndex = 0;
-        let started = false;
-
-        function showSection(index) {
-            sections.forEach((section,i) => {
-                if (i === index) {
-                    section.classList.remove('hidden');
-                    section.classList.add('appear');
+            function copyEmailToClipboard() {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(EMAIL).then(showToast);
                 } else {
-                    section.classList.add('hidden');
-                    section.classList.remove('appear');
+                    const textarea = document.createElement('textarea');
+                    textarea.value = EMAIL;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    try {
+                        document.execCommand('copy');
+                        showToast();
+                    } catch (err) {}
+                    document.body.removeChild(textarea);
                 }
-            });
-
-            prevButtons.forEach(button => {
-                button.disabled = index === 0;
-            });
-            nextButtons.forEach(button => {
-                button.disabled = index === sections.length - 1;
-            });
-            currentSectionIndex = index;
-        }
-
-        window.addEventListener('load', () => {
-            sections.forEach(section => section.classList.add('hidden'));
-
-            setTimeout(() => {
-                startButton.classList.add('visible');
-                startMatrix(); // Inicia el efecto matrix después de 5 segundos
-            }, 5500);
-        });
-
-        startButton.addEventListener('click', () => {
-            if (!started) {
-                headerSection.classList.add('hidden');
-                startButton.classList.add('hidden');
-                headerSection.remove();
-                startButton.remove();
-
-                showSection(0);
-                started = true;
             }
-        });
 
-        prevButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const sectionIndex = parseInt(button.dataset.section);
-                if (currentSectionIndex > 0) {
-                    currentSectionIndex--;
-                    showSection(currentSectionIndex);
+            function showToast() {
+                if (!toast) return;
+                toast.classList.add('active');
+                if (toastTimer) clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    toast.classList.remove('active');
+                }, 2800);
+            }
+
+            const copyBtn = document.getElementById('copy-email-btn');
+            const copyFooterBtn = document.getElementById('copy-email-footer-btn');
+            if (copyBtn) copyBtn.addEventListener('click', copyEmailToClipboard);
+            if (copyFooterBtn) copyFooterBtn.addEventListener('click', copyEmailToClipboard);
+
+            // 3. Sistema de Tema (Dark / Light Mode) con almacenamiento local
+            const htmlEl = document.documentElement;
+            const themeBtn = document.getElementById('theme-toggle-btn');
+            const themeIcon = document.getElementById('theme-toggle-icon');
+            const themeLabel = document.getElementById('theme-toggle-label');
+
+            function applyTheme(theme) {
+                htmlEl.setAttribute('data-theme', theme);
+                localStorage.setItem('gc_theme', theme);
+                if (theme === 'dark') {
+                    if (themeIcon) themeIcon.textContent = '🌙';
+                    if (themeLabel) themeLabel.textContent = 'Oscuro';
+                } else {
+                    if (themeIcon) themeIcon.textContent = '☀️';
+                    if (themeLabel) themeLabel.textContent = 'Claro';
                 }
-            });
-        });
+            }
 
-        nextButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const sectionIndex = parseInt(button.dataset.section);
-                if (currentSectionIndex < sections.length - 1) {
-                    currentSectionIndex++;
-                    showSection(currentSectionIndex);
-                }
-            });
-        });
+            // Inicializar tema respetando preferencia guardada o sistema
+            const savedTheme = localStorage.getItem('gc_theme');
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                applyTheme('light');
+            } else {
+                applyTheme('dark');
+            }
 
-        subsections.forEach(subsection => {
-            subsection.addEventListener('click', () => {
-                const title = subsection.dataset.title;
-                const location = subsection.dataset.location;
-                let description = '';
+            function toggleTheme() {
+                const current = htmlEl.getAttribute('data-theme') || 'dark';
+                applyTheme(current === 'dark' ? 'light' : 'dark');
+            }
 
-                if (subsection.closest('#section2')) {
-                    switch (title) {
-                        case 'GOOGLE ASSOCIATE CLOUD ENGINEER':
-                            description = 'En mi rol como Associate Cloud Engineer en Google, tuve que establecer comunicaciones internacionales con clientes clave, abordando sus desafíos técnicos en la plataforma GCP. Además, participé activamente en la implementación de arquitecturas robustas y escalables en GCP, asegurando soluciones eficientes y adaptadas a sus necesidades.';
-                            break;
-                        case 'DESARROLLADOR DE APLICACIONES WEB':
-                            description = 'Como Desarrollador de Aplicaciones Web en eSonde, tuve la oportunidad de liderar el desarrollo e implementación de soluciones web full-stack. Trabajé con un amplio abanico de tecnologías, incluyendo HTML, CSS, JavaScript, PHP y Node.js, y me encargué de la administración de bases de datos relacionales SQL para garantizar la integridad y el rendimiento de las aplicaciones.';
-                            break;
-                        case 'ADMINISTRADOR DE SISTEMAS Y REDES':
-                            description = 'En mi posición como Administrador de Sistemas y Redes en ADTEL, me responsabilicé del montaje, configuración y mantenimiento de equipos informáticos, tanto a nivel de hardware como de software. Además, gestioné la configuración y administración de redes, incluyendo routers, switches y firewalls, asegurando una infraestructura de red sólida y segura.';
-                            break;
+            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
+            // 4. Scrollspy con IntersectionObserver para la barra lateral
+            const sections = document.querySelectorAll('main section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -70% 0px',
+                threshold: 0
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach((link) => {
+                            if (link.getAttribute('data-section') === id) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
                     }
-                    workPopupTitle.textContent = title;
-                    workPopupLocation.textContent = location;
-                    workPopupDescription.textContent = description;
-                    workPopup.style.display = 'block';
-                }
-                else if (subsection.closest('#section3')){
-                    workPopupTitle.textContent = title;
-                    workPopupLocation.textContent = location;
-                    workPopupDescription.textContent = "";
-                    workPopup.style.display = 'block';
+                });
+            }, observerOptions);
+
+            sections.forEach((sec) => sectionObserver.observe(sec));
+
+            // 5. Atajos de teclado intuitivos (1-5 para saltar a secciones, T para tema)
+            const sectionKeys = {
+                '1': 'sobre-mi',
+                '2': 'experiencia',
+                '3': 'habilidades',
+                '4': 'formacion',
+                '5': 'contacto'
+            };
+
+            window.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+                const key = e.key.toLowerCase();
+                if (sectionKeys[key]) {
+                    const targetEl = document.getElementById(sectionKeys[key]);
+                    if (targetEl) {
+                        e.preventDefault();
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                } else if (key === 't') {
+                    e.preventDefault();
+                    toggleTheme();
                 }
             });
-        });
-
-        workPopupClose.addEventListener('click', () => {
-            workPopup.style.display = 'none';
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target === workPopup) {
-                workPopup.style.display = 'none';
-            }
-        });
+        })();
     </script>
 </body>
 </html>
