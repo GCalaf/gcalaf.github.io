@@ -1,1246 +1,1173 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guillem Calaf Vidal · Software & Cloud Engineer</title>
-    <meta name="description" content="Portfolio técnico de Guillem Calaf Vidal. Software & Cloud Engineer especializado en Google Cloud Platform (GCP), backend asíncrono con FastAPI y desarrollo frontend con Next.js + IA.">
+    <meta name="description" content="Portfolio de Guillem Calaf Vidal. Software & Cloud Engineer. Ex-Google Associate Cloud Engineer (Concentrix), APIs con FastAPI y Next.js con agentes de IA.">
     <meta name="author" content="Guillem Calaf Vidal">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-    
-    <!-- Tipografías del Sistema y Web Fonts de Alta Legibilidad -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='none' stroke='currentColor' stroke-width='10'/><circle cx='50' cy='50' r='18' fill='currentColor'/></svg>">
+
+    <!-- Tipografía Editorial Suiza de Alta Precisión -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* ============================================================
-           SISTEMA DE DISEÑO ULTRA-MINIMALISTA (Inspiración Linear / Raycast)
+           SISTEMA DE DISEÑO ULTRA-MINIMALISTA MONOCROMO EN RELIEVE
+           Pure Contrast: #FFFFFF & #000000
            ============================================================ */
         :root {
-            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-            /* Modo Oscuro (Por Defecto) */
-            --bg-page: #080b11;
-            --bg-card: rgba(255, 255, 255, 0.035);
-            --bg-card-hover: rgba(255, 255, 255, 0.065);
-            --bg-elevated: #111622;
-            --bg-pill: rgba(255, 255, 255, 0.06);
-            --bg-pill-active: #f8fafc;
-            --text-pill-active: #080b11;
+            /* Modo Claro (Por Defecto) */
+            --bg: #ffffff;
+            --fg: #000000;
+            --fg-secondary: #333333;
+            --fg-muted: #666666;
+            --border: #000000;
+            --border-light: rgba(0, 0, 0, 0.12);
+            --border-relief: rgba(0, 0, 0, 0.08);
 
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(255, 255, 255, 0.18);
-            --border-highlight: rgba(255, 255, 255, 0.28);
+            --card-bg: #ffffff;
+            --pill-bg: rgba(0, 0, 0, 0.04);
+            --pill-active-bg: #000000;
+            --pill-active-fg: #ffffff;
 
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
+            /* Micro-relieve sutil: biselado táctil de precisión */
+            --relief-shadow: 
+                0 1px 2px rgba(0, 0, 0, 0.05),
+                0 4px 12px rgba(0, 0, 0, 0.03),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            --relief-btn: 
+                0 1px 2px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 1),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.06);
+            --relief-btn-active: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.12);
 
-            --accent-green: #10b981;
-            --accent-green-glow: rgba(16, 185, 129, 0.2);
-            --accent-blue: #38bdf8;
-            --accent-blue-subtle: rgba(56, 189, 248, 0.12);
-            --accent-purple: #a855f7;
-            --accent-purple-subtle: rgba(168, 85, 247, 0.12);
-            --accent-amber: #f59e0b;
-            --accent-amber-subtle: rgba(245, 158, 11, 0.12);
-
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
-            --shadow-card: 0 12px 30px -10px rgba(0, 0, 0, 0.45);
-
-            --radius-sm: 6px;
-            --radius-md: 10px;
-            --radius-lg: 14px;
+            --radius-sm: 4px;
+            --radius-md: 8px;
             --radius-full: 9999px;
-            --max-w: 860px;
+            --trans: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        [data-theme="light"] {
-            --bg-page: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-card-hover: #f1f5f9;
-            --bg-elevated: #ffffff;
-            --bg-pill: #e2e8f0;
-            --bg-pill-active: #0f172a;
-            --text-pill-active: #ffffff;
+        [data-theme="dark"] {
+            --bg: #000000;
+            --fg: #ffffff;
+            --fg-secondary: #cccccc;
+            --fg-muted: #888888;
+            --border: #ffffff;
+            --border-light: rgba(255, 255, 255, 0.18);
+            --border-relief: rgba(255, 255, 255, 0.12);
 
-            --border-subtle: #e2e8f0;
-            --border-hover: #cbd5e1;
-            --border-highlight: #94a3b8;
+            --card-bg: #000000;
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active-bg: #ffffff;
+            --pill-active-fg: #000000;
 
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #64748b;
-
-            --accent-green: #059669;
-            --accent-green-glow: rgba(5, 150, 105, 0.2);
-            --accent-blue: #0284c7;
-            --accent-blue-subtle: rgba(2, 132, 199, 0.08);
-            --accent-purple: #7c3aed;
-            --accent-purple-subtle: rgba(124, 58, 237, 0.08);
-            --accent-amber: #d97706;
-            --accent-amber-subtle: rgba(217, 119, 6, 0.08);
-
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-            --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+            --relief-shadow: 
+                0 1px 2px rgba(0, 0, 0, 0.8),
+                0 4px 16px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            --relief-btn: 
+                0 1px 2px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+            --relief-btn-active: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.7);
         }
 
-        /* Reset Básico */
+        /* Reset & Caja */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        html {
-            scroll-behavior: smooth;
-            background-color: var(--bg-page);
-            color: var(--text-primary);
-        }
-
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg);
+            color: var(--fg);
             font-family: var(--font-sans);
-            font-size: 15px;
-            line-height: 1.6;
-            background-color: var(--bg-page);
-            color: var(--text-primary);
-            min-height: 100vh;
-            padding: 44px 20px 140px 20px;
-            display: flex;
-            justify-content: center;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
-
-        .container {
-            width: 100%;
-            max-width: var(--max-w);
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
+            transition: background-color var(--trans), color var(--trans);
         }
 
         /* ============================================================
-           CABECERA / HERO (Primeros 3 segundos de lectura)
+           CABECERA FIJA SUPERIOR
            ============================================================ */
-        .hero-strip {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 26px;
-        }
-
-        .hero-top-row {
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 32px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
+            z-index: 100;
+            background: linear-gradient(180deg, var(--bg) 70%, transparent 100%);
+            transition: background var(--trans);
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: baseline;
             gap: 12px;
         }
 
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-full);
-            font-size: 0.78rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 0 0 var(--accent-green-glow);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .theme-toggle-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
-            padding: 5px 11px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
+        .brand-name {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.15s ease;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
 
-        .theme-toggle-btn:hover {
-            border-color: var(--border-hover);
-            color: var(--text-primary);
+        .brand-sub {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--fg-muted);
         }
 
-        .hero-identity {
+        .nav-controls {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        /* Paginador numérico de fases en cabecera */
+        .phase-stepper-pills {
+            display: flex;
+            align-items: center;
             gap: 4px;
+            background: var(--pill-bg);
+            padding: 3px 6px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-relief);
         }
 
-        .hero-title {
-            font-size: 2.25rem;
-            font-weight: 800;
-            letter-spacing: -0.035em;
-            color: var(--text-primary);
-            line-height: 1.15;
-        }
-
-        .hero-role {
+        .step-pill {
             font-family: var(--font-mono);
-            font-size: 0.92rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .role-dot {
-            color: var(--text-muted);
-        }
-
-        .hero-pitch {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            max-width: 740px;
-            margin-top: 4px;
-        }
-
-        .hero-pitch strong {
-            color: var(--text-primary);
+            font-size: 0.74rem;
             font-weight: 600;
+            padding: 3px 9px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: transparent;
+            color: var(--fg-muted);
+            cursor: pointer;
+            transition: all var(--trans);
+        }
+
+        .step-pill:hover {
+            color: var(--fg);
+        }
+
+        .step-pill.active {
+            background: var(--pill-active-bg);
+            color: var(--pill-active-fg);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        /* Conmutador de Bombilla en Relieve (Lightbulb Switch) */
+        .lightbulb-toggle {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            box-shadow: var(--relief-btn);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--fg);
+            transition: all var(--trans);
+        }
+
+        .lightbulb-toggle:hover {
+            transform: translateY(-1px);
+        }
+
+        .lightbulb-toggle:active {
+            transform: translateY(1px);
+            box-shadow: var(--relief-btn-active);
+        }
+
+        .lightbulb-icon {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: all var(--trans);
+        }
+
+        [data-theme="light"] .lightbulb-icon .bulb-fill {
+            fill: #000000;
+            opacity: 1;
+        }
+
+        [data-theme="dark"] .lightbulb-icon .bulb-fill {
+            fill: transparent;
+            opacity: 0.2;
         }
 
         /* ============================================================
-           QUICK STATS / KPI CARDS (Bento Grid de Datos Clave)
+           CONTENEDOR DE FASES (Single-Viewport Stepper)
            ============================================================ */
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 12px;
-        }
-
-        .kpi-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 14px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            transition: all 0.15s ease;
+        .stage-wrapper {
             position: relative;
+            width: 100%;
+            height: 100vh;
             overflow: hidden;
         }
 
-        .kpi-card:hover {
-            border-color: var(--border-hover);
-            background: var(--bg-card-hover);
-            transform: translateY(-1px);
-        }
-
-        .kpi-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-        }
-
-        .kpi-badge {
-            font-size: 0.68rem;
-            font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        .kpi-badge.gcp {
-            background: var(--accent-blue-subtle);
-            color: var(--accent-blue);
-        }
-
-        .kpi-badge.fastapi {
-            background: var(--accent-purple-subtle);
-            color: var(--accent-purple);
-        }
-
-        .kpi-badge.nextjs {
-            background: var(--accent-amber-subtle);
-            color: var(--accent-amber);
-        }
-
-        .kpi-badge.academic {
-            background: rgba(16, 185, 129, 0.12);
-            color: var(--accent-green);
-        }
-
-        .kpi-value {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: -0.01em;
-        }
-
-        .kpi-desc {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            line-height: 1.35;
-        }
-
-        /* ============================================================
-           FILTROS MODULARES (Zero Overwhelm - Granularidad Instantánea)
-           ============================================================ */
-        .filter-bar {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 12px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .filter-bar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .filter-btn {
-            background: var(--bg-pill);
-            border: 1px solid transparent;
-            color: var(--text-secondary);
-            padding: 6px 14px;
-            border-radius: var(--radius-full);
-            font-family: var(--font-sans);
-            font-size: 0.82rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            white-space: nowrap;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .filter-btn:hover {
-            color: var(--text-primary);
-            background: var(--bg-card-hover);
-        }
-
-        .filter-btn.active {
-            background: var(--bg-pill-active);
-            color: var(--text-pill-active);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* ============================================================
-           BLOQUES DE CONTENIDO GRANULAR
-           ============================================================ */
-        .content-group {
+        .phases-track {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            transition: opacity 0.2s ease;
+            width: 100%;
+            height: 400vh;
+            transition: transform 0.52s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
         }
 
-        .content-group.hidden {
-            display: none;
-        }
-
-        .section-tag {
+        .phase-view {
+            width: 100%;
+            height: 100vh;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-muted);
-            margin-bottom: 2px;
+            justify-content: center;
+            padding: 90px 24px 70px 24px;
+            position: relative;
         }
 
-        .section-tag::after {
+        .phase-inner {
+            width: 100%;
+            max-width: 820px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Etiqueta de fase */
+        .phase-counter-label {
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--fg-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phase-counter-label::after {
             content: "";
             flex: 1;
             height: 1px;
-            background: var(--border-subtle);
-        }
-
-        /* Tarjetas de Experiencia */
-        .item-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 18px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            transition: all 0.15s ease;
-        }
-
-        .item-card:hover {
-            border-color: var(--border-hover);
-            background: var(--bg-card-hover);
-        }
-
-        .item-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .item-role-box {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .item-role {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .item-company {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        .item-period {
-            font-family: var(--font-mono);
-            font-size: 0.76rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            background: var(--bg-pill);
-            padding: 2px 8px;
-            border-radius: var(--radius-sm);
-            white-space: nowrap;
-        }
-
-        .item-bullets {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-top: 2px;
-        }
-
-        .item-bullets li {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            line-height: 1.45;
-            position: relative;
-            padding-left: 14px;
-        }
-
-        .item-bullets li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1;
-        }
-
-        .item-bullets li strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .pill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 4px;
-        }
-
-        .tag-pill {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 500;
-            padding: 2px 8px;
-            border-radius: 4px;
-            background: var(--bg-pill);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-subtle);
-        }
-
-        .tag-pill.highlight-gcp {
-            color: var(--accent-blue);
-            background: var(--accent-blue-subtle);
-            border-color: rgba(56, 189, 248, 0.25);
-        }
-
-        .tag-pill.highlight-fastapi {
-            color: var(--accent-purple);
-            background: var(--accent-purple-subtle);
-            border-color: rgba(168, 85, 247, 0.25);
-        }
-
-        .tag-pill.highlight-nextjs {
-            color: var(--accent-amber);
-            background: var(--accent-amber-subtle);
-            border-color: rgba(245, 158, 11, 0.25);
-        }
-
-        /* Matriz de Habilidades Bento */
-        .skills-bento {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 12px;
-        }
-
-        .skill-tile {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            transition: all 0.15s ease;
-        }
-
-        .skill-tile:hover {
-            border-color: var(--border-hover);
-            background: var(--bg-card-hover);
-        }
-
-        .skill-tile-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .skill-tile-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .skill-items-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .skill-spec {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            font-size: 0.84rem;
-        }
-
-        .skill-spec-name {
-            font-weight: 600;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .skill-spec-desc {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            line-height: 1.35;
-        }
-
-        /* Educación / Cronología */
-        .edu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 10px;
-        }
-
-        .edu-tile {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 14px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .edu-degree {
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            line-height: 1.3;
-        }
-
-        .edu-school {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .edu-year {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            color: var(--text-muted);
-            margin-top: 2px;
+            background: var(--border-relief);
         }
 
         /* ============================================================
-           BARRA FIJA INFERIOR (Acciones Inmediatas para Reclutadores)
+           FASE 1: IDENTIDAD & VALOR
            ============================================================ */
-        .bottom-action-dock {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(17, 22, 34, 0.90);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid var(--border-highlight);
-            border-radius: var(--radius-full);
-            padding: 6px 10px;
+        .hero-name {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            color: var(--fg);
+        }
+
+        .hero-tagline {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--fg);
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
-            z-index: 100;
-            max-width: 94vw;
+            flex-wrap: wrap;
         }
 
-        [data-theme="light"] .bottom-action-dock {
-            background: rgba(255, 255, 255, 0.92);
-            border-color: #cbd5e1;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        .tagline-sep {
+            color: var(--fg-muted);
         }
 
-        .action-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-primary);
-            padding: 8px 16px;
-            border-radius: var(--radius-full);
-            font-family: var(--font-sans);
-            font-size: 0.82rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.15s ease;
-            white-space: nowrap;
+        .hero-manifesto {
+            font-size: 1.15rem;
+            color: var(--fg-secondary);
+            line-height: 1.6;
+            max-width: 720px;
         }
 
-        .action-btn:hover {
-            border-color: var(--border-hover);
-            background: var(--bg-card-hover);
-            transform: translateY(-1px);
-        }
-
-        .action-btn.btn-primary {
-            background: var(--accent-green);
-            color: #042f20;
-            border-color: var(--accent-green);
+        .hero-manifesto strong {
+            color: var(--fg);
             font-weight: 700;
         }
 
-        .action-btn.btn-primary:hover {
-            background: #0ea5e9;
-            border-color: #0ea5e9;
-            color: #ffffff;
+        .hero-actions-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        /* Botones en Relieve Táctil (Biselado de precisión) */
+        .btn-relief {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg);
+            color: var(--fg);
+            box-shadow: var(--relief-btn);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--trans);
+            white-space: nowrap;
+        }
+
+        .btn-relief:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-relief:active {
+            transform: translateY(1px);
+            box-shadow: var(--relief-btn-active);
+        }
+
+        .btn-relief.btn-solid {
+            background: var(--fg);
+            color: var(--bg);
         }
 
         kbd {
             font-family: var(--font-mono);
-            font-size: 0.68rem;
-            padding: 1px 5px;
+            font-size: 0.65rem;
+            padding: 1px 4px;
+            border: 1px solid currentColor;
             border-radius: 3px;
-            background: rgba(0, 0, 0, 0.2);
-            color: inherit;
             opacity: 0.75;
-            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        [data-theme="light"] kbd {
-            background: rgba(0, 0, 0, 0.06);
-            border-color: rgba(0, 0, 0, 0.15);
+        /* ============================================================
+           FASE 2: TRAYECTORIA PROFESIONAL VERIFICADA
+           ============================================================ */
+        .timeline-clean {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        /* Toast Feedback */
-        .toast-notif {
-            position: fixed;
-            top: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-20px);
-            background: #0f172a;
-            color: #f8fafc;
-            padding: 10px 20px;
-            border-radius: var(--radius-full);
-            border: 1px solid var(--accent-green);
-            font-family: var(--font-sans);
-            font-size: 0.82rem;
+        .job-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 14px 18px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            background: var(--card-bg);
+            box-shadow: var(--relief-shadow);
+            transition: all var(--trans);
+        }
+
+        .job-item:hover {
+            border-color: var(--border);
+        }
+
+        .job-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .job-role {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        .job-company {
+            font-size: 0.85rem;
+            color: var(--fg-muted);
+            font-family: var(--font-mono);
+        }
+
+        .job-year {
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            color: var(--fg);
             font-weight: 600;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+            border: 1px solid var(--border-light);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+        }
+
+        .job-desc {
+            font-size: 0.88rem;
+            color: var(--fg-secondary);
+            line-height: 1.45;
+        }
+
+        .job-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .mini-pill {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            padding: 2px 7px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            color: var(--fg-secondary);
+        }
+
+        .mini-pill.accent {
+            border-color: var(--border);
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        /* ============================================================
+           FASE 3: STACK TÉCNICO & HABILIDADES CORE
+           ============================================================ */
+        .stack-matrix {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .stack-card {
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            background: var(--card-bg);
+            box-shadow: var(--relief-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all var(--trans);
+        }
+
+        .stack-card:hover {
+            border-color: var(--border);
+        }
+
+        .stack-card-title {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--fg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .badge-core {
+            font-size: 0.65rem;
+            padding: 1px 6px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+        }
+
+        .stack-point {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .point-name {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        .point-desc {
+            font-size: 0.78rem;
+            color: var(--fg-secondary);
+            line-height: 1.35;
+        }
+
+        /* ============================================================
+           FASE 4: FORMACIÓN & CONTACTO DIRECTO
+           ============================================================ */
+        .dual-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .panel-box {
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 18px;
+            background: var(--card-bg);
+            box-shadow: var(--relief-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .panel-title {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--fg);
+        }
+
+        .edu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .edu-item {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .edu-name {
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: var(--fg);
+            line-height: 1.25;
+        }
+
+        .edu-meta {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--fg-muted);
+        }
+
+        .contact-cta-text {
+            font-size: 0.9rem;
+            color: var(--fg-secondary);
+            line-height: 1.5;
+        }
+
+        .contact-stack-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+           PIE FIJO INFERIOR
+           ============================================================ */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 14px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--fg-muted);
+            background: linear-gradient(0deg, var(--bg) 70%, transparent 100%);
+            transition: background var(--trans);
+        }
+
+        .bottom-hint {
             display: flex;
             align-items: center;
             gap: 8px;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 999;
         }
 
-        .toast-notif.active {
+        .bottom-nav-arrows {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .arrow-nav-btn {
+            border: 1px solid var(--border-light);
+            background: var(--bg);
+            color: var(--fg);
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-sm);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--relief-btn);
+            transition: all var(--trans);
+        }
+
+        .arrow-nav-btn:hover {
+            border-color: var(--border);
+        }
+
+        /* Toast Feedback */
+        .toast-box {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-25px);
+            background: var(--fg);
+            color: var(--bg);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            opacity: 0;
+            pointer-events: none;
+            transition: all var(--trans);
+            z-index: 999;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+        }
+
+        .toast-box.active {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
 
-        /* ============================================================
-           ADAPTACIÓN RESPONSIVE & IMPRESIÓN (PDF DIN A4 PERFECTO)
-           ============================================================ */
-        @media (max-width: 640px) {
-            body {
-                padding: 24px 16px 120px 16px;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-nav {
+                padding: 16px 20px;
             }
-            .hero-title {
-                font-size: 1.85rem;
+            .bottom-bar {
+                padding: 12px 20px;
             }
-            .kpi-grid {
+            .hero-name {
+                font-size: 2.2rem;
+            }
+            .stack-matrix, .dual-panel {
                 grid-template-columns: 1fr;
             }
-            .bottom-action-dock {
-                width: 94%;
-                overflow-x: auto;
-                justify-content: flex-start;
-                padding: 6px 8px;
-            }
-            .action-btn {
-                padding: 6px 12px;
-                font-size: 0.78rem;
+            .phase-view {
+                padding: 80px 16px 60px 16px;
+                overflow-y: auto;
             }
         }
 
+        /* Impresión (PDF A4 Impecable) */
         @media print {
-            body {
+            body, html {
+                overflow: visible !important;
+                height: auto !important;
                 background: #ffffff !important;
                 color: #000000 !important;
-                padding: 0 !important;
             }
-            .bottom-action-dock, .theme-toggle-btn, .filter-bar, .toast-notif, .nav-actions {
+            .top-nav, .bottom-bar, .toast-box, .lightbulb-toggle {
                 display: none !important;
             }
-            .container {
-                max-width: 100% !important;
-                gap: 18px !important;
+            .phases-track {
+                transform: none !important;
+                height: auto !important;
             }
-            .item-card, .kpi-card, .skill-tile, .edu-tile {
-                background: transparent !important;
-                border: 1px solid #d1d5db !important;
-                box-shadow: none !important;
-                break-inside: avoid;
-            }
-            .content-group {
-                display: flex !important;
+            .phase-view {
+                height: auto !important;
+                padding: 30px 0 !important;
+                page-break-after: always;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Notificación Toast Copiado -->
-    <div class="toast-notif" id="toast" role="status">
-        <span>✓</span>
-        <span id="toast-msg">gcalaf99@gmail.com copiado al portapapeles</span>
-    </div>
+    <!-- Toast Feedback -->
+    <div class="toast-box" id="toast">✓ Email copiado al portapapeles</div>
 
-    <main class="container">
+    <!-- Navegación Superior Fija -->
+    <header class="top-nav">
+        <div class="brand-box">
+            <span class="brand-name">Guillem Calaf Vidal</span>
+            <span class="brand-sub">Cloud & Software Engineer</span>
+        </div>
 
-        <!-- ============================================================
-             1. CABECERA / HERO: IDENTIFICACIÓN INMEDIATA (3 SEGUNDOS)
-             ============================================================ -->
-        <header class="hero-strip">
-            <div class="hero-top-row">
-                <div class="status-badge">
-                    <span class="pulse-dot"></span>
-                    <span>Disponible · Barcelona & Remoto</span>
-                </div>
-                <div class="nav-actions">
-                    <button class="theme-toggle-btn" id="btn-theme" title="Alternar tema claro / oscuro (Atajo: T)">
-                        <span id="theme-icon">☀️</span>
-                        <span>Tema <kbd>T</kbd></span>
-                    </button>
-                    <button class="theme-toggle-btn" id="btn-print" title="Imprimir / Exportar a PDF">
-                        <span>🖨️</span>
-                        <span>PDF</span>
-                    </button>
-                </div>
-            </div>
+        <div class="nav-controls">
+            <!-- Píldoras de Fase 01 / 04 -->
+            <nav class="phase-stepper-pills" aria-label="Navegación de fases">
+                <button class="step-pill active" data-step="0">01</button>
+                <button class="step-pill" data-step="1">02</button>
+                <button class="step-pill" data-step="2">03</button>
+                <button class="step-pill" data-step="3">04</button>
+            </nav>
 
-            <div class="hero-identity">
-                <h1 class="hero-title">Guillem Calaf Vidal</h1>
-                <div class="hero-role">
-                    <span>Software & Cloud Engineer</span>
-                    <span class="role-dot">·</span>
-                    <span>Ex-Google Associate Cloud Engineer (Concentrix)</span>
-                </div>
-            </div>
+            <!-- Conmutador Bombilla en Relieve (Lightbulb Toggle) -->
+            <button class="lightbulb-toggle" id="btn-bulb" title="Alternar modo claro / modo oscuro (Atajo: T)">
+                <svg class="lightbulb-icon" viewBox="0 0 24 24">
+                    <!-- Base de la bombilla -->
+                    <path d="M9 18h6M10 21h4" />
+                    <!-- Cristal / Filamento -->
+                    <path class="bulb-fill" d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z" />
+                </svg>
+            </button>
+        </div>
+    </header>
 
-            <p class="hero-pitch">
-                Ingeniero de software con estándar técnico verificado en infraestructura de <strong>Google Cloud Platform</strong>. Especializado en diseño de arquitectura escalable, desarrollo de <strong>APIs asíncronas de alto rendimiento con FastAPI</strong> y creación ágil de interfaces frontend con <strong>Next.js asistido por agentes de IA</strong>.
-            </p>
-        </header>
+    <!-- Contenedor de Fases (Single Viewport) -->
+    <main class="stage-wrapper" id="stage-wrapper">
+        <div class="phases-track" id="phases-track">
 
-        <!-- ============================================================
-             2. QUICK STATS: METRICAS CLAVE / GRANULARIDAD INMEDIATA
-             ============================================================ -->
-        <section class="kpi-grid" aria-label="Métricas destacadas">
-            <!-- Card 1: Google Cloud -->
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <span>Certificación</span>
-                    <span class="kpi-badge gcp">Google</span>
-                </div>
-                <div class="kpi-value">Associate Cloud</div>
-                <div class="kpi-desc">Soporte e ingeniería en GKE, Compute Engine, VPC e IAM para entornos de producción internacional.</div>
-            </div>
-
-            <!-- Card 2: FastAPI Core -->
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <span>Backend Core</span>
-                    <span class="kpi-badge fastapi">API Core</span>
-                </div>
-                <div class="kpi-value">FastAPI + Python</div>
-                <div class="kpi-desc">Microservicios asíncronos REST, tipado estricto con Pydantic y alta concurrencia de datos.</div>
-            </div>
-
-            <!-- Card 3: Next.js IA -->
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <span>Frontend Ágil</span>
-                    <span class="kpi-badge nextjs">Agentes de IA</span>
-                </div>
-                <div class="kpi-value">Next.js + AI</div>
-                <div class="kpi-desc">Desarrollo acelerado de interfaces reactivas fullstack mediante pair-programming con agentes de IA.</div>
-            </div>
-
-            <!-- Card 4: Formación -->
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <span>Formación Base</span>
-                    <span class="kpi-badge academic">4 Títulos</span>
-                </div>
-                <div class="kpi-value">IA, Datos & Web</div>
-                <div class="kpi-desc">Bootcamp Big Data & IA 2025, Máster FP IA, CFGS DAW y CFGS ASIX completados.</div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-             3. FILTROS MODULARES: CERO OVERWHELM (PULSA Y VE AL GRANO)
-             ============================================================ -->
-        <nav class="filter-bar" aria-label="Filtro de secciones">
-            <button class="filter-btn active" data-filter="all">● Todo el Perfil</button>
-            <button class="filter-btn" data-filter="experience">💼 Experiencia Laboral</button>
-            <button class="filter-btn" data-filter="stack">⚡ Stack Técnico</button>
-            <button class="filter-btn" data-filter="education">🎓 Formación & Certs</button>
-        </nav>
-
-        <!-- ============================================================
-             4. SECCIÓN: EXPERIENCIA LABORAL
-             ============================================================ -->
-        <section class="content-group" id="sec-experience" data-category="experience">
-            <div class="section-tag">
-                <span>01 // Experiencia Laboral Verificada</span>
-            </div>
-
-            <!-- Google / Concentrix -->
-            <article class="item-card">
-                <div class="item-top">
-                    <div class="item-role-box">
-                        <h2 class="item-role">Google Associate Cloud Engineer</h2>
-                        <span class="item-company">Concentrix Corporation · Barcelona</span>
+            <!-- ============================================================
+                 FASE 1: IDENTIDAD & PROPUESTA DE VALOR
+                 ============================================================ -->
+            <section class="phase-view" id="phase-0">
+                <div class="phase-inner">
+                    <div class="phase-counter-label">
+                        <span>01 // Identidad & Enfoque</span>
                     </div>
-                    <span class="item-period">2023 — 2024</span>
-                </div>
-                <ul class="item-bullets">
-                    <li>Ingeniería técnica y soporte de infraestructura crítica en <strong>Google Cloud Platform (GCP)</strong> para empresas y cuentas internacionales en producción.</li>
-                    <li>Resolución de incidencias complejas en <strong>Compute Engine</strong>, clústeres <strong>GKE (Kubernetes)</strong>, buckets de Cloud Storage, políticas de <strong>IAM</strong> y topologías de red <strong>VPC</strong>.</li>
-                    <li>Garantía estricta de acuerdos de nivel de servicio (SLAs) de alta disponibilidad y mitigación de fallos en arquitecturas multirregión.</li>
-                </ul>
-                <div class="pill-tags">
-                    <span class="tag-pill highlight-gcp">Google Cloud Platform</span>
-                    <span class="tag-pill">Kubernetes (GKE)</span>
-                    <span class="tag-pill">Compute Engine</span>
-                    <span class="tag-pill">IAM Security</span>
-                    <span class="tag-pill">VPC Peering & Firewall</span>
-                    <span class="tag-pill">Cloud Storage</span>
-                    <span class="tag-pill">Observabilidad & Logs</span>
-                </div>
-            </article>
 
-            <!-- eSonde Network Monitoring -->
-            <article class="item-card">
-                <div class="item-top">
-                    <div class="item-role-box">
-                        <h2 class="item-role">Desarrollador Web Fullstack</h2>
-                        <span class="item-company">eSonde Network Monitoring, S.L. · Molins de Rei</span>
+                    <h1 class="hero-name">Guillem Calaf Vidal</h1>
+
+                    <div class="hero-tagline">
+                        <span>Software & Cloud Engineer</span>
+                        <span class="tagline-sep">·</span>
+                        <span>Ex-Google Associate Cloud Engineer (Concentrix)</span>
+                        <span class="tagline-sep">·</span>
+                        <span>Barcelona</span>
                     </div>
-                    <span class="item-period">2020 — 2021</span>
-                </div>
-                <ul class="item-bullets">
-                    <li>Desarrollo de módulos end-to-end para herramientas corporativas de monitorización y telemetría de red en tiempo real.</li>
-                    <li>Implementación de servicios backend y procesamiento de flujos de datos con <strong>Node.js, PHP y JavaScript</strong>.</li>
-                    <li>Diseño, normalización y optimización de consultas en <strong>bases de datos relacionales SQL</strong> para paneles de analítica.</li>
-                </ul>
-                <div class="pill-tags">
-                    <span class="tag-pill">JavaScript</span>
-                    <span class="tag-pill">Node.js</span>
-                    <span class="tag-pill">PHP</span>
-                    <span class="tag-pill">SQL Relacional</span>
-                    <span class="tag-pill">Telemetría de Red</span>
-                    <span class="tag-pill">APIs REST</span>
-                </div>
-            </article>
 
-            <!-- ADTEL -->
-            <article class="item-card">
-                <div class="item-top">
-                    <div class="item-role-box">
-                        <h2 class="item-role">Administrador de Sistemas y Redes</h2>
-                        <span class="item-company">ADTEL Sistemas de Telecomunicación · Molins de Rei</span>
+                    <p class="hero-manifesto">
+                        Diseño arquitecturas cloud escalables sobre <strong>Google Cloud Platform (GCP)</strong>. Desarrollo de <strong>APIs asíncronas de alto rendimiento con FastAPI</strong> y creación ágil de interfaces frontend con <strong>Next.js asistido por agentes de IA</strong>.
+                    </p>
+
+                    <div class="hero-actions-row">
+                        <button class="btn-relief btn-solid" id="btn-copy-p1">
+                            <span>📋 Copiar Email</span>
+                            <kbd>C</kbd>
+                        </button>
+                        <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="btn-relief">
+                            <span>✉️ Contactar</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="btn-relief">
+                            <span>LinkedIn ↗</span>
+                            <kbd>L</kbd>
+                        </a>
+                        <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="btn-relief">
+                            <span>GitHub ↗</span>
+                            <kbd>G</kbd>
+                        </a>
                     </div>
-                    <span class="item-period">2019</span>
                 </div>
-                <ul class="item-bullets">
-                    <li>Configuración, despliegue y mantenimiento de infraestructura de servidores físicos y virtuales <strong>Linux</strong>.</li>
-                    <li>Gestión de hardware de conectividad: switches gestionables, routers Cisco y políticas de cortafuegos perimetrales.</li>
-                </ul>
-                <div class="pill-tags">
-                    <span class="tag-pill">Linux Server</span>
-                    <span class="tag-pill">Redes Cisco</span>
-                    <span class="tag-pill">Firewalls</span>
-                    <span class="tag-pill">Hardware & Switching</span>
-                </div>
-            </article>
-        </section>
+            </section>
 
-        <!-- ============================================================
-             5. SECCIÓN: STACK TÉCNICO & HABILIDADES
-             ============================================================ -->
-        <section class="content-group" id="sec-stack" data-category="stack">
-            <div class="section-tag">
-                <span>02 // Matriz de Habilidades & Tecnologías</span>
-            </div>
-
-            <div class="skills-bento">
-                <!-- Bloque 1: Cloud & DevOps -->
-                <div class="skill-tile">
-                    <div class="skill-tile-header">
-                        <h3 class="skill-tile-title">☁️ Cloud & Infraestructura</h3>
+            <!-- ============================================================
+                 FASE 2: TRAYECTORIA PROFESIONAL
+                 ============================================================ -->
+            <section class="phase-view" id="phase-1">
+                <div class="phase-inner">
+                    <div class="phase-counter-label">
+                        <span>02 // Trayectoria Profesional Verificada</span>
                     </div>
-                    <div class="skill-items-list">
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">Google Cloud Platform (GCP)</span>
-                            <span class="skill-spec-desc">Compute Engine, Cloud Run, Cloud Functions, Pub/Sub, Cloud Storage, BigQuery.</span>
+
+                    <div class="timeline-clean">
+                        <!-- Google / Concentrix -->
+                        <article class="job-item">
+                            <div class="job-head">
+                                <h2 class="job-role">Google Associate Cloud Engineer</h2>
+                                <span class="job-company">Concentrix Corporation · Barcelona</span>
+                                <span class="job-year">2023 — 2024</span>
+                            </div>
+                            <p class="job-desc">
+                                Ingeniería y soporte de infraestructura crítica en Google Cloud Platform (GCP) para cuentas internacionales en producción. Resolución de incidencias complejas en Compute Engine, clústeres GKE (Kubernetes), Cloud Storage, VPC e IAM bajo estrictos acuerdos de nivel de servicio (SLAs).
+                            </p>
+                            <div class="job-pills">
+                                <span class="mini-pill accent">Google Cloud Platform</span>
+                                <span class="mini-pill accent">Kubernetes (GKE)</span>
+                                <span class="mini-pill">Compute Engine</span>
+                                <span class="mini-pill">IAM Security</span>
+                                <span class="mini-pill">VPC Networking</span>
+                                <span class="mini-pill">SLAs Críticos</span>
+                            </div>
+                        </article>
+
+                        <!-- eSonde -->
+                        <article class="job-item">
+                            <div class="job-head">
+                                <h2 class="job-role">Desarrollador Web Fullstack</h2>
+                                <span class="job-company">eSonde Network Monitoring, S.L. · Molins de Rei</span>
+                                <span class="job-year">2020 — 2021</span>
+                            </div>
+                            <p class="job-desc">
+                                Desarrollo de herramientas de telemetría y monitorización de red en tiempo real. Construcción de servicios con Node.js, PHP y JavaScript, junto a normalización y optimización de consultas en bases de datos relacionales SQL.
+                            </p>
+                            <div class="job-pills">
+                                <span class="mini-pill">JavaScript</span>
+                                <span class="mini-pill">Node.js</span>
+                                <span class="mini-pill">PHP</span>
+                                <span class="mini-pill">SQL Relacional</span>
+                                <span class="mini-pill">Telemetría</span>
+                            </div>
+                        </article>
+
+                        <!-- ADTEL -->
+                        <article class="job-item">
+                            <div class="job-head">
+                                <h2 class="job-role">Administrador de Sistemas y Redes</h2>
+                                <span class="job-company">ADTEL Telecomunicaciones · Molins de Rei</span>
+                                <span class="job-year">2019</span>
+                            </div>
+                            <p class="job-desc">
+                                Despliegue y mantenimiento de servidores físicos y virtuales Linux, gestión de switches gestionables, routers Cisco y políticas de cortafuegos perimetrales.
+                            </p>
+                            <div class="job-pills">
+                                <span class="mini-pill">Linux Server</span>
+                                <span class="mini-pill">Redes Cisco</span>
+                                <span class="mini-pill">Firewalls</span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 FASE 3: STACK TÉCNICO CORE
+                 ============================================================ -->
+            <section class="phase-view" id="phase-2">
+                <div class="phase-inner">
+                    <div class="phase-counter-label">
+                        <span>03 // Stack Técnico & Metodología</span>
+                    </div>
+
+                    <div class="stack-matrix">
+                        <!-- Backend Core: FastAPI -->
+                        <div class="stack-card">
+                            <div class="stack-card-title">
+                                <span>⚡ Backend & APIs</span>
+                                <span class="badge-core">API Core</span>
+                            </div>
+                            <div class="stack-point">
+                                <span class="point-name">FastAPI & Python</span>
+                                <span class="point-desc">Framework prioritario: APIs REST asíncronas de alta velocidad, tipado Pydantic y documentación OpenAPI.</span>
+                            </div>
+                            <div class="stack-point">
+                                <span class="point-name">Node.js & Persistencia</span>
+                                <span class="point-desc">Microservicios JavaScript, bases de datos PostgreSQL, MySQL y MongoDB.</span>
+                            </div>
                         </div>
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">Kubernetes (GKE) & Docker</span>
-                            <span class="skill-spec-desc">Contenedores, despliegues declarativos, ingress y aislamiento de microservicios.</span>
-                        </div>
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">IAM & Redes Seguras</span>
-                            <span class="skill-spec-desc">Principio de menor privilegio, service accounts, VPCs, subredes y Cloud NAT.</span>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Bloque 2: Backend Core (FastAPI) -->
-                <div class="skill-tile">
-                    <div class="skill-tile-header">
-                        <h3 class="skill-tile-title">⚡ Backend & APIs</h3>
-                        <span class="kpi-badge fastapi">Prioritario</span>
-                    </div>
-                    <div class="skill-items-list">
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">FastAPI & Python</span>
-                            <span class="skill-spec-desc">Framework predilecto: APIs asíncronas REST ultrarrápidas, tipado y OpenAPI nativo.</span>
+                        <!-- Frontend: Next.js con IA -->
+                        <div class="stack-card">
+                            <div class="stack-card-title">
+                                <span>🤖 Frontend & Flujo IA</span>
+                                <span class="badge-core">Agentes IA</span>
+                            </div>
+                            <div class="stack-point">
+                                <span class="point-name">Next.js & React</span>
+                                <span class="point-desc">Interfaces modernas de usuario, Server Components y renderizado híbrido.</span>
+                            </div>
+                            <div class="stack-point">
+                                <span class="point-name">Pair-Programming con Agentes de IA</span>
+                                <span class="point-desc">Metodología transparente: iteración ultrarrápida (x3) y validación de arquitectura asistida por IA.</span>
+                            </div>
                         </div>
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">Node.js & Express</span>
-                            <span class="skill-spec-desc">Microservicios y middlewares reactivos en ecosistemas JavaScript.</span>
+
+                        <!-- Cloud & DevOps -->
+                        <div class="stack-card">
+                            <div class="stack-card-title">
+                                <span>☁️ Cloud & Infraestructura</span>
+                                <span class="badge-core">Certificado</span>
+                            </div>
+                            <div class="stack-point">
+                                <span class="point-name">Google Cloud Platform (GCP)</span>
+                                <span class="point-desc">Compute Engine, Cloud Run, Cloud Functions, Pub/Sub, Cloud Storage y BigQuery.</span>
+                            </div>
+                            <div class="stack-point">
+                                <span class="point-name">Kubernetes (GKE) & Docker</span>
+                                <span class="point-desc">Contenedores, despliegues declarativos, ingress y políticas de seguridad IAM.</span>
+                            </div>
                         </div>
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">Persistencia & Bases de Datos</span>
-                            <span class="skill-spec-desc">PostgreSQL, MySQL y MongoDB. Modelado de esquemas y transacciones.</span>
+
+                        <!-- Datos & Sistemas -->
+                        <div class="stack-card">
+                            <div class="stack-card-title">
+                                <span>🧠 Datos & Sistemas</span>
+                                <span class="badge-core">Linux Core</span>
+                            </div>
+                            <div class="stack-point">
+                                <span class="point-name">Big Data & Machine Learning</span>
+                                <span class="point-desc">Pandas, NumPy y conceptos aplicados de analítica de datos en Python.</span>
+                            </div>
+                            <div class="stack-point">
+                                <span class="point-name">Sistemas Linux & Redes</span>
+                                <span class="point-desc">Administración Debian/Ubuntu, Bash scripting, topologías TCP/IP y cortafuegos.</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Bloque 3: Frontend & Metodología IA (Next.js) -->
-                <div class="skill-tile">
-                    <div class="skill-tile-header">
-                        <h3 class="skill-tile-title">🤖 Frontend & Agentes de IA</h3>
-                        <span class="kpi-badge nextjs">Velocidad x3</span>
+            <!-- ============================================================
+                 FASE 4: FORMACIÓN & CONTACTO DIRECTO
+                 ============================================================ -->
+            <section class="phase-view" id="phase-3">
+                <div class="phase-inner">
+                    <div class="phase-counter-label">
+                        <span>04 // Formación Oficial & Contacto</span>
                     </div>
-                    <div class="skill-items-list">
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">Next.js & React</span>
-                            <span class="skill-spec-desc">Desarrollo de interfaces modernas de usuario y consumo de APIs con Server Components.</span>
+
+                    <div class="dual-panel">
+                        <!-- Formación -->
+                        <div class="panel-box">
+                            <h3 class="panel-title">Acreditaciones & Títulos</h3>
+                            <ul class="edu-list">
+                                <li class="edu-item">
+                                    <span class="edu-name">Google Associate Cloud Engineer</span>
+                                    <span class="edu-meta">Certificación Oficial Google Cloud</span>
+                                </li>
+                                <li class="edu-item">
+                                    <span class="edu-name">Bootcamp Big Data & IA con Python</span>
+                                    <span class="edu-meta">Fundación Esplai · 2025</span>
+                                </li>
+                                <li class="edu-item">
+                                    <span class="edu-name">Máster FP en Inteligencia Artificial y Big Data</span>
+                                    <span class="edu-meta">INS Bernat el Ferrer · 2022 — 2023</span>
+                                </li>
+                                <li class="edu-item">
+                                    <span class="edu-name">CFGS Desarrollo de Aplicaciones Web (DAW)</span>
+                                    <span class="edu-meta">INS Bernat el Ferrer · 2020 — 2021</span>
+                                </li>
+                                <li class="edu-item">
+                                    <span class="edu-name">CFGS Adm. de Sistemas Informáticos en Red (ASIX)</span>
+                                    <span class="edu-meta">INS Bernat el Ferrer · 2018 — 2020</span>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">Pair-Programming con Agentes de IA</span>
-                            <span class="skill-spec-desc">Flujo de trabajo ágil: iteración rápida y validación de arquitectura con asistencia de IA.</span>
-                        </div>
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">Tailwind CSS & JavaScript</span>
-                            <span class="skill-spec-desc">Diseño limpio, interfaces accesibles y rendimiento web optimizado.</span>
+
+                        <!-- Contacto Directo -->
+                        <div class="panel-box">
+                            <h3 class="panel-title">Contacto Directo</h3>
+                            <p class="contact-cta-text">
+                                Disponible para posiciones de Cloud, Backend o Fullstack en Barcelona o en remoto.
+                            </p>
+
+                            <div class="contact-stack-btns">
+                                <button class="btn-relief btn-solid" id="btn-copy-p4">
+                                    <span>📋 Copiar gcalaf99@gmail.com</span>
+                                    <kbd>C</kbd>
+                                </button>
+                                <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="btn-relief">
+                                    <span>✉️ Abrir Correo</span>
+                                </a>
+                                <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="btn-relief">
+                                    <span>LinkedIn ↗</span>
+                                    <kbd>L</kbd>
+                                </a>
+                                <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="btn-relief">
+                                    <span>GitHub ↗</span>
+                                    <kbd>G</kbd>
+                                </a>
+                                <button class="btn-relief" id="btn-print-p4">
+                                    <span>🖨️ Exportar CV en PDF</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Bloque 4: Datos, ML & Sistemas -->
-                <div class="skill-tile">
-                    <div class="skill-tile-header">
-                        <h3 class="skill-tile-title">🧠 Big Data, ML & Linux</h3>
-                    </div>
-                    <div class="skill-items-list">
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">Python Data Stack</span>
-                            <span class="skill-spec-desc">Pandas, NumPy y fundamentos de Machine Learning y procesamiento de datos.</span>
-                        </div>
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">Sistemas Linux & Shell</span>
-                            <span class="skill-spec-desc">Bash scripting, gestión de procesos, diagnóstico de red y administración de servidores.</span>
-                        </div>
-                        <div class="skill-spec">
-                            <span class="skill-spec-name">Control de Versiones & CI/CD</span>
-                            <span class="skill-spec-desc">Git, GitHub, flujos de integración y despliegue automatizado.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-             6. SECCIÓN: FORMACIÓN ACADÉMICA & CERTIFICACIONES
-             ============================================================ -->
-        <section class="content-group" id="sec-education" data-category="education">
-            <div class="section-tag">
-                <span>03 // Formación Oficial & Acreditaciones</span>
-            </div>
-
-            <div class="edu-grid">
-                <!-- Certificación Google -->
-                <div class="edu-tile" style="border-left: 3px solid var(--accent-blue);">
-                    <div class="edu-degree">Google Associate Cloud Engineer</div>
-                    <div class="edu-school">Certificación Oficial Google Cloud</div>
-                    <div class="edu-year">Acreditación Técnica Internacional</div>
-                </div>
-
-                <!-- Bootcamp Esplai -->
-                <div class="edu-tile">
-                    <div class="edu-degree">Bootcamp Big Data & IA con Python</div>
-                    <div class="edu-school">Fundación Esplai</div>
-                    <div class="edu-year">2025 · Especialización Práctica</div>
-                </div>
-
-                <!-- Máster FP -->
-                <div class="edu-tile">
-                    <div class="edu-degree">Máster FP en IA y Big Data</div>
-                    <div class="edu-school">INS Bernat el Ferrer</div>
-                    <div class="edu-year">2022 — 2023</div>
-                </div>
-
-                <!-- DAW -->
-                <div class="edu-tile">
-                    <div class="edu-degree">CFGS Desarrollo de Aplicaciones Web (DAW)</div>
-                    <div class="edu-school">INS Bernat el Ferrer</div>
-                    <div class="edu-year">2020 — 2021</div>
-                </div>
-
-                <!-- ASIX -->
-                <div class="edu-tile">
-                    <div class="edu-degree">CFGS Adm. de Sistemas Informáticos en Red (ASIX)</div>
-                    <div class="edu-school">INS Bernat el Ferrer</div>
-                    <div class="edu-year">2018 — 2020</div>
-                </div>
-            </div>
-        </section>
-
+        </div>
     </main>
 
-    <!-- ============================================================
-         7. DOCK FIJO INFERIOR: ACCIONES DIRECTAS PARA RECLUTADORES
-         ============================================================ -->
-    <footer class="bottom-action-dock" role="navigation" aria-label="Acciones directas de contacto">
-        <button class="action-btn btn-primary" id="btn-copy-email" title="Copiar email al portapapeles (Atajo: C)">
-            <span>📋</span>
-            <span>Copiar Email</span>
-            <kbd>C</kbd>
-        </button>
+    <!-- Barra Inferior Fija -->
+    <footer class="bottom-bar">
+        <div class="bottom-hint">
+            <span>Scroll, flechas <kbd>↑</kbd> <kbd>↓</kbd> o números para navegar fases</span>
+        </div>
 
-        <a href="mailto:gcalaf99@gmail.com?subject=Oportunidad%20Laboral%20-%20Guillem%20Calaf" class="action-btn" title="Enviar correo electrónico">
-            <span>✉️</span>
-            <span>Contactar</span>
-        </a>
-
-        <a href="https://www.linkedin.com/in/guillem-calaf-vidal/" target="_blank" rel="noopener noreferrer" class="action-btn" title="Perfil de LinkedIn (Atajo: L)">
-            <span>LinkedIn</span>
-            <kbd>L</kbd>
-        </a>
-
-        <a href="https://github.com/GCalaf" target="_blank" rel="noopener noreferrer" class="action-btn" title="Perfil de GitHub (Atajo: G)">
-            <span>GitHub</span>
-            <kbd>G</kbd>
-        </a>
+        <div class="bottom-nav-arrows">
+            <button class="arrow-nav-btn" id="btn-prev" title="Fase anterior (↑)">↑</button>
+            <button class="arrow-nav-btn" id="btn-next" title="Siguiente fase (↓)">↓</button>
+        </div>
     </footer>
 
     <!-- ============================================================
-         8. LOGICA INTERACTIVA CLEAN CODE (<60 LÍNEAS)
+         CONTROLADOR DE FASES & INTERACCIÓN (<75 LÍNEAS)
          ============================================================ -->
     <script>
         (function () {
             'use strict';
 
             const EMAIL = 'gcalaf99@gmail.com';
-            const LINKEDIN = 'https://www.linkedin.com/in/guillem-calaf-vidal/';
-            const GITHUB = 'https://github.com/GCalaf';
+            const TOTAL_PHASES = 4;
+            let currentPhase = 0;
+            let isLocked = false;
 
-            // Elementos DOM
-            const html = document.documentElement;
-            const btnTheme = document.getElementById('btn-theme');
-            const themeIcon = document.getElementById('theme-icon');
-            const btnCopy = document.getElementById('btn-copy-email');
-            const btnPrint = document.getElementById('btn-print');
+            const track = document.getElementById('phases-track');
+            const stepPills = document.querySelectorAll('.step-pill');
+            const btnBulb = document.getElementById('btn-bulb');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            const btnCopyP1 = document.getElementById('btn-copy-p1');
+            const btnCopyP4 = document.getElementById('btn-copy-p4');
+            const btnPrintP4 = document.getElementById('btn-print-p4');
             const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toast-msg');
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const contentGroups = document.querySelectorAll('.content-group');
 
-            // 1. Filtrado Granular Instantáneo
-            filterButtons.forEach((btn) => {
-                btn.addEventListener('click', () => {
-                    const filter = btn.getAttribute('data-filter');
+            // 1. Navegación entre Fases
+            function goToPhase(index) {
+                if (index < 0 || index >= TOTAL_PHASES) return;
+                currentPhase = index;
+                track.style.transform = `translateY(-${currentPhase * 100}vh)`;
 
-                    filterButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
+                stepPills.forEach((p, idx) => {
+                    if (idx === currentPhase) {
+                        p.classList.add('active');
+                    } else {
+                        p.classList.remove('active');
+                    }
+                });
+            }
 
-                    contentGroups.forEach((group) => {
-                        const cat = group.getAttribute('data-category');
-                        if (filter === 'all' || cat === filter) {
-                            group.classList.remove('hidden');
-                        } else {
-                            group.classList.add('hidden');
-                        }
-                    });
+            stepPills.forEach(p => {
+                p.addEventListener('click', () => {
+                    const step = parseInt(p.getAttribute('data-step'), 10);
+                    goToPhase(step);
                 });
             });
 
-            // 2. Copiado de Email al Portapapeles
-            let toastTimeout = null;
-            function copyEmail() {
-                const triggerToast = () => {
-                    toastMsg.textContent = `${EMAIL} copiado al portapapeles`;
-                    toast.classList.add('active');
-                    if (toastTimeout) clearTimeout(toastTimeout);
-                    toastTimeout = setTimeout(() => toast.classList.remove('active'), 2500);
-                };
+            if (btnNext) btnNext.addEventListener('click', () => goToPhase(currentPhase + 1));
+            if (btnPrev) btnPrev.addEventListener('click', () => goToPhase(currentPhase - 1));
 
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(EMAIL).then(triggerToast).catch(() => fallbackCopy(triggerToast));
-                } else {
-                    fallbackCopy(triggerToast);
+            // 2. Control de Rueda de Ratón con Debounce Preciso
+            window.addEventListener('wheel', (e) => {
+                if (isLocked) return;
+                const delta = e.deltaY;
+                if (Math.abs(delta) > 28) {
+                    isLocked = true;
+                    if (delta > 0) {
+                        goToPhase(currentPhase + 1);
+                    } else {
+                        goToPhase(currentPhase - 1);
+                    }
+                    setTimeout(() => { isLocked = false; }, 520);
                 }
-            }
+            }, { passive: true });
 
-            function fallbackCopy(callback) {
-                const ta = document.createElement('textarea');
-                ta.value = EMAIL;
-                ta.style.position = 'fixed';
-                ta.style.opacity = '0';
-                document.body.appendChild(ta);
-                ta.select();
-                try {
-                    document.execCommand('copy');
-                    callback();
-                } catch (err) {}
-                document.body.removeChild(ta);
-            }
+            // 3. Control Táctil (Móvil)
+            let touchStartY = 0;
+            window.addEventListener('touchstart', (e) => {
+                if (e.touches && e.touches.length > 0) {
+                    touchStartY = e.touches[0].clientY;
+                }
+            }, { passive: true });
 
-            if (btnCopy) btnCopy.addEventListener('click', copyEmail);
+            window.addEventListener('touchend', (e) => {
+                if (isLocked) return;
+                if (e.changedTouches && e.changedTouches.length > 0) {
+                    const diff = touchStartY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 42) {
+                        isLocked = true;
+                        if (diff > 0) {
+                            goToPhase(currentPhase + 1);
+                        } else {
+                            goToPhase(currentPhase - 1);
+                        }
+                        setTimeout(() => { isLocked = false; }, 520);
+                    }
+                }
+            }, { passive: true });
 
-            // 3. Alternancia de Tema (Oscuro / Claro)
+            // 4. Conmutador de Bombilla (Modo Claro #FFFFFF / Modo Oscuro #000000)
             function toggleTheme() {
-                const current = html.getAttribute('data-theme') || 'dark';
-                const next = current === 'dark' ? 'light' : 'dark';
+                const html = document.documentElement;
+                const current = html.getAttribute('data-theme') || 'light';
+                const next = current === 'light' ? 'dark' : 'light';
                 html.setAttribute('data-theme', next);
-                if (themeIcon) themeIcon.textContent = next === 'dark' ? '☀️' : '🌙';
-                try { localStorage.setItem('theme', next); } catch (e) {}
+                try { localStorage.setItem('mono_theme', next); } catch (e) {}
             }
 
-            // Cargar tema guardado
             try {
-                const saved = localStorage.getItem('theme');
-                if (saved) {
-                    html.setAttribute('data-theme', saved);
-                    if (themeIcon) themeIcon.textContent = saved === 'dark' ? '☀️' : '🌙';
-                }
+                const saved = localStorage.getItem('mono_theme');
+                if (saved) document.documentElement.setAttribute('data-theme', saved);
             } catch (e) {}
 
-            if (btnTheme) btnTheme.addEventListener('click', toggleTheme);
+            if (btnBulb) btnBulb.addEventListener('click', toggleTheme);
 
-            // 4. Impresión / Guardado PDF
-            if (btnPrint) {
-                btnPrint.addEventListener('click', () => window.print());
+            // 5. Copiado de Email
+            let toastTimer = null;
+            function copyEmail() {
+                const onCopied = () => {
+                    toast.classList.add('active');
+                    if (toastTimer) clearTimeout(toastTimer);
+                    toastTimer = setTimeout(() => toast.classList.remove('active'), 2200);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(EMAIL).then(onCopied);
+                } else {
+                    const ta = document.createElement('textarea');
+                    ta.value = EMAIL;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try { document.execCommand('copy'); onCopied(); } catch(e){}
+                    document.body.removeChild(ta);
+                }
             }
 
-            // 5. Atajos de Teclado de Alta Velocidad (Power User / Recruiter)
+            if (btnCopyP1) btnCopyP1.addEventListener('click', copyEmail);
+            if (btnCopyP4) btnCopyP4.addEventListener('click', copyEmail);
+            if (btnPrintP4) btnPrintP4.addEventListener('click', () => window.print());
+
+            // 6. Atajos de Teclado
             window.addEventListener('keydown', (e) => {
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
                 const key = e.key.toLowerCase();
 
-                if (key === 'c') {
+                if (key === 'arrowdown' || key === 'pagedown' || key === ' ') {
                     e.preventDefault();
-                    copyEmail();
+                    goToPhase(currentPhase + 1);
+                } else if (key === 'arrowup' || key === 'pageup') {
+                    e.preventDefault();
+                    goToPhase(currentPhase - 1);
+                } else if (key === '1') {
+                    goToPhase(0);
+                } else if (key === '2') {
+                    goToPhase(1);
+                } else if (key === '3') {
+                    goToPhase(2);
+                } else if (key === '4') {
+                    goToPhase(3);
                 } else if (key === 't') {
                     e.preventDefault();
                     toggleTheme();
+                } else if (key === 'c') {
+                    e.preventDefault();
+                    copyEmail();
                 } else if (key === 'l') {
-                    window.open(LINKEDIN, '_blank');
+                    window.open('https://www.linkedin.com/in/guillem-calaf-vidal/', '_blank');
                 } else if (key === 'g') {
-                    window.open(GITHUB, '_blank');
+                    window.open('https://github.com/GCalaf', '_blank');
                 }
             });
 
