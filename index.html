@@ -62,21 +62,32 @@
             padding: 0;
         }
 
-        html, body {
+        html {
+            min-height: 100%;
+            height: auto;
+        }
+
+        body {
             width: 100%;
-            height: 100%;
+            min-height: 100vh;
             background-color: var(--desk-wood-1);
             color: var(--ink-primary);
             font-family: var(--font-typewriter);
             overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
             -webkit-font-smoothing: antialiased;
         }
 
         /* Altura de scroll virtual para la cinemática */
         #scroll-track {
-            height: 520vh;
-            position: relative;
+            height: 480vh;
+            width: 1px;
+            position: absolute;
+            top: 0;
+            left: 0;
             pointer-events: none;
+            opacity: 0;
         }
 
         /* Escenario fijo donde ocurre la magia 3D */
@@ -92,6 +103,12 @@
             justify-content: center;
             overflow: hidden;
             z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Los elementos interactivos del documento sí reciben interacción */
+        .paper-sheet, .cv-btn, .hud-overlay, .scroll-invitation {
+            pointer-events: auto;
         }
 
         /* Superficie del Escritorio */
@@ -1185,13 +1202,91 @@
                 return start + (end - start) * factor;
             }
 
-            // Escuchar el scroll nativo de la página
+            // Sincronizar posición de scroll
+            function applyProgress(newProgress) {
+                targetScrollProgress = Math.min(Math.max(newProgress, 0), 1);
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                if (maxScroll > 0) {
+                    window.scrollTo(0, targetScrollProgress * maxScroll);
+                }
+            }
+
+            // 1. Escuchar scroll nativo
             window.addEventListener('scroll', () => {
                 if (isFlatMode) return;
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 if (maxScroll <= 0) return;
                 targetScrollProgress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
             }, { passive: true });
+
+            // 2. Escuchar rueda de ratón / trackpad directamente
+            window.addEventListener('wheel', (e) => {
+                if (isFlatMode) return;
+                const delta = e.deltaY;
+                const step = (delta > 0 ? 1 : -1) * Math.min(Math.abs(delta) * 0.0008, 0.06);
+                targetScrollProgress = Math.min(Math.max(targetScrollProgress + step, 0), 1);
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                if (maxScroll > 0) {
+                    window.scrollTo(0, targetScrollProgress * maxScroll);
+                }
+            }, { passive: true });
+
+            // 3. Soporte táctil continuo para móviles/tablets
+            let touchStartY = 0;
+            window.addEventListener('touchstart', (e) => {
+                if (e.touches && e.touches.length > 0) {
+                    touchStartY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            window.addEventListener('touchmove', (e) => {
+                if (isFlatMode) return;
+                if (e.touches && e.touches.length > 0) {
+                    const currentY = e.touches[0].clientY;
+                    const diff = touchStartY - currentY;
+                    touchStartY = currentY;
+                    const step = diff * 0.002;
+                    targetScrollProgress = Math.min(Math.max(targetScrollProgress + step, 0), 1);
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    if (maxScroll > 0) {
+                        window.scrollTo(0, targetScrollProgress * maxScroll);
+                    }
+                }
+            }, { passive: true });
+
+            // 4. Teclado: Flechas, Espacio, Page Up/Down
+            window.addEventListener('keydown', (e) => {
+                if (isFlatMode) return;
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                    e.preventDefault();
+                    applyProgress(targetScrollProgress + 0.08);
+                } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                    e.preventDefault();
+                    applyProgress(targetScrollProgress - 0.08);
+                }
+            });
+
+            // 5. Clic interactivo en la barra de progreso
+            const progressBox = document.querySelector('.hud-progress-box');
+            if (progressBox) {
+                progressBox.style.cursor = 'pointer';
+                progressBox.title = 'Haz clic para saltar a una sección';
+                progressBox.addEventListener('click', (e) => {
+                    const rect = progressBox.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const pct = Math.min(Math.max(clickX / rect.width, 0), 1);
+                    applyProgress(pct);
+                });
+            }
+
+            // 6. Clic en la invitación inicial de scroll
+            if (scrollPrompt) {
+                scrollPrompt.style.cursor = 'pointer';
+                scrollPrompt.addEventListener('click', () => {
+                    applyProgress(0.25);
+                });
+            }
 
             // Bucle de renderizado 60-120fps con inercia
             function renderLoop() {
