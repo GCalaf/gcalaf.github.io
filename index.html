@@ -96,11 +96,12 @@
             inset: 0;
             width: 100vw;
             height: 100vh;
-            perspective: 1100px;
-            perspective-origin: 50% 50%;
+            perspective: 1200px;
+            perspective-origin: 50% 25%;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
+            padding-top: 50px;
             overflow: hidden;
             z-index: 1;
             pointer-events: none;
@@ -202,35 +203,13 @@
             border-top: 22px solid #e2e8f0;
         }
 
-        /* Post-it amarillo con anotación manuscrita del reclutador */
-        .prop-postit {
-            top: 68%;
-            left: 11%;
-            width: 150px;
-            padding: 16px;
-            background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
-            box-shadow: 10px 14px 25px rgba(0, 0, 0, 0.45);
-            transform: rotate(-7deg);
-            font-family: var(--font-typewriter);
-            font-size: 0.72rem;
-            line-height: 1.4;
-            color: #713f12;
-            border-bottom-right-radius: 12px 6px;
-        }
-        .prop-postit strong {
-            display: block;
-            font-size: 0.8rem;
-            margin-bottom: 4px;
-            color: #854d0e;
-            text-transform: uppercase;
-        }
-
         /* ============================================================
            EL CURRÍCULUM FÍSICO (Paper Dossier 3D)
            ============================================================ */
         .paper-world {
             position: relative;
             transform-style: preserve-3d;
+            transform-origin: top center;
             will-change: transform;
             transition: transform 0.05s linear;
         }
@@ -303,23 +282,13 @@
             mix-blend-mode: multiply;
         }
 
-        .stamp-confidential {
-            top: 42px;
-            right: 48px;
-            color: var(--ink-stamp-red);
-            border: 3px dashed var(--ink-stamp-red);
-            font-size: 0.82rem;
-            transform: rotate(8deg);
-            opacity: 0.88;
-        }
-
         .stamp-verified {
-            bottom: 48px;
-            right: 54px;
+            top: 48px;
+            right: 48px;
             color: var(--ink-stamp-blue);
-            border: 3px double var(--ink-stamp-blue);
-            font-size: 0.76rem;
-            transform: rotate(-6deg);
+            border: 2px solid var(--ink-stamp-blue);
+            font-size: 0.74rem;
+            transform: rotate(-3deg);
             opacity: 0.85;
             text-align: center;
         }
@@ -618,38 +587,7 @@
             color: var(--paper-base);
         }
 
-        /* ============================================================
-           MANOS DEL RECLUTADOR (POV First-Person Hands)
-           ============================================================ */
-        .recruiter-hands-layer {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 10;
-            transform-style: preserve-3d;
-        }
 
-        .hand-svg {
-            position: absolute;
-            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.55));
-            transition: transform 0.08s ease-out, opacity 0.3s ease;
-        }
-
-        /* Mano Izquierda sujetando el borde del papel */
-        .hand-left {
-            bottom: -50px;
-            left: 5%;
-            width: 320px;
-            transform-origin: bottom left;
-        }
-
-        /* Mano Derecha sujetando el borde del papel */
-        .hand-right {
-            bottom: -50px;
-            right: 5%;
-            width: 320px;
-            transform-origin: bottom right;
-        }
 
         /* ============================================================
            HUD DE NAVEGACIÓN & CONTROLES FLOTANTES
@@ -819,7 +757,6 @@
         }
 
         body.flat-mode .desk-surface,
-        body.flat-mode .recruiter-hands-layer,
         body.flat-mode .scroll-invitation {
             display: none !important;
         }
@@ -845,15 +782,7 @@
             .cv-skills-grid {
                 grid-template-columns: 1fr;
             }
-            .hand-left {
-                width: 220px;
-                left: -20px;
-            }
-            .hand-right {
-                width: 220px;
-                right: -20px;
-            }
-            .prop-postit, .prop-coffee, .prop-pen {
+            .prop-coffee, .prop-pen {
                 display: none;
             }
         }
@@ -875,14 +804,6 @@
 
             <!-- Bolígrafo estilográfico -->
             <div class="desk-prop prop-pen"></div>
-
-            <!-- Post-it de Recursos Humanos -->
-            <div class="desk-prop prop-postit">
-                <strong>EXPEDIENTE RRHH:</strong>
-                Candidato: Guillem Calaf.<br>
-                Perfil: Cloud & Fullstack.<br>
-                Revisar exp. en Google y proyectos IA.
-            </div>
         </div>
 
         <!-- El Currículum Físico -->
@@ -892,13 +813,12 @@
                 <!-- Clip Metálico de archivo -->
                 <div class="paper-clip"></div>
 
-                <!-- Sellos de tinta -->
-                <div class="stamp stamp-confidential">CONFIDENCIAL // CANDIDATO</div>
-                <div class="stamp stamp-verified">★ VERIFICADO ★<br>GOOGLE CLOUD</div>
+                <!-- Sello Oficial -->
+                <div class="stamp stamp-verified">GOOGLE CLOUD CERTIFIED</div>
 
                 <!-- Cabecera del Currículum -->
                 <header class="cv-header">
-                    <span class="cv-sub-dossier">DOCUMENTO REF: GC-2026-CLOUD // BARCELONA</span>
+                    <span class="cv-sub-dossier">BARCELONA · CLOUD & FULLSTACK SOFTWARE ENGINEER</span>
                     <h1 class="cv-title">Guillem Calaf Vidal</h1>
                     <div class="cv-role">
                         <span>Software & Cloud Engineer</span>
@@ -1103,44 +1023,13 @@
             </article>
         </div>
 
-        <!-- Manos del Reclutador (Primera Persona POV) -->
-        <div class="recruiter-hands-layer" id="hands-layer">
-            
-            <!-- Mano Izquierda -->
-            <svg class="hand-svg hand-left" id="hand-left" viewBox="0 0 320 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Brazo / Manga -->
-                <path d="M-40 380 L60 220 L130 250 L30 380 Z" fill="#1e293b"/>
-                <!-- Pulgar que sujeta la hoja -->
-                <path d="M70 210 C75 180, 110 160, 135 180 C155 195, 140 230, 115 240 C95 245, 80 230, 70 210 Z" fill="#e2b997"/>
-                <path d="M110 172 C125 168, 138 175, 138 188 C135 198, 120 200, 108 192 Z" fill="#d49b74" opacity="0.6"/>
-                <!-- Dedos por debajo sujetando el papel -->
-                <path d="M40 235 C55 245, 95 260, 110 275 L80 310 C60 290, 35 260, 40 235 Z" fill="#c58c67"/>
-                <!-- Sombra proyectada por el pulgar sobre el papel -->
-                <ellipse cx="145" cy="205" rx="20" ry="10" fill="rgba(0,0,0,0.25)" transform="rotate(-20 145 205)"/>
-            </svg>
-
-            <!-- Mano Derecha -->
-            <svg class="hand-svg hand-right" id="hand-right" viewBox="0 0 320 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Brazo / Manga -->
-                <path d="M360 380 L260 220 L190 250 L290 380 Z" fill="#1e293b"/>
-                <!-- Pulgar que sujeta la hoja -->
-                <path d="M250 210 C245 180, 210 160, 185 180 C165 195, 180 230, 205 240 C225 245, 240 230, 250 210 Z" fill="#e2b997"/>
-                <path d="M210 172 C195 168, 182 175, 182 188 C185 198, 200 200, 212 192 Z" fill="#d49b74" opacity="0.6"/>
-                <!-- Dedos por debajo sujetando el papel -->
-                <path d="M280 235 C265 245, 225 260, 210 275 L240 310 C260 290, 285 260, 280 235 Z" fill="#c58c67"/>
-                <!-- Sombra proyectada por el pulgar sobre el papel -->
-                <ellipse cx="175" cy="205" rx="20" ry="10" fill="rgba(0,0,0,0.25)" transform="rotate(20 175 205)"/>
-            </svg>
-
-        </div>
-
     </div>
 
     <!-- HUD Overlay Flotante -->
     <div class="hud-overlay">
         <div class="hud-top">
             <div class="hud-brand">
-                <span>POV RECLUTADOR · EXPEDIENTE CALAF</span>
+                <span>GUILLEM CALAF VIDAL</span>
             </div>
             <div class="hud-actions">
                 <button class="hud-btn" id="btn-toggle-mode" title="Alternar entre Experiencia 3D y Vista Rápida">
@@ -1182,8 +1071,7 @@
 
             // Elementos del DOM
             const paperWorld = document.getElementById('paper-world');
-            const handLeft = document.getElementById('hand-left');
-            const handRight = document.getElementById('hand-right');
+            const paperSheet = document.getElementById('paper-sheet');
             const deskSurface = document.getElementById('desk-surface');
             const scrollPrompt = document.getElementById('scroll-prompt');
             const progressBarFill = document.getElementById('progress-bar-fill');
@@ -1305,78 +1193,25 @@
                     if (progressBarFill) progressBarFill.style.width = `${pct}%`;
                     if (progressText) progressText.textContent = `${pct}%`;
 
-                    // ============================================================
-                    // COREOMETRÍA DE CÁMARA Y DOCUMENTO 3D
-                    // ============================================================
-                    // Fase 0 (p = 0.00 -> 0.15): Documento apoyado en la mesa
-                    // Fase 1 (p = 0.15 -> 0.35): Las manos lo levantan hacia la mirada
-                    // Fase 2 (p = 0.35 -> 0.65): Lectura de Sobre mí y Experiencia
-                    // Fase 3 (p = 0.65 -> 0.85): Desplazamiento hacia Habilidades & Educación
-                    // Fase 4 (p = 0.85 -> 1.00): Conclusión & Contacto
-                    
-                    let rotX, rotY, rotZ, transY, transZ;
+                    // Cinemática 3D natural y lectura completa de arriba a abajo
+                    const viewportH = window.innerHeight;
+                    const paperH = paperSheet ? paperSheet.offsetHeight : 2200;
+                    // Distancia total para recorrer el currículum desde la cabecera (p=0) hasta el pie (p=1)
+                    const totalTravel = Math.max(paperH - viewportH + 100, 100);
 
-                    if (p < 0.20) {
-                        // Sobre la mesa -> levantándose
-                        const liftProgress = p / 0.20;
-                        rotX = lerp(35, 14, liftProgress);
-                        rotY = lerp(0, -2, liftProgress);
-                        rotZ = lerp(-1, 0, liftProgress);
-                        transY = lerp(80, 20, liftProgress);
-                        transZ = lerp(-80, 80, liftProgress);
-                    } else if (p < 0.55) {
-                        // Lectura de la parte superior (Cabecera, Sobre Mí, Google)
-                        const readProgress = (p - 0.20) / 0.35;
-                        rotX = lerp(14, 8, readProgress);
-                        rotY = lerp(-2, 1, readProgress);
-                        rotZ = 0;
-                        transY = lerp(20, -180, readProgress);
-                        transZ = lerp(80, 160, readProgress);
-                    } else if (p < 0.85) {
-                        // Lectura de Habilidades y Formación
-                        const deepProgress = (p - 0.55) / 0.30;
-                        rotX = lerp(8, 4, deepProgress);
-                        rotY = lerp(1, -1, deepProgress);
-                        rotZ = 0;
-                        transY = lerp(-180, -480, deepProgress);
-                        transZ = lerp(160, 190, deepProgress);
-                    } else {
-                        // Contacto final
-                        const endProgress = (p - 0.85) / 0.15;
-                        rotX = lerp(4, 2, endProgress);
-                        rotY = lerp(-1, 0, endProgress);
-                        rotZ = 0;
-                        transY = lerp(-480, -780, endProgress);
-                        transZ = lerp(190, 210, endProgress);
-                    }
+                    const transY = - (p * totalTravel);
+                    const rotX = lerp(10, 1.2, p);
+                    const rotY = lerp(-1, 0.5, p);
+                    const transZ = lerp(0, 35, p);
 
                     if (paperWorld) {
-                        paperWorld.style.transform = `translate3d(0px, ${transY}px, ${transZ}px) rotateX(${rotX}deg) rotateY(${rotY}deg) rotateZ(${rotZ}deg)`;
+                        paperWorld.style.transform = `translate3d(0px, ${transY}px, ${transZ}px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
                     }
 
-                    // Sutil desenfoque del fondo de la mesa conforme la cámara se concentra en el papel
+                    // Sutil desenfoque del fondo de la mesa conforme avanzamos
                     if (deskSurface) {
-                        const blurVal = lerp(0, 5, Math.min(p * 2, 1));
+                        const blurVal = lerp(0, 4, Math.min(p * 2.5, 1));
                         deskSurface.style.filter = `blur(${blurVal}px)`;
-                    }
-
-                    // Movimiento de las manos sujetando el papel
-                    if (handLeft && handRight) {
-                        let handY, handOpacity;
-                        if (p < 0.10) {
-                            // Manos entran desde abajo
-                            handY = lerp(180, 20, p / 0.10);
-                            handOpacity = lerp(0.3, 1, p / 0.10);
-                        } else {
-                            // Manos acompañan sutilmente el papel
-                            handY = 20 + Math.sin(p * Math.PI * 3) * 8;
-                            handOpacity = 1;
-                        }
-
-                        handLeft.style.transform = `translate3d(0px, ${handY}px, 0px)`;
-                        handRight.style.transform = `translate3d(0px, ${handY}px, 0px)`;
-                        handLeft.style.opacity = handOpacity;
-                        handRight.style.opacity = handOpacity;
                     }
                 }
 
