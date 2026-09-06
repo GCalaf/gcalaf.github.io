@@ -69,20 +69,18 @@
             color: var(--ink-primary);
             font-family: var(--font-typewriter);
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: scroll;
             position: relative;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Pista de Scroll para la cinemática de pase de página */
+        /* Pista de Scroll en el flujo normal para cinemática 3D */
         #scroll-track {
-            height: 320vh;
-            width: 1px;
-            position: absolute;
-            top: 0;
-            left: 0;
+            display: block;
+            width: 100%;
+            height: 250vh;
             pointer-events: none;
-            opacity: 0;
+            visibility: hidden;
         }
 
         /* Escenario 3D Fijo */
@@ -102,7 +100,7 @@
         }
 
         /* Elementos interactivos */
-        .paper-sheet, .cv-btn, .hud-overlay, .scroll-invitation, .page-nav-trigger {
+        .paper-sheet, .paper-sheet-3d, .paper-face, .cv-btn, .hud-overlay, .scroll-invitation, .page-nav-trigger {
             pointer-events: auto;
         }
 
@@ -204,12 +202,28 @@
             max-width: 92vw;
             max-height: 88vh;
             transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
             will-change: transform;
             transition: transform 0.05s linear;
         }
 
-        /* Hojas individuales DIN A4 (Ratio 1 : 1.414) */
-        .paper-sheet {
+        /* Contenedor 3D de Hoja 1 (Pase de Página) */
+        .paper-sheet-3d {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            will-change: transform;
+            z-index: 5;
+            cursor: default;
+        }
+
+        /* Hojas individuales DIN A4 y caras de papel */
+        .paper-sheet,
+        .paper-front {
             position: absolute;
             inset: 0;
             width: 100%;
@@ -232,7 +246,8 @@
         }
 
         /* Textura sutil de papel */
-        .paper-sheet::before {
+        .paper-sheet::before,
+        .paper-front::before {
             content: "";
             position: absolute;
             inset: 0;
@@ -243,17 +258,121 @@
             pointer-events: none;
         }
 
-        /* Hoja 1 (Frente) */
-        #page-1 {
+        /* Caras de la hoja */
+        .paper-face {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 3px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            box-sizing: border-box;
+        }
+
+        .paper-front {
+            transform: rotateY(0deg);
             z-index: 2;
-            transform-origin: left center;
-            will-change: transform;
+        }
+
+        /* Cara Trasera de la Hoja 1 (Reverso físico al pasar página) */
+        .paper-back {
+            background: linear-gradient(135deg, #f7f3ea 0%, #ebe2ce 100%);
+            border: 1px solid var(--paper-border);
+            transform: rotateY(180deg);
+            z-index: 1;
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 
+                0 25px 50px -12px rgba(0,0,0,0.35),
+                inset 0 0 45px rgba(180, 140, 90, 0.2);
+            cursor: pointer;
+        }
+
+        .paper-back::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(140, 110, 70, 0.035) 28px, rgba(140, 110, 70, 0.035) 29px);
+            pointer-events: none;
+        }
+
+        .back-dossier-mark {
+            max-width: 440px;
+            padding: 32px 28px;
+            border: 1px dashed rgba(160, 120, 80, 0.4);
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 4px;
+        }
+
+        .back-watermark-icon {
+            font-size: 1.5rem;
+            color: #b45309;
+            margin-bottom: 8px;
+        }
+
+        .back-title {
+            display: block;
+            font-family: var(--font-typewriter);
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            color: var(--ink-primary);
+        }
+
+        .back-subtitle {
+            display: block;
+            font-family: var(--font-typewriter);
+            font-size: 0.72rem;
+            color: #78716c;
+            letter-spacing: 0.08em;
+            margin-top: 4px;
+        }
+
+        .back-divider {
+            width: 50px;
+            height: 2px;
+            background: rgba(180, 140, 90, 0.45);
+            margin: 16px auto;
+        }
+
+        .back-annotation {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #44403c;
+            margin-bottom: 14px;
+        }
+
+        .back-code-stamp {
+            font-family: var(--font-typewriter);
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .back-corner-hint {
+            position: absolute;
+            bottom: 24px;
+            right: 30px;
+            font-family: var(--font-typewriter);
+            font-size: 0.7rem;
+            color: #a8a29e;
         }
 
         /* Hoja 2 (Debajo) */
         #page-2 {
             z-index: 1;
             transform: translateZ(-2px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         /* Clip Metálico de archivo */
@@ -769,7 +888,7 @@
            MODO VISTA RÁPIDA (Flat Reading Mode)
            ============================================================ */
         body.flat-mode #scroll-track {
-            display: none;
+            display: none !important;
         }
 
         body.flat-mode #stage-container {
@@ -798,6 +917,27 @@
             gap: 40px;
         }
 
+        body.flat-mode .paper-sheet-3d {
+            position: relative;
+            inset: auto;
+            height: auto;
+            min-height: 940px;
+            transform: none !important;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+        }
+
+        body.flat-mode .paper-front {
+            position: relative;
+            transform: none !important;
+            box-shadow: none;
+            height: auto;
+            min-height: 940px;
+        }
+
+        body.flat-mode .paper-back {
+            display: none !important;
+        }
+
         body.flat-mode .paper-sheet {
             position: relative;
             transform: none !important;
@@ -808,7 +948,8 @@
 
         /* Responsividad Móvil */
         @media (max-width: 768px) {
-            .paper-sheet {
+            .paper-sheet,
+            .paper-front {
                 padding: 28px 20px;
             }
             .cv-title {
@@ -844,112 +985,132 @@
             <!-- ============================================================
                  PÁGINA 1 (DIN A4): Perfil, Manifiesto & Experiencia Google
                  ============================================================ -->
-            <article class="paper-sheet" id="page-1">
+            <article class="paper-sheet-3d" id="page-1">
                 
-                <!-- Clip Metálico -->
-                <div class="paper-clip"></div>
+                <!-- Cara Frontal (Página 1) -->
+                <div class="paper-face paper-front">
+                    <!-- Clip Metálico -->
+                    <div class="paper-clip"></div>
 
-                <!-- Sello Oficial -->
-                <div class="stamp-verified">GOOGLE CLOUD CERTIFIED</div>
+                    <!-- Sello Oficial -->
+                    <div class="stamp-verified">GOOGLE CLOUD CERTIFIED</div>
 
-                <div>
-                    <!-- Cabecera -->
-                    <header class="cv-header">
-                        <span class="cv-sub-dossier">BARCELONA · CLOUD & FULLSTACK SOFTWARE ENGINEER</span>
-                        <h1 class="cv-title">Guillem Calaf Vidal</h1>
-                        <div class="cv-role">
-                            <span>Software & Cloud Engineer</span>
-                            <span class="cv-status-badge">🟢 DISPONIBLE PARA NUEVOS RETOS</span>
-                        </div>
-                    </header>
-
-                    <!-- 01 // SOBRE MÍ -->
-                    <section class="cv-section">
-                        <h2 class="cv-section-title">
-                            <span class="sec-idx">01 //</span>
-                            <span>Perfil & Criterio Técnico</span>
-                        </h2>
-                        <p class="cv-text">
-                            Ingeniero de software especializado en <strong>arquitectura cloud escalable, estabilidad de sistemas y código limpio</strong>.
-                        </p>
-                        <div class="cv-quote">
-                            "Criterio de ingeniería sólido: resolver problemáticas complejas con el mínimo de código superfluo y la máxima fiabilidad operativa."
-                        </div>
-                        <p class="cv-text">
-                            Experiencia técnica respaldada por el estándar de <strong>Google</strong> (Concentrix) como <em>Associate Cloud Engineer</em>, gestionando incidencias de infraestructura crítica en Google Cloud Platform (GCP) para clientes internacionales.
-                        </p>
-                    </section>
-
-                    <!-- 02 // HISTORIAL PROFESIONAL -->
-                    <section class="cv-section">
-                        <h2 class="cv-section-title">
-                            <span class="sec-idx">02 //</span>
-                            <span>Historial Profesional Verificado</span>
-                        </h2>
-
-                        <!-- Google Associate Cloud Engineer -->
-                        <div class="cv-job-entry">
-                            <div class="cv-job-head">
-                                <span class="cv-job-role">Google Associate Cloud Engineer</span>
-                                <span class="cv-job-date">2023 — 2024</span>
+                    <div>
+                        <!-- Cabecera -->
+                        <header class="cv-header">
+                            <span class="cv-sub-dossier">BARCELONA · CLOUD & FULLSTACK SOFTWARE ENGINEER</span>
+                            <h1 class="cv-title">Guillem Calaf Vidal</h1>
+                            <div class="cv-role">
+                                <span>Software & Cloud Engineer</span>
+                                <span class="cv-status-badge">🟢 DISPONIBLE PARA NUEVOS RETOS</span>
                             </div>
-                            <div class="cv-job-company">Concentrix Corporation · Barcelona</div>
-                            <ul class="cv-job-bullets">
-                                <li>Soporte e ingeniería técnica en Google Cloud Platform (GCP) para cuentas internacionales en producción.</li>
-                                <li>Resolución de incidencias en Compute Engine, GKE (Kubernetes), Cloud Storage, VPC y políticas de IAM.</li>
-                                <li>Implementación de arquitecturas cloud resilientes bajo estrictos acuerdos de nivel de servicio (SLAs).</li>
-                            </ul>
-                            <div class="cv-tags">
-                                <span class="cv-tag highlight">Google Cloud Platform</span>
-                                <span class="cv-tag">Kubernetes (GKE)</span>
-                                <span class="cv-tag">IAM Security</span>
-                                <span class="cv-tag">VPC Networking</span>
-                            </div>
-                        </div>
+                        </header>
 
-                        <!-- Desarrollador Web - eSonde -->
-                        <div class="cv-job-entry">
-                            <div class="cv-job-head">
-                                <span class="cv-job-role">Desarrollador Web Fullstack</span>
-                                <span class="cv-job-date">2020 — 2021</span>
+                        <!-- 01 // SOBRE MÍ -->
+                        <section class="cv-section">
+                            <h2 class="cv-section-title">
+                                <span class="sec-idx">01 //</span>
+                                <span>Perfil & Criterio Técnico</span>
+                            </h2>
+                            <p class="cv-text">
+                                Ingeniero de software especializado en <strong>arquitectura cloud escalable, estabilidad de sistemas y código limpio</strong>.
+                            </p>
+                            <div class="cv-quote">
+                                "Criterio de ingeniería sólido: resolver problemáticas complejas con el mínimo de código superfluo y la máxima fiabilidad operativa."
                             </div>
-                            <div class="cv-job-company">eSonde Network Monitoring, S.L. · Molins de Rei</div>
-                            <ul class="cv-job-bullets">
-                                <li>Desarrollo integral de herramientas de monitorización y telemetría de red con Node.js, PHP y JavaScript.</li>
-                                <li>Administración de bases de datos relacionales SQL para reporting analítico en tiempo real.</li>
-                            </ul>
-                            <div class="cv-tags">
-                                <span class="cv-tag">JavaScript</span>
-                                <span class="cv-tag">Node.js</span>
-                                <span class="cv-tag">PHP</span>
-                                <span class="cv-tag">SQL Relacional</span>
-                            </div>
-                        </div>
+                            <p class="cv-text">
+                                Experiencia técnica respaldada por el estándar de <strong>Google</strong> (Concentrix) como <em>Associate Cloud Engineer</em>, gestionando incidencias de infraestructura crítica en Google Cloud Platform (GCP) para clientes internacionales.
+                            </p>
+                        </section>
 
-                        <!-- Administrador de Sistemas - ADTEL -->
-                        <div class="cv-job-entry">
-                            <div class="cv-job-head">
-                                <span class="cv-job-role">Administrador de Sistemas y Redes</span>
-                                <span class="cv-job-date">2019</span>
+                        <!-- 02 // HISTORIAL PROFESIONAL -->
+                        <section class="cv-section">
+                            <h2 class="cv-section-title">
+                                <span class="sec-idx">02 //</span>
+                                <span>Historial Profesional Verificado</span>
+                            </h2>
+
+                            <!-- Google Associate Cloud Engineer -->
+                            <div class="cv-job-entry">
+                                <div class="cv-job-head">
+                                    <span class="cv-job-role">Google Associate Cloud Engineer</span>
+                                    <span class="cv-job-date">2023 — 2024</span>
+                                </div>
+                                <div class="cv-job-company">Concentrix Corporation · Barcelona</div>
+                                <ul class="cv-job-bullets">
+                                    <li>Soporte e ingeniería técnica en Google Cloud Platform (GCP) para cuentas internacionales en producción.</li>
+                                    <li>Resolución de incidencias en Compute Engine, GKE (Kubernetes), Cloud Storage, VPC y políticas de IAM.</li>
+                                    <li>Implementación de arquitecturas cloud resilientes bajo estrictos acuerdos de nivel de servicio (SLAs).</li>
+                                </ul>
+                                <div class="cv-tags">
+                                    <span class="cv-tag highlight">Google Cloud Platform</span>
+                                    <span class="cv-tag">Kubernetes (GKE)</span>
+                                    <span class="cv-tag">IAM Security</span>
+                                    <span class="cv-tag">VPC Networking</span>
+                                </div>
                             </div>
-                            <div class="cv-job-company">ADTEL Sistemas de Telecomunicación · Molins de Rei</div>
-                            <ul class="cv-job-bullets">
-                                <li>Configuración y mantenimiento de hardware de servidores, switches gestionables y firewalls perimetrales.</li>
-                            </ul>
-                            <div class="cv-tags">
-                                <span class="cv-tag">Linux</span>
-                                <span class="cv-tag">Redes Cisco</span>
-                                <span class="cv-tag">Firewalls</span>
+
+                            <!-- Desarrollador Web - eSonde -->
+                            <div class="cv-job-entry">
+                                <div class="cv-job-head">
+                                    <span class="cv-job-role">Desarrollador Web Fullstack</span>
+                                    <span class="cv-job-date">2020 — 2021</span>
+                                </div>
+                                <div class="cv-job-company">eSonde Network Monitoring, S.L. · Molins de Rei</div>
+                                <ul class="cv-job-bullets">
+                                    <li>Desarrollo integral de herramientas de monitorización y telemetría de red con Node.js, PHP y JavaScript.</li>
+                                    <li>Administración de bases de datos relacionales SQL para reporting analítico en tiempo real.</li>
+                                </ul>
+                                <div class="cv-tags">
+                                    <span class="cv-tag">JavaScript</span>
+                                    <span class="cv-tag">Node.js</span>
+                                    <span class="cv-tag">PHP</span>
+                                    <span class="cv-tag">SQL Relacional</span>
+                                </div>
                             </div>
-                        </div>
-                    </section>
+
+                            <!-- Administrador de Sistemas - ADTEL -->
+                            <div class="cv-job-entry">
+                                <div class="cv-job-head">
+                                    <span class="cv-job-role">Administrador de Sistemas y Redes</span>
+                                    <span class="cv-job-date">2019</span>
+                                </div>
+                                <div class="cv-job-company">ADTEL Sistemas de Telecomunicación · Molins de Rei</div>
+                                <ul class="cv-job-bullets">
+                                    <li>Configuración y mantenimiento de hardware de servidores, switches gestionables y firewalls perimetrales.</li>
+                                </ul>
+                                <div class="cv-tags">
+                                    <span class="cv-tag">Linux</span>
+                                    <span class="cv-tag">Redes Cisco</span>
+                                    <span class="cv-tag">Firewalls</span>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Pie de Página 1 -->
+                    <footer class="paper-footer">
+                        <span>Guillem Calaf Vidal · Curriculum Vitae</span>
+                        <span class="page-nav-trigger" id="trigger-next-page">Pág. 1/2 · Pasar a Página 2 (Stack & Contacto) ↓</span>
+                    </footer>
                 </div>
 
-                <!-- Pie de Página 1 -->
-                <footer class="paper-footer">
-                    <span>Guillem Calaf Vidal · Curriculum Vitae</span>
-                    <span class="page-nav-trigger" id="trigger-next-page">Pág. 1/2 · Pasar a Página 2 (Stack & Contacto) ↓</span>
-                </footer>
+                <!-- Cara Trasera (Reverso físico de la hoja 1) -->
+                <div class="paper-face paper-back" id="back-face-p1">
+                    <div class="back-dossier-mark">
+                        <div class="back-watermark-icon">★</div>
+                        <span class="back-title">GUILLEM CALAF VIDAL</span>
+                        <span class="back-subtitle">DOSSIER TÉCNICO · SOFTWARE & CLOUD ENGINEER</span>
+                        <div class="back-divider"></div>
+                        <p class="back-annotation">
+                            "Diseño arquitecturas cloud fiables, limpias y escalables con GCP, Docker y Kubernetes. Desarrollo backends rápidos con FastAPI y potencio frontend reactivo con Next.js mediante IA."
+                        </p>
+                        <div class="back-code-stamp">REF: GCV-2025-CLOUD-BCN</div>
+                    </div>
+                    <div class="back-corner-hint">
+                        <span>← Pág. 1 (Clic para voltear)</span>
+                    </div>
+                </div>
             </article>
 
             <!-- ============================================================
@@ -1142,6 +1303,8 @@
             const triggerNext = document.getElementById('trigger-next-page');
             const triggerPrev = document.getElementById('trigger-prev-page');
 
+            const backFaceP1 = document.getElementById('back-face-p1');
+
             let isFlatMode = false;
             let currentScrollProgress = 0;
             let targetScrollProgress = 0;
@@ -1150,35 +1313,39 @@
                 return start + (end - start) * factor;
             }
 
-            function applyProgress(newProgress) {
-                targetScrollProgress = Math.min(Math.max(newProgress, 0), 1);
+            function updateScrollTarget() {
+                if (isFlatMode) return;
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 if (maxScroll > 0) {
-                    window.scrollTo(0, targetScrollProgress * maxScroll);
+                    targetScrollProgress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
                 }
             }
 
-            // 1. Escuchar scroll nativo
-            window.addEventListener('scroll', () => {
-                if (isFlatMode) return;
-                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                if (maxScroll <= 0) return;
-                targetScrollProgress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
-            }, { passive: true });
+            // 1. Escuchar scroll nativo (rueda de ratón, trackpad, drag de barra de scroll)
+            window.addEventListener('scroll', updateScrollTarget, { passive: true });
+            window.addEventListener('resize', updateScrollTarget, { passive: true });
 
-            // 2. Escuchar rueda de ratón / trackpad
-            window.addEventListener('wheel', (e) => {
-                if (isFlatMode) return;
-                const delta = e.deltaY;
-                const step = (delta > 0 ? 1 : -1) * Math.min(Math.abs(delta) * 0.0009, 0.07);
-                targetScrollProgress = Math.min(Math.max(targetScrollProgress + step, 0), 1);
+            // Inicializar progreso
+            updateScrollTarget();
+
+            // 2. Navegación suave entre páginas
+            function navigateToPage(pageNum) {
+                if (isFlatMode) {
+                    const targetEl = pageNum === 1 ? page1 : page2;
+                    if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+                    return;
+                }
                 const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
                 if (maxScroll > 0) {
-                    window.scrollTo(0, targetScrollProgress * maxScroll);
+                    const targetY = pageNum === 1 ? 0 : maxScroll;
+                    window.scrollTo({
+                        top: targetY,
+                        behavior: 'smooth'
+                    });
                 }
-            }, { passive: true });
+            }
 
-            // 3. Soporte táctil
+            // 3. Soporte táctil optimizado para móvil (scroll sobre elementos fijos)
             let touchStartY = 0;
             window.addEventListener('touchstart', (e) => {
                 if (e.touches && e.touches.length > 0) {
@@ -1192,49 +1359,48 @@
                     const currentY = e.touches[0].clientY;
                     const diff = touchStartY - currentY;
                     touchStartY = currentY;
-                    const step = diff * 0.0022;
-                    targetScrollProgress = Math.min(Math.max(targetScrollProgress + step, 0), 1);
-                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                    if (maxScroll > 0) {
-                        window.scrollTo(0, targetScrollProgress * maxScroll);
-                    }
+                    window.scrollBy({ top: diff, behavior: 'auto' });
                 }
             }, { passive: true });
 
-            // 4. Teclado
+            // 4. Atajos de teclado
             window.addEventListener('keydown', (e) => {
                 if (isFlatMode) return;
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
                 if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
                     e.preventDefault();
-                    applyProgress(targetScrollProgress + 0.12);
+                    navigateToPage(2);
                 } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
                     e.preventDefault();
-                    applyProgress(targetScrollProgress - 0.12);
+                    navigateToPage(1);
                 } else if (e.key.toLowerCase() === 'v') {
                     e.preventDefault();
                     toggleMode();
                 }
             });
 
-            // 5. Controles de página directa
-            if (pillP1) pillP1.addEventListener('click', () => applyProgress(0.05));
-            if (pillP2) pillP2.addEventListener('click', () => applyProgress(0.95));
-            if (triggerNext) triggerNext.addEventListener('click', () => applyProgress(0.90));
-            if (triggerPrev) triggerPrev.addEventListener('click', () => applyProgress(0.05));
-            if (scrollPrompt) scrollPrompt.addEventListener('click', () => applyProgress(0.75));
+            // 5. Botones y controles de página directa
+            if (pillP1) pillP1.addEventListener('click', () => navigateToPage(1));
+            if (pillP2) pillP2.addEventListener('click', () => navigateToPage(2));
+            if (triggerNext) triggerNext.addEventListener('click', () => navigateToPage(2));
+            if (triggerPrev) triggerPrev.addEventListener('click', () => navigateToPage(1));
+            if (scrollPrompt) scrollPrompt.addEventListener('click', () => navigateToPage(2));
+            if (backFaceP1) backFaceP1.addEventListener('click', () => navigateToPage(1));
 
             // ============================================================
-            // BUCLE DE RENDERIZADO 3D (ANIMACIÓN DE CAMBIO DE PÁGINA)
+            // BUCLE DE RENDERIZADO 3D (PASE DE PÁGINA DIN A4 CONTINUO)
             // ============================================================
             function renderLoop() {
                 if (!isFlatMode) {
-                    currentScrollProgress = lerp(currentScrollProgress, targetScrollProgress, 0.08);
+                    // Interpolación lerp suave y ultra-reactiva
+                    currentScrollProgress = lerp(currentScrollProgress, targetScrollProgress, 0.12);
                     const p = currentScrollProgress;
 
-                    // Ocultar invitación de scroll
+                    // Ocultar invitación de scroll suavemente
                     if (scrollPrompt) {
-                        scrollPrompt.style.opacity = p > 0.05 ? '0' : '0.95';
+                        const promptOpacity = Math.max(0, 1 - (p / 0.10));
+                        scrollPrompt.style.opacity = promptOpacity.toString();
+                        scrollPrompt.style.pointerEvents = promptOpacity < 0.05 ? 'none' : 'auto';
                     }
 
                     // Actualizar píldoras del HUD
@@ -1247,51 +1413,39 @@
                     }
 
                     // Angulación sutil de la mesa y la pila
-                    const stackRotX = lerp(10, 4, p);
-                    const stackRotY = lerp(-1, 1, p);
+                    const stackRotX = lerp(8, 3, p);
+                    const stackRotY = lerp(-1.5, 0.5, p);
                     if (dossierStack) {
                         dossierStack.style.transform = `rotateX(${stackRotX}deg) rotateY(${stackRotY}deg)`;
                     }
 
-                    // ANIMACIÓN DE CAMBIO DE PÁGINA (DIN A4 Flip)
-                    // p: 0.00 -> 0.35: Leyendo Página 1
-                    // p: 0.35 -> 0.65: Transición de pase de página
-                    // p: 0.65 -> 1.00: Leyendo Página 2
+                    // ANIMACIÓN DE PASE DE PÁGINA 3D (CONTINUA Y SIN ZONAS MUERTAS)
                     if (page1) {
-                        if (p <= 0.35) {
-                            // Página 1 en reposo
-                            page1.style.transform = 'none';
-                            page1.style.boxShadow = '0 25px 50px -12px var(--paper-shadow)';
-                        } else if (p < 0.65) {
-                            // En pleno pase de página 3D
-                            const flipProgress = (p - 0.35) / 0.30;
-                            // Rotación y elevación física
-                            const flipRotY = - lerp(0, 160, flipProgress);
-                            const flipTransX = - lerp(0, 90, flipProgress);
-                            const liftZ = Math.sin(flipProgress * Math.PI) * 70;
-                            page1.style.transform = `translateX(${flipTransX}px) translateZ(${liftZ}px) rotateY(${flipRotY}deg)`;
-                            page1.style.boxShadow = `0 ${25 + liftZ * 0.4}px 60px rgba(0,0,0,0.5)`;
-                        } else {
-                            // Página 1 reposa a la izquierda
-                            page1.style.transform = 'translateX(-90px) rotateY(-160deg)';
-                            page1.style.boxShadow = 'none';
-                        }
+                        // Rotación física en Y: 0deg -> -180deg
+                        const rotY = - (p * 180);
+                        // Arco de elevación que levanta el papel en 3D
+                        const liftZ = Math.sin(p * Math.PI) * 90;
+                        // Torsión sutil en Z de la esquina del papel
+                        const rotZ = Math.sin(p * Math.PI) * -3.5;
+
+                        page1.style.transform = `translateZ(${liftZ}px) rotateY(${rotY}deg) rotateZ(${rotZ}deg)`;
+
+                        // Sombra dinámica física que se eleva y difumina en el aire
+                        const shadowY = 25 + liftZ * 0.4;
+                        const shadowBlur = 50 + liftZ * 0.7;
+                        const shadowAlpha = 0.55 - (liftZ / 90) * 0.25;
+                        page1.style.boxShadow = `0 ${shadowY}px ${shadowBlur}px rgba(0,0,0,${shadowAlpha})`;
                     }
 
-                    // Página 2 entra en foco y se ilumina
+                    // Página 2 entra en foco y sutil elevación
                     if (page2) {
-                        if (p > 0.45) {
-                            const p2Progress = Math.min((p - 0.45) / 0.20, 1);
-                            const zOffset = lerp(-2, 4, p2Progress);
-                            page2.style.transform = `translateZ(${zOffset}px)`;
-                        } else {
-                            page2.style.transform = 'translateZ(-2px)';
-                        }
+                        const p2Lift = lerp(-2, 2, p);
+                        page2.style.transform = `translateZ(${p2Lift}px)`;
                     }
 
-                    // Sutil desenfoque de mesa
+                    // Sutil profundidad de campo en el escritorio
                     if (deskSurface) {
-                        const blurVal = lerp(0, 3, Math.min(p * 2, 1));
+                        const blurVal = lerp(0, 2.5, Math.sin(p * Math.PI));
                         deskSurface.style.filter = `blur(${blurVal}px)`;
                     }
                 }
@@ -1311,7 +1465,10 @@
                 if (isFlatMode) {
                     if (modeIcon) modeIcon.textContent = '🕶️';
                     if (modeText) modeText.textContent = 'Modo 3D';
-                    if (page1) page1.style.transform = 'none';
+                    if (page1) {
+                        page1.style.transform = 'none';
+                        page1.style.boxShadow = 'none';
+                    }
                     if (page2) page2.style.transform = 'none';
                     window.scrollTo({ top: 0, behavior: 'instant' });
                 } else {
@@ -1320,6 +1477,7 @@
                     targetScrollProgress = 0;
                     currentScrollProgress = 0;
                     window.scrollTo({ top: 0, behavior: 'instant' });
+                    updateScrollTarget();
                 }
             }
 
