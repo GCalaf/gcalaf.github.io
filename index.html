@@ -16,7 +16,6 @@
         } catch(e) {}
     </script>
 
-    <!-- Tipografía Editorial de Máxima Pureza (Inter & JetBrains Mono) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -59,11 +58,13 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            overflow-wrap: break-word;
         }
 
         html, body {
             width: 100%;
             height: 100%;
+            height: 100dvh;
             overflow: hidden;
             background-color: var(--bg);
             color: var(--fg);
@@ -89,6 +90,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
+            height: 100dvh;
             background-color: var(--bg);
             z-index: 2000;
             display: flex;
@@ -388,6 +390,7 @@
         .stage-container {
             width: 100%;
             height: 100vh;
+            height: 100dvh;
             position: relative;
             overflow: hidden;
         }
@@ -395,6 +398,7 @@
         .phases-track {
             width: 100%;
             height: 400vh;
+            height: 400dvh;
             display: flex;
             flex-direction: column;
             transition: transform var(--trans-phase);
@@ -404,6 +408,7 @@
         .phase-screen {
             width: 100%;
             height: 100vh;
+            height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -432,7 +437,7 @@
            FASE 01 // IDENTIDAD & TESIS TÉCNICA
            ============================================================ */
         .p1-title {
-            font-size: 3.4rem;
+            font-size: clamp(2.1rem, 7.5vw, 3.4rem);
             font-weight: 700;
             letter-spacing: -0.04em;
             line-height: 1.05;
@@ -451,7 +456,7 @@
         }
 
         .p1-desc {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 3.6vw, 1.25rem);
             font-weight: 400;
             color: var(--fg-secondary);
             line-height: 1.65;
@@ -487,7 +492,7 @@
            FASE 02 // TRAYECTORIA PROFESIONAL VERIFICADA
            ============================================================ */
         .section-headline {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 5.5vw, 2.2rem);
             font-weight: 700;
             letter-spacing: -0.03em;
             color: var(--fg);
@@ -652,35 +657,113 @@
         /* Responsive */
         @media (max-width: 768px) {
             .theme-toggle-wrap, .chiseled-bulb-wrap, .chiseled-switch-wrap {
-                top: 24px;
-                right: 24px;
+                top: 18px;
+                right: 18px;
             }
             .top-lang-wrap {
-                top: 24px;
-                left: 24px;
+                top: 18px;
+                left: 18px;
             }
             .bottom-counter {
-                bottom: 24px;
-                right: 24px;
+                bottom: 18px;
+                right: 18px;
+                font-size: 0.72rem;
             }
             .phase-screen {
-                padding: 40px 24px;
+                padding: 72px 20px 58px 20px;
                 align-items: flex-start;
-                padding-top: 90px;
                 overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior-y: contain;
             }
-            .p1-title {
-                font-size: 2.4rem;
+            .phase-content {
+                gap: 20px;
             }
-            .section-headline {
-                font-size: 1.8rem;
+            .timeline-stream {
+                gap: 18px;
             }
-            .stack-list, .f4-columns {
+            .entry-summary {
+                font-size: 0.88rem;
+                line-height: 1.48;
+            }
+            .stack-list {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .stack-entry {
+                gap: 3px;
+            }
+            .stack-name {
+                font-size: 1.05rem;
+            }
+            .stack-text {
+                font-size: 0.84rem;
+                line-height: 1.42;
+            }
+            .f4-columns {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            .p1-desc {
-                font-size: 1.05rem;
+            .f4-block {
+                gap: 12px;
+            }
+            .f4-edu-item {
+                gap: 1px;
+            }
+            .f4-edu-title {
+                font-size: 0.88rem;
+            }
+            .f4-edu-meta {
+                font-size: 0.72rem;
+            }
+            .f4-links-stack {
+                flex-direction: row;
+                gap: 16px;
+                flex-wrap: wrap;
+                margin-top: 4px;
+            }
+            .lang-gate {
+                padding: 16px;
+            }
+            .lang-gate-card {
+                max-width: 90vw;
+                padding: 24px 16px;
+                gap: 14px;
+            }
+            .lang-gate-title {
+                font-size: clamp(1.15rem, 4.5vw, 1.4rem);
+            }
+            .lang-gate-options {
+                gap: 12px;
+            }
+            .lang-gate-btn {
+                min-width: 120px;
+                padding: 12px 18px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .p1-subtitle {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+                font-size: 0.85rem;
+            }
+            .p1-subtitle-sep {
+                display: none;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .phase-screen {
+                padding: 66px 14px 52px 14px;
+            }
+            .lang-gate-btn {
+                min-width: 105px;
+                padding: 10px 14px;
+            }
+            .lang-gate-name {
+                font-size: 1rem;
             }
         }
 
@@ -709,10 +792,6 @@
 </head>
 <body>
 
-    <!-- ============================================================
-         SELECTOR INICIAL DE IDIOMA / LANGUAGE GATE
-         Aprovechando para añadir nivel: Español (Nativo) / English (B2)
-         ============================================================ -->
     <div class="lang-gate" id="lang-gate" role="dialog" aria-modal="true" aria-label="Selección de idioma / Language selection">
         <div class="lang-gate-card">
             <span class="lang-gate-meta">00 / Idioma · Language</span>
@@ -738,24 +817,15 @@
         } catch(e) {}
     </script>
 
-    <!-- ============================================================
-         CONMUTADOR PERSISTENTE DE IDIOMA (ARRIBA A LA IZQUIERDA)
-         ============================================================ -->
     <div class="top-lang-wrap">
         <button class="top-lang-toggle" id="btn-top-lang" title="Cambiar idioma / Switch language" aria-label="Cambiar idioma">
             <span class="lang-badge" id="lang-indicator">ES · Nativo</span>
         </button>
     </div>
 
-    <!-- ============================================================
-         CONMUTADOR SOL / LUNA MINIMALISTA (ARRIBA A LA DERECHA)
-         Modo Blanco (Sol): Botón presionado hacia dentro
-         Modo Negro (Luna): Botón invisible
-         ============================================================ -->
     <div class="theme-toggle-wrap">
         <button class="theme-toggle-btn" id="btn-switch" title="Cambiar modo (Sol / Luna)" aria-label="Cambiar entre modo día y noche">
             <div class="theme-icon-slot">
-                <!-- Sol minimalista (Modo Blanco) -->
                 <svg class="icon-sun" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="4" />
                     <path d="M12 2v2" />
@@ -767,7 +837,6 @@
                     <path d="m6.34 17.66-1.41 1.41" />
                     <path d="m19.07 4.93-1.41 1.41" />
                 </svg>
-                <!-- Luna minimalista (Modo Negro) -->
                 <svg class="icon-moon" viewBox="0 0 24 24" fill="none">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                 </svg>
@@ -775,16 +844,11 @@
         </button>
     </div>
 
-    <!-- Micro-indicador de fase en la esquina inferior -->
     <div class="bottom-counter" id="phase-counter">01 / 04</div>
 
-    <!-- ============================================================
-         ESCENARIO DE FASES (SINGLE VIEWPORT 100VH)
-         ============================================================ -->
     <div class="stage-container" id="stage-container">
         <div class="phases-track" id="phases-track">
 
-            <!-- FASE 01: IDENTIDAD -->
             <section class="phase-screen" id="phase-0">
                 <div class="phase-content">
                     <span class="phase-num" data-i18n="p0_num">01 / 04 · Identidad</span>
@@ -793,7 +857,7 @@
 
                     <div class="p1-subtitle">
                         <span data-i18n="p0_sub_role">Software & Cloud Engineer</span>
-                        <span>·</span>
+                        <span class="p1-subtitle-sep">·</span>
                         <span data-i18n="p0_sub_ex">Ex-Google Associate Cloud Engineer</span>
                     </div>
 
@@ -803,7 +867,6 @@
                 </div>
             </section>
 
-            <!-- FASE 02: TRAYECTORIA -->
             <section class="phase-screen" id="phase-1">
                 <div class="phase-content">
                     <span class="phase-num" data-i18n="p1_num">02 / 04 · Trayectoria Profesional</span>
@@ -811,7 +874,6 @@
                     <h2 class="section-headline" data-i18n="p1_headline">Experiencia Verificada</h2>
 
                     <div class="timeline-stream">
-                        <!-- Google / Concentrix -->
                         <div class="stream-entry">
                             <div class="entry-head">
                                 <span class="entry-role" data-i18n="p1_r1_role">Google Associate Cloud Engineer</span>
@@ -823,7 +885,6 @@
                             </p>
                         </div>
 
-                        <!-- eSonde -->
                         <div class="stream-entry">
                             <div class="entry-head">
                                 <span class="entry-role" data-i18n="p1_r2_role">Desarrollador Web Fullstack</span>
@@ -835,7 +896,6 @@
                             </p>
                         </div>
 
-                        <!-- ADTEL -->
                         <div class="stream-entry">
                             <div class="entry-head">
                                 <span class="entry-role" data-i18n="p1_r3_role">Administrador de Sistemas y Redes</span>
@@ -850,7 +910,6 @@
                 </div>
             </section>
 
-            <!-- FASE 03: STACK TÉCNICO -->
             <section class="phase-screen" id="phase-2">
                 <div class="phase-content">
                     <span class="phase-num" data-i18n="p2_num">03 / 04 · Stack Técnico</span>
@@ -858,28 +917,24 @@
                     <h2 class="section-headline" data-i18n="p2_headline">Habilidades Core</h2>
 
                     <div class="stack-list">
-                        <!-- Backend Core -->
                         <div class="stack-entry">
                             <span class="stack-label" data-i18n="p2_s1_label">API Core</span>
                             <h3 class="stack-name" data-i18n="p2_s1_name">FastAPI & Python</h3>
                             <p class="stack-text" data-i18n="p2_s1_desc">Framework prioritario para microservicios REST asíncronos de baja latencia, tipado estricto con Pydantic y documentación OpenAPI nativa.</p>
                         </div>
 
-                        <!-- Frontend Ágil -->
                         <div class="stack-entry">
                             <span class="stack-label" data-i18n="p2_s2_label">Agentes de IA</span>
                             <h3 class="stack-name" data-i18n="p2_s2_name">Next.js & React</h3>
                             <p class="stack-text" data-i18n="p2_s2_desc">Desarrollo acelerado de interfaces reactivas modernas y Server Components mediante pair-programming con agentes autónomos de IA.</p>
                         </div>
 
-                        <!-- Cloud & Infraestructura -->
                         <div class="stack-entry">
                             <span class="stack-label" data-i18n="p2_s3_label">Cloud Certified</span>
                             <h3 class="stack-name" data-i18n="p2_s3_name">Google Cloud (GCP) & GKE</h3>
                             <p class="stack-text" data-i18n="p2_s3_desc">Compute Engine, Kubernetes (GKE), Docker, Cloud Storage, políticas de menor privilegio con IAM y topologías VPC seguras.</p>
                         </div>
 
-                        <!-- Datos & Sistemas -->
                         <div class="stack-entry">
                             <span class="stack-label" data-i18n="p2_s4_label">Sistemas & Datos</span>
                             <h3 class="stack-name" data-i18n="p2_s4_name">Linux & Bases de Datos</h3>
@@ -889,13 +944,11 @@
                 </div>
             </section>
 
-            <!-- FASE 04: FORMACIÓN & CONTACTO -->
             <section class="phase-screen" id="phase-3">
                 <div class="phase-content">
                     <span class="phase-num" data-i18n="p3_num">04 / 04 · Formación & Contacto</span>
 
                     <div class="f4-columns">
-                        <!-- Formación -->
                         <div class="f4-block">
                             <span class="f4-label" data-i18n="p3_edu_label">Acreditaciones Técnicas</span>
                             <div class="f4-edu-item">
@@ -920,7 +973,6 @@
                             </div>
                         </div>
 
-                        <!-- Contacto -->
                         <div class="f4-block">
                             <span class="f4-label" data-i18n="p3_contact_label">Contacto Directo</span>
                             <div class="f4-links-stack">
@@ -936,9 +988,6 @@
         </div>
     </div>
 
-    <!-- ============================================================
-         CONTROLADOR MINIMALISTA DE FASES & INTERRUPTOR (<60 LÍNEAS)
-         ============================================================ -->
     <script>
         (function () {
             'use strict';
@@ -951,39 +1000,64 @@
             const counter = document.getElementById('phase-counter');
             const btnSwitch = document.getElementById('btn-switch');
 
-            // 1. Navegar entre Fases (Rueda y Táctil, sin atajos de teclado)
+            function canScroll(elem, dy) {
+                if (!elem) return false;
+                const hasOverflow = elem.scrollHeight > (elem.clientHeight + 4);
+                if (!hasOverflow) return false;
+                if (dy > 0) {
+                    return (elem.scrollTop + elem.clientHeight) < (elem.scrollHeight - 8);
+                } else {
+                    return elem.scrollTop > 8;
+                }
+            }
+
             function setPhase(idx) {
                 if (idx < 0 || idx >= TOTAL) return;
                 current = idx;
-                track.style.transform = `translateY(-${current * 100}vh)`;
+                const dvhSupported = window.CSS && CSS.supports && CSS.supports('height', '100dvh');
+                track.style.transform = dvhSupported ? `translateY(-${current * 100}dvh)` : `translateY(-${current * 100}vh)`;
                 counter.textContent = `0${current + 1} / 0${TOTAL}`;
+                const target = document.getElementById('phase-' + current);
+                if (target) target.scrollTop = 0;
             }
 
-            // 2. Control de Rueda de Ratón / Trackpad con Debounce
             window.addEventListener('wheel', (e) => {
                 if (locked) return;
                 const dy = e.deltaY;
-                if (Math.abs(dy) > 25) {
-                    locked = true;
-                    if (dy > 0) setPhase(current + 1);
-                    else setPhase(current - 1);
-                    setTimeout(() => { locked = false; }, 480);
+                if (Math.abs(dy) <= 20) return;
+
+                const activeScreen = document.getElementById('phase-' + current);
+                if (canScroll(activeScreen, dy)) {
+                    return;
                 }
+
+                locked = true;
+                if (dy > 0) setPhase(current + 1);
+                else setPhase(current - 1);
+                setTimeout(() => { locked = false; }, 480);
             }, { passive: true });
 
-            // 3. Control Táctil en Móvil
-            let touchY = 0;
+            let touchStartY = 0;
+            let touchStartX = 0;
             window.addEventListener('touchstart', (e) => {
-                if (e.touches && e.touches.length > 0) touchY = e.touches[0].clientY;
+                if (e.touches && e.touches.length > 0) {
+                    touchStartY = e.touches[0].clientY;
+                    touchStartX = e.touches[0].clientX;
+                }
             }, { passive: true });
 
             window.addEventListener('touchend', (e) => {
                 if (locked) return;
                 if (e.changedTouches && e.changedTouches.length > 0) {
-                    const diff = touchY - e.changedTouches[0].clientY;
-                    if (Math.abs(diff) > 38) {
+                    const diffY = touchStartY - e.changedTouches[0].clientY;
+                    const diffX = touchStartX - e.changedTouches[0].clientX;
+                    if (Math.abs(diffY) > 40 && Math.abs(diffY) > Math.abs(diffX)) {
+                        const activeScreen = document.getElementById('phase-' + current);
+                        if (canScroll(activeScreen, diffY)) {
+                            return;
+                        }
                         locked = true;
-                        if (diff > 0) setPhase(current + 1);
+                        if (diffY > 0) setPhase(current + 1);
                         else setPhase(current - 1);
                         setTimeout(() => { locked = false; }, 480);
                     }
